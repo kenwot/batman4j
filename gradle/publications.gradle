@@ -1,0 +1,65 @@
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                afterEvaluate {
+                    name = project.description
+                    description = project.description
+                }
+                url = "https://github.com/kenwot/batman4j"
+                organization {
+                    name = "Kenwot"
+                    url = "https://batman.kenwot.com"
+                }
+                licenses {
+                    license {
+                        name = "Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE.txt-2.0"
+                        distribution = "repo"
+                    }
+                }
+                scm {
+                    url = "https://github.com/kenwot/batman4j"
+                    connection = "scm:git:git://github.com/kenwot/batman4j"
+                    developerConnection = "scm:git:git://github.com/kenwot/batman4j"
+                }
+                developers {
+                    developer {
+                        id = "Kenwot"
+                        name = "Kenwot"
+                        email = "kenwot@msn.com"
+                    }
+                }
+                issueManagement {
+                    system = "GitHub"
+                    url = "https://github.com/kenwot/batman4j/issues"
+                }
+            }
+            versionMapping {
+                usage('java-api') {
+                    fromResolutionResult()
+                }
+                usage('java-runtime') {
+                    fromResolutionResult()
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            def releaseRepoUrl = "release_repo_url"
+            def releaseRepoUsername = "release_repo_username"
+            def releaseRepoPassword = "release_repo_password"
+            def snapshotRepoUrl = "snapshot_repo_url"
+            def snapshotRepoUsername = "snapshot_repo_username"
+            def snapshotRepoPassword = "snapshot_repo_password"
+            url version.endsWith('SNAPSHOT') ? snapshotRepoUrl : releaseRepoUrl
+            credentials {
+                username version.endsWith('SNAPSHOT') ? snapshotRepoUsername : releaseRepoUsername
+                password version.endsWith('SNAPSHOT') ? snapshotRepoPassword : releaseRepoPassword
+            }
+        }
+    }
+}
