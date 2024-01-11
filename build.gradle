@@ -8,6 +8,7 @@ ext {
     javaProjects = subprojects - groupProjects
 
     DependencyVersions = [
+            log4j: '2.22.1',
     ]
 }
 
