@@ -17,12 +17,10 @@
 package batman.aide;
 
 import batman.aide.consts.ObjectConst;
+import batman.aide.consts.StringConst;
 
 import java.lang.reflect.Array;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -40,7 +38,7 @@ public class ObjectAide implements ObjectConst {
      * <p>{@code null} Object 将返回 {@code false}。</p>
      *
      * @param object 要检查的对象，可以为 {@code null}
-     * @return 如果对象是数组则为 {@code true}，否则为 {@code false}。
+     * @return 如果对象是数组则为 {@code true}，否则为 {@code false}
      */
     public static boolean isArray(final Object object) {
         return object != null && object.getClass().isArray();
@@ -70,7 +68,7 @@ public class ObjectAide implements ObjectConst {
      * </pre>
      *
      * @param object 要检查的 {@link Object}，可以为 {@code null}
-     * @return 如果对象具有受支持的类型并且为 {@code null} 或 {@code empty}，则为 {@code true}，否则为 {@code false}。
+     * @return 如果对象具有受支持的类型并且为 {@code null} 或 {@code empty}，则为 {@code true}，否则为 {@code false}
      */
     public static boolean isEmpty(final Object object) {
         if (object == null) {
@@ -85,7 +83,7 @@ public class ObjectAide implements ObjectConst {
         if (object instanceof Collection<?> coll) {
             return coll.isEmpty();
         }
-        if (object instanceof Map<?,?> map) {
+        if (object instanceof Map<?, ?> map) {
             return map.isEmpty();
         }
         if (object instanceof Optional<?> opt) {
@@ -123,16 +121,80 @@ public class ObjectAide implements ObjectConst {
         return !isEmpty(object);
     }
 
-    public static String toString(final Object object, final Supplier<String> supplier) {
+    /**
+     * 获取对象的 {@code toString}，如果对象为 {@code null} 则返回指定默认值提供器的返回值。
+     *
+     * <pre>
+     * ObjectAide.toString(obj, () -&gt; expensive())
+     * </pre>
+     * <pre>
+     * ObjectAide.toString(null, () -&gt; expensive())         = result of expensive()
+     * ObjectAide.toString(null, () -&gt; expensive())         = result of expensive()
+     * ObjectAide.toString("", () -&gt; expensive())           = ""
+     * ObjectAide.toString("bat", () -&gt; expensive())        = "bat"
+     * ObjectAide.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
+     * </pre>
+     *
+     * @param object   要获取其 {@code toString} 的对象，可以为 {@code null}
+     * @param supplier 当 object 为 {@code null} 时用于返回默认值的提供器
+     * @param <T>      对象的类型
+     * @return 当 object 不是 {@code null}，则为其 {@code toString}，否则为 supplier 的返回值
+     */
+    public static <T> String toString(final T object, final Supplier<String> supplier) {
         return object != null
                 ? object.toString()
                 : supplier != null ? supplier.get() : null;
     }
 
+    /**
+     * 获取指定提供器 {@link Supplier#get()} 返回值的 {@code toString}，
+     * 如果该提供器或其 Supplier.get() 为 {@code null} 则返回指定默认值提供器的返回值。
+     *
+     * <pre>
+     * ObjectAide.toString(() -&gt; obj, () -&gt; expensive())
+     * </pre>
+     * <pre>
+     * ObjectAide.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
+     * ObjectAide.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
+     * ObjectAide.toString(() -&gt; "", () -&gt; expensive())           = ""
+     * ObjectAide.toString(() -&gt; "bat", () -&gt; expensive())        = "bat"
+     * ObjectAide.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
+     * </pre>
+     *
+     * @param object   要获取其 {@code toString} 的对象提供器，可以为 {@code null}
+     * @param supplier 当 object 为 {@code null} 时用于返回默认值的提供器
+     * @return object 的 {@code toString} 或这 supplier 的返回值
+     */
     public static String toString(final Supplier<Object> object, final Supplier<String> supplier) {
         return object != null
                 ? toString(object.get(), supplier)
                 : supplier != null ? supplier.get() : null;
+    }
+
+    /**
+     * 忽略对象重写的 {@code toString()} 方法，而获取由 {@link Object} 生成的 {@code toString}，
+     * 若传入对象为 {@code null} 则返回 {@code null}。
+     *
+     * <p>即此方法返回一个等于如下值的字符串：
+     * <blockquote><pre>
+     * object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object))
+     * </pre></blockquote>
+     * </p>
+     *
+     * <pre>
+     * ObjectAide.toIdentityString(null)         = null
+     * ObjectAide.toIdentityString("")           = "java.lang.String@1e23"
+     * ObjectAide.toIdentityString(Boolean.TRUE) = "java.lang.Boolean@7fa"
+     * </pre>
+     *
+     * @param object 要生成 {@code toString} 的对象，可以为 {@code null}
+     * @return 对象的默认 {@code toString} 文本，如果传入对象是 {@code null} 则返回 {@code null}
+     */
+    public static String toIdentityString(final Object object) {
+        if (object == null) {
+            return null;
+        }
+        return object.getClass().getName() + StringConst.AT + Integer.toHexString(System.identityHashCode(object));
     }
 
     /**
@@ -153,7 +215,7 @@ public class ObjectAide implements ObjectConst {
      *
      * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
      * @return 如果数组为 {@code null} 或其中至少有一个 {@code null} 元素，则为 {@code false}；
-     * 如果数组不包含任何元素或者其中所有元素都不为 {@code null}，则为 {@code true}。
+     * 如果数组不包含任何元素或者其中所有元素都不为 {@code null}，则为 {@code true}
      */
     public static boolean allNonnull(final Object... values) {
         return values != null && Stream.of(values).noneMatch(Objects::isNull);
@@ -176,7 +238,7 @@ public class ObjectAide implements ObjectConst {
      *
      * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
      * @return 如果数组中的元素均为 {@code null}，则为 {@code true}，
-     * 如果数组中至少有一个不是 {@code null} 的元素，则为 {@code false}。
+     * 如果数组中至少有一个不是 {@code null} 的元素，则为 {@code false}
      */
     public static boolean allNull(final Object... values) {
         return !anyNonnull(values);
@@ -199,7 +261,7 @@ public class ObjectAide implements ObjectConst {
      * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
      * @return 如果数组中至少有一个不是 {@code null} 的元素，则为 {@code true}；
      * 如果数组中的所有元素均为 {@code null}，则为 {@code false}；
-     * 如果数组为 {@code null} 或 {@code empty}，则为 {@code false}。
+     * 如果数组为 {@code null} 或 {@code empty}，则为 {@code false}
      */
     public static boolean anyNonnull(final Object... values) {
         return firstNonnull(values) != null;
@@ -223,7 +285,7 @@ public class ObjectAide implements ObjectConst {
      * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
      * @return 如果数组中至少有一个 {@code null} 元素，则为 {@code true}；
      * 如果所有元素都不为 {@code null}，则为 {@code false}；
-     * 如果数组为 {@code null} 或 {@code empty}，则为 {@code true}。
+     * 如果数组为 {@code null} 或 {@code empty}，则为 {@code true}
      */
     public static boolean anyNull(final Object... values) {
         return !allNonnull(values);
@@ -245,8 +307,8 @@ public class ObjectAide implements ObjectConst {
      * </pre>
      *
      * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
-     * @param <T> 数组元素的类型
-     * @return 数组中第一个不是 {@code null} 的值，如果没有 {@code non-null} 值，则为 null。
+     * @param <T>    数组元素的类型
+     * @return 数组中第一个不是 {@code null} 的值，如果没有 {@code non-null} 值，则为 null
      */
     @SafeVarargs
     public static <T> T firstNonnull(final T... values) {
@@ -271,8 +333,8 @@ public class ObjectAide implements ObjectConst {
      * @param suppliers 提供返回值的 {@link Supplier}。
      *                  {@code null} 值将被忽略。
      *                  Supplier 可以返回 {@code null} 或 {@code T} 类型的值
-     * @param <T> 返回值的类型
-     * @return 第一个不是 {@code null} 的 Supplier 返回值，如果没有 {@code non-null} 返回值则返回 {@code null}。
+     * @param <T>       返回值的类型
+     * @return 第一个不是 {@code null} 的 Supplier 返回值，如果没有 {@code non-null} 返回值则返回 {@code null}
      */
     @SafeVarargs
     public static <T> T firstNonnull(final Supplier<T>... suppliers) {
@@ -292,10 +354,10 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
      *
-     * @param value 给定的对象，可以为 {@code null}
+     * @param value        给定的对象，可以为 {@code null}
      * @param defaultValue 当给定对象为 {@code null} 时要返回的默认值，可以为 {@code null}
-     * @param <T> 对象的类型
-     * @return 如果 value 不为 {@code null}，则为 value，否则为 defaultValue。
+     * @param <T>          对象的类型
+     * @return 如果 value 不为 {@code null}，则为 value，否则为 defaultValue
      */
     public static <T> T defaultIfNull(final T value, final T defaultValue) {
         return value != null ? value : defaultValue;
@@ -315,15 +377,52 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.defaultIfNull(Boolean.TRUE, *)         = Boolean.TRUE
      * </pre>
      *
-     * @param value 给定的对象，可以为 {@code null}
+     * @param value           给定的对象，可以为 {@code null}
      * @param defaultSupplier 当给定对象为 {@code null} 时要返回的默认值提供器，可以Wie {@code null}
-     * @param <T> 对象的类型
-     * @return 如果 value 不为 {@code null}，则为 value，否则为 {@code defaultSupplier.get()}。
+     * @param <T>             对象的类型
+     * @return 如果 value 不为 {@code null}，则为 value，否则为 {@code defaultSupplier.get()}
      */
     public static <T> T defaultIfNull(final T value, final Supplier<T> defaultSupplier) {
         return value != null
                 ? value
                 : defaultSupplier != null ? defaultSupplier.get() : null;
+    }
+
+    /**
+     * 找出数组中最常出现的元素。
+     *
+     * @param items 要检查的数组
+     * @param <T>   数组元素类型
+     * @return 最常出现的元素，
+     * 如果提供的数组为 {@code null} 或 {@code empty} 则为 {@code null}，
+     * 如果有两个及以上的元素出现次数相同则为 {@code null}
+     */
+    @SafeVarargs
+    public static <T> T mode(final T... items) {
+        if (items != null && Array.getLength(items) > 0) {
+            final HashMap<T, Integer> occurrences = new HashMap<>(items.length);
+            for (T item : items) {
+                Integer count = occurrences.get(item);
+                if (count == null) {
+                    occurrences.put(item, 1);
+                } else {
+                    occurrences.put(item, ++count);
+                }
+            }
+            T result = null;
+            int max = 0;
+            for (Map.Entry<T, Integer> entry : occurrences.entrySet()) {
+                final int count = entry.getValue();
+                if (count == max) {
+                    result = null;
+                } else if (count > max) {
+                    max = count;
+                    result = entry.getKey();
+                }
+            }
+            return result;
+        }
+        return null;
     }
 
     /**

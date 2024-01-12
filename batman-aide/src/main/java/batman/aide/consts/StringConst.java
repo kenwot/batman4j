@@ -30,4 +30,7 @@ public interface StringConst {
 
     String LF = "\n";
 
+    String CR = "\r";
+
+    String AT = "@";
 }

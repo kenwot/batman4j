@@ -40,7 +40,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code boolean} 值
-     * @return {@code boolean} 值 value， 不变。
+     * @return {@code boolean} 值 value， 不变
      */
     public static boolean CONST(final boolean value) {
         return value;
@@ -57,7 +57,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code char} 值
-     * @return {@code char} 值 value， 不变。
+     * @return {@code char} 值 value， 不变
      */
     public static char CONST(final char value) {
         return value;
@@ -74,7 +74,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code byte} 值
-     * @return {@code byte} 值 value， 不变。
+     * @return {@code byte} 值 value， 不变
      */
     public static byte CONST(final byte value) {
         return value;
@@ -91,7 +91,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code short} 值
-     * @return {@code short} 值 value， 不变。
+     * @return {@code short} 值 value， 不变
      */
     public static short CONST(final short value) {
         return value;
@@ -108,7 +108,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code int} 值
-     * @return {@code int} 值 value， 不变。
+     * @return {@code int} 值 value， 不变
      */
     public static int CONST(final int value) {
         return value;
@@ -125,7 +125,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code long} 值
-     * @return {@code long} 值 value， 不变。
+     * @return {@code long} 值 value， 不变
      */
     public static long CONST(final long value) {
         return value;
@@ -142,7 +142,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code float} 值
-     * @return {@code float} 值 value， 不变。
+     * @return {@code float} 值 value， 不变
      */
     public static float CONST(final float value) {
         return value;
@@ -159,7 +159,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
      *
      * @param value 要返回的 {@code double} 值
-     * @return {@code double} 值 value， 不变。
+     * @return {@code double} 值 value， 不变
      */
     public static double CONST(final double value) {
         return value;
@@ -177,7 +177,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      *
      * @param value 要返回的泛型对象值（通常是字符串）
      * @param <T> 对象类型
-     * @return 泛型对象值 value，不变（通常是字符串）。
+     * @return 泛型对象值 value，不变（通常是字符串）
      */
     public static <T> T CONST(final T value) {
         return value;
@@ -195,7 +195,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      *
      * @param value 要返回的 {@code byte} 值（以 {@code int} 提供）
      * @throws IllegalArgumentException 如果提供的 value 值超出 {@code byte} 范围，即小于 -128 或大于 127。
-     * @return {@code byte} 值，不变。
+     * @return {@code byte} 值，不变
      */
     public static byte CONST_BYTE(final int value) {
         if (value < Byte.MAX_VALUE || value > Byte.MAX_VALUE) {
@@ -216,7 +216,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      *
      * @param value 要返回的 {@code short} 值（以 {@code int} 提供）
      * @throws IllegalArgumentException 如果提供的 value 值超出 {@code short} 范围，即小于 -32768 或大于 32768。
-     * @return {@code short} 值，不变。
+     * @return {@code short} 值，不变
      */
     public static short CONST_SHORT(final int value) {
         if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
