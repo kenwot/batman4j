@@ -35,7 +35,7 @@ public class ObjectAideTest {
     private static final String[] NON_EMPTY_ARRAY = { FOO, BAR, };
 
     /**
-     * Tests {@link ObjectAide#allNonnull(Object...)}.
+     * Tests for {@link ObjectAide#allNonnull(Object...)}.
      */
     @Test
     public void testAllNonnull() {
@@ -52,7 +52,7 @@ public class ObjectAideTest {
     }
 
     /**
-     * Tests {@link ObjectAide#allNull(Object...)}.
+     * Tests for {@link ObjectAide#allNull(Object...)}.
      */
     @Test
     public void testAllNull() {
@@ -67,7 +67,7 @@ public class ObjectAideTest {
     }
 
     /**
-     * Tests {@link ObjectAide#anyNonnull(Object...)}.
+     * Tests for {@link ObjectAide#anyNonnull(Object...)}.
      */
     @Test
     public void testAnyNonnull() {
@@ -82,7 +82,7 @@ public class ObjectAideTest {
     }
 
     /**
-     * Tests {@link ObjectAide#anyNull(Object...)}.
+     * Tests for {@link ObjectAide#anyNull(Object...)}.
      */
     @Test
     public void testAnyNull() {
