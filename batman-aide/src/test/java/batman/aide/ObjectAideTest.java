@@ -16,6 +16,7 @@
 
 package batman.aide;
 
+import batman.aide.consts.ArrayConst;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -31,6 +32,7 @@ public class ObjectAideTest {
 
     private static final String FOO = "foo";
     private static final String BAR = "bar";
+    private static final String[] NON_EMPTY_ARRAY = { FOO, BAR, };
 
     /**
      * Tests {@link ObjectAide#allNonnull(Object...)}.
@@ -93,6 +95,43 @@ public class ObjectAideTest {
         assertFalse(ObjectAide.anyNull());
         assertFalse(ObjectAide.anyNull(FOO));
         assertFalse(ObjectAide.anyNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
+    }
+
+    /**
+     * Test for {@link ObjectAide#isArray(Object)}.
+     */
+    @Test
+    public void testArray() {
+        assertFalse(ObjectAide.isArray(null));
+        assertFalse(ObjectAide.isArray(""));
+        assertFalse(ObjectAide.isArray("abg"));
+        assertFalse(ObjectAide.isArray(123));
+        assertTrue(ObjectAide.isArray(NON_EMPTY_ARRAY));
+        assertTrue(ObjectAide.isArray(new int[]{1, 2, 3}));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_BOOLEAN_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_BOOLEAN_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_BYTE_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_BYTE_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_CHAR_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_CHARACTER_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_CLASS_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_DOUBLE_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_DOUBLE_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_FIELD_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_FLOAT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_FLOAT_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_INT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_INTEGER_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_LONG_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_LONG_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_METHOD_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_SHORT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_SHORT_OBJECT_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_STRING_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_THROWABLE_ARRAY));
+        assertTrue(ObjectAide.isArray(ArrayConst.EMPTY_TYPE_ARRAY));
     }
 
 }
