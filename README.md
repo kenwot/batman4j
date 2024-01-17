@@ -1,3 +1,3 @@
 # batman4j
 
-Basic Auxiliary Tools Manager
+**B**asic **A**uxiliary **T**ools **Man**ager for Java
