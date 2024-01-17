@@ -17,20 +17,37 @@
 package batman.aide.consts;
 
 /**
- * 字符串常量池
+ * 字符串常量
  *
  * @author Kenown
  * @since 1.0.0
  */
 public interface StringConst {
 
+    /**
+     * The empty String {@code ""}.
+     */
     String EMPTY = "";
 
+    /**
+     * A String for a space character.
+     */
     String SPACE = " ";
 
+    /**
+     * A String for linefeed LF ("\n").
+     */
     String LF = "\n";
 
+    /**
+     * A String for carriage return CR ("\r").
+     */
     String CR = "\r";
+
+    /**
+     * A String for carriage return CR and linefeed LF ("\r\n").
+     */
+    String CRLF = "\r\n";
 
     String AT = "@";
 }

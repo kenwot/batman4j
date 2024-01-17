@@ -17,15 +17,31 @@
 package batman.aide.consts;
 
 /**
- * 字符常量池
+ * 字符常量
  *
  * @author Kenown
  * @since 1.0.0
  */
 public interface CharConst {
 
+    /**
+     * {@code \u0000} null control character ('\0').
+     */
+    char NULL_CHAR = '\0';
+
+    /**
+     * Space character ({@code ' '}, Unicode 0020).
+     */
     char SPACE_CHAR = ' ';
 
+    /**
+     * Linefeed character LF ({@code '\n'}, Unicode 000a).
+     */
     char LF_CHAR = '\n';
+
+    /**
+     * Carriage return character CR ('\r', Unicode 000d).
+     */
+    char CR_CHAR = '\r';
 
 }

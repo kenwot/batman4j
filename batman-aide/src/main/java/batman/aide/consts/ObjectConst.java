@@ -20,7 +20,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 /**
- * 对象常量池
+ * 对象常量
  *
  * @author Kenown
  * @since 1.0.0
@@ -36,7 +36,7 @@ public interface ObjectConst {
      *
      * <p>再如，{@link java.util.Hashtable} 中不能存储 {@code null}，也可以使用该占位符代替。</p>
      */
-    public static class Null implements Serializable {
+    class Null implements Serializable {
         @Serial
         private static final long serialVersionUID = -92339585884550507L;
 

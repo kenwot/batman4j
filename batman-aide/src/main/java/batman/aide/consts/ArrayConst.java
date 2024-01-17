@@ -17,7 +17,7 @@
 package batman.aide.consts;
 
 /**
- * 数组常量池
+ * 数组常量
  *
  * @author Kenown
  * @since 1.0.0
