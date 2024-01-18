@@ -18,8 +18,11 @@ package batman.aide;
 
 import batman.aide.consts.ObjectConst;
 import batman.aide.consts.StringConst;
+import batman.aide.exception.CloneFailedException;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -423,6 +426,65 @@ public class ObjectAide implements ObjectConst {
             return result;
         }
         return null;
+    }
+
+    /**
+     * 克隆一个对象。
+     *
+     * <p>若源对象为 {@code null} 或者不是 {@link Cloneable} 的实现，则返回 {@code null}。</p>
+     *
+     * @param object 要克隆的对象，若为 {@code null} 则返回 {@code null}
+     * @param <T> 对象类型
+     * @return 如果源对象不是 {@code null} 且是 {@link Cloneable} 的实现，则为克隆，否则为 {@code null}
+     * @throws CloneFailedException 如果对象可以克隆但克隆失败
+     */
+    public static <T> T clone(final T object) {
+        if (object instanceof Cloneable) {
+            final Object result;
+            if (isArray(object)) {
+                final Class<?> componentType = object.getClass().getComponentType();
+                if (componentType.isPrimitive()) {
+                    int length = Array.getLength(object);
+                    result = Array.newInstance(componentType, length);
+                    while (length-- > 0) {
+                        Array.set(result, length, Array.get(object, length));
+                    }
+                } else {
+                    result = ((Object[]) object).clone();
+                }
+            } else {
+                try {
+                    final Method clone = object.getClass().getMethod("clone");
+                    result = clone.invoke(object);
+                } catch (NoSuchMethodException ex) {
+                    throw new CloneFailedException("Cloneable type " + object.getClass().getName() + " has no clone method", ex);
+                } catch (IllegalAccessException ex) {
+                    throw new CloneFailedException("Cannot clone Cloneable type " + object.getClass().getName(), ex);
+                } catch (InvocationTargetException ex) {
+                    throw new CloneFailedException("Exception cloning Cloneable type " + object.getClass().getName(), ex.getCause());
+                }
+            }
+            @SuppressWarnings("unchecked")  // OK because input is of type T
+            final T checked = (T) result;
+            return checked;
+        }
+        return null;
+    }
+
+    /**
+     * 如果可能的话克隆一个对象。
+     *
+     * <p>此方法类似 {@link #clone(Object)}</p>，所同的是若提供的源对象不可克隆，则返回提供的源对象本身，而不是 {@code null}。</p>
+     *
+     * @param object 要克隆的对象，若为 {@code null} 或者不可克隆，则返回源对象本身
+     * @param <T> 对象类型
+     * @return 如果源对象不是 {@code null} 且是 {@link Cloneable} 的实现，则为克隆，否则为源对象本身
+     * @see #clone(Object)
+     * @throws CloneFailedException 如果对象可以克隆但克隆失败
+     */
+    public static <T> T cloneIfPossible(final T object) {
+        final T clone = clone(object);
+        return clone != null ? clone : object;
     }
 
     /**
