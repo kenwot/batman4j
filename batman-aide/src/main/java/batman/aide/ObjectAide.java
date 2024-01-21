@@ -23,6 +23,7 @@ import batman.aide.exception.CloneFailedException;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.time.Duration;
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -474,7 +475,7 @@ public class ObjectAide implements ObjectConst {
     /**
      * 如果可能的话克隆一个对象。
      *
-     * <p>此方法类似 {@link #clone(Object)}</p>，所同的是若提供的源对象不可克隆，则返回提供的源对象本身，而不是 {@code null}。</p>
+     * <p>此方法类似 {@link #clone(Object)}</p>，所不同的是若提供的源对象不可克隆，则返回提供的源对象本身，而不是 {@code null}。</p>
      *
      * @param object 要克隆的对象，若为 {@code null} 或者不可克隆，则返回源对象本身
      * @param <T> 对象类型
@@ -485,6 +486,23 @@ public class ObjectAide implements ObjectConst {
     public static <T> T cloneIfPossible(final T object) {
         final T clone = clone(object);
         return clone != null ? clone : object;
+    }
+
+    /**
+     * 使用给定的 {@link Duration} 作为超时调用 {@link Object#wait(long, int)}。
+     *
+     * @param object wait 调用的接收者
+     * @param duration 等待时间
+     * @throws IllegalArgumentException 如果超时持续时间为负数
+     * @throws IllegalMonitorStateException 如果当前线程不是 object 监视器的拥有者
+     * @throws InterruptedException 如果当前线程在等待通知之前或期间被中断
+     * @see Object#wait(long, int)
+     */
+    public static void wait(final Object object, final Duration duration) throws InterruptedException {
+        Duration timeout = defaultIfNull(duration, Duration.ZERO);
+        long millis = timeout.toMillis();
+        int nanos = timeout.getNano() % 1_000_000;
+        object.wait(millis, nanos);
     }
 
     /**
