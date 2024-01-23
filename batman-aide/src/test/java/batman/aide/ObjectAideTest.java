@@ -73,66 +73,66 @@ public class ObjectAideTest {
     }
 
     /**
-     * Tests for {@link ObjectAide#allNonnull(Object...)}.
+     * Tests for {@link ObjectAide#isAllNonnull(Object...)}.
      */
     @Test
     public void testAllNonnull() {
-        assertFalse(ObjectAide.allNonnull((Object) null));
-        assertFalse(ObjectAide.allNonnull((Object[]) null));
-        assertFalse(ObjectAide.allNonnull(null, null, null));
-        assertFalse(ObjectAide.allNonnull(null, FOO, BAR));
-        assertFalse(ObjectAide.allNonnull(FOO, BAR, null));
-        assertFalse(ObjectAide.allNonnull(FOO, BAR, null, FOO, BAR));
+        assertFalse(ObjectAide.isAllNonnull((Object) null));
+        assertFalse(ObjectAide.isAllNonnull((Object[]) null));
+        assertFalse(ObjectAide.isAllNonnull(null, null, null));
+        assertFalse(ObjectAide.isAllNonnull(null, FOO, BAR));
+        assertFalse(ObjectAide.isAllNonnull(FOO, BAR, null));
+        assertFalse(ObjectAide.isAllNonnull(FOO, BAR, null, FOO, BAR));
 
-        assertTrue(ObjectAide.allNonnull());
-        assertTrue(ObjectAide.allNonnull(FOO));
-        assertTrue(ObjectAide.allNonnull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
+        assertTrue(ObjectAide.isAllNonnull());
+        assertTrue(ObjectAide.isAllNonnull(FOO));
+        assertTrue(ObjectAide.isAllNonnull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
     }
 
     /**
-     * Tests for {@link ObjectAide#allNull(Object...)}.
+     * Tests for {@link ObjectAide#isAllNull(Object...)}.
      */
     @Test
     public void testAllNull() {
-        assertTrue(ObjectAide.allNull());
-        assertTrue(ObjectAide.allNull((Object) null));
-        assertTrue(ObjectAide.allNull((Object[]) null));
-        assertTrue(ObjectAide.allNull(null, null, null));
+        assertTrue(ObjectAide.isAllNull());
+        assertTrue(ObjectAide.isAllNull((Object) null));
+        assertTrue(ObjectAide.isAllNull((Object[]) null));
+        assertTrue(ObjectAide.isAllNull(null, null, null));
 
-        assertFalse(ObjectAide.allNull(FOO));
-        assertFalse(ObjectAide.allNull(null, FOO, null));
-        assertFalse(ObjectAide.allNull(null, null, null, null, FOO, BAR));
+        assertFalse(ObjectAide.isAllNull(FOO));
+        assertFalse(ObjectAide.isAllNull(null, FOO, null));
+        assertFalse(ObjectAide.isAllNull(null, null, null, null, FOO, BAR));
     }
 
     /**
-     * Tests for {@link ObjectAide#anyNonnull(Object...)}.
+     * Tests for {@link ObjectAide#isAnyNonnull(Object...)}.
      */
     @Test
     public void testAnyNonnull() {
-        assertFalse(ObjectAide.anyNonnull());
-        assertFalse(ObjectAide.anyNonnull((Object) null));
-        assertFalse(ObjectAide.anyNonnull((Object[]) null));
-        assertFalse(ObjectAide.anyNonnull(null, null, null));
+        assertFalse(ObjectAide.isAnyNonnull());
+        assertFalse(ObjectAide.isAnyNonnull((Object) null));
+        assertFalse(ObjectAide.isAnyNonnull((Object[]) null));
+        assertFalse(ObjectAide.isAnyNonnull(null, null, null));
 
-        assertTrue(ObjectAide.anyNonnull(FOO));
-        assertTrue(ObjectAide.anyNonnull(null, FOO, null));
-        assertTrue(ObjectAide.anyNonnull(null, null, null, null, FOO, BAR));
+        assertTrue(ObjectAide.isAnyNonnull(FOO));
+        assertTrue(ObjectAide.isAnyNonnull(null, FOO, null));
+        assertTrue(ObjectAide.isAnyNonnull(null, null, null, null, FOO, BAR));
     }
 
     /**
-     * Tests for {@link ObjectAide#anyNull(Object...)}.
+     * Tests for {@link ObjectAide#isAnyNull(Object...)}.
      */
     @Test
     public void testAnyNull() {
-        assertTrue(ObjectAide.anyNull((Object) null));
-        assertTrue(ObjectAide.anyNull(null, null, null));
-        assertTrue(ObjectAide.anyNull(null, FOO, BAR));
-        assertTrue(ObjectAide.anyNull(FOO, BAR, null));
-        assertTrue(ObjectAide.anyNull(FOO, BAR, null, FOO, BAR));
+        assertTrue(ObjectAide.isAnyNull((Object) null));
+        assertTrue(ObjectAide.isAnyNull(null, null, null));
+        assertTrue(ObjectAide.isAnyNull(null, FOO, BAR));
+        assertTrue(ObjectAide.isAnyNull(FOO, BAR, null));
+        assertTrue(ObjectAide.isAnyNull(FOO, BAR, null, FOO, BAR));
 
-        assertFalse(ObjectAide.anyNull());
-        assertFalse(ObjectAide.anyNull(FOO));
-        assertFalse(ObjectAide.anyNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
+        assertFalse(ObjectAide.isAnyNull());
+        assertFalse(ObjectAide.isAnyNull(FOO));
+        assertFalse(ObjectAide.isAnyNull(FOO, BAR, 1, Boolean.TRUE, new Object(), new Object[]{}));
     }
 
     /**

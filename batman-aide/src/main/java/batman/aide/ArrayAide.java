@@ -16,6 +16,8 @@
 
 package batman.aide;
 
+import java.lang.reflect.Array;
+
 /**
  * TODO-Kenown ArrayAide
  *
@@ -23,4 +25,81 @@ package batman.aide;
  * @since 1.0.0
  */
 public class ArrayAide {
+
+    public static int length(final Object array) {
+        return array != null ? Array.getLength(array) : 0;
+    }
+
+    public static boolean isEmpty(final boolean[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final char[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final byte[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final short[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final int[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final long[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final float[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final double[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isEmpty(final Object[] array) {
+        return length(array) == 0;
+    }
+
+    public static boolean isNotEmpty(final boolean[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final char[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final byte[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final short[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final int[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final long[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final float[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final double[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final Object[] array) {
+        return !isEmpty(array);
+    }
+
 }
