@@ -16,6 +16,7 @@
 
 package batman.aide;
 
+import batman.aide.consts.ArrayConst;
 import batman.aide.consts.CharConst;
 import batman.aide.consts.StringConst;
 
@@ -27,17 +28,19 @@ import batman.aide.consts.StringConst;
  */
 public class StringAide implements StringConst {
 
+    public static final int INDEX_NOT_FOUND = _CharSequenceAide.NOT_FOUND;
+
     /**
      * Gets a CharSequence length or {@code 0} if the CharSequence is
      * {@code null}.
      *
-     * @param cs
+     * @param sequence
      *            a CharSequence or {@code null}
      * @return CharSequence length or {@code 0} if the CharSequence is
      *         {@code null}.
      */
-    public static int length(final CharSequence cs) {
-        return cs == null ? 0 : cs.length();
+    public static int length(final CharSequence sequence) {
+        return sequence == null ? 0 : sequence.length();
     }
 
     /**
@@ -55,11 +58,11 @@ public class StringAide implements StringConst {
      * It no longer trims the CharSequence.
      * That functionality is available in isBlank().</p>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is empty or null
      */
-    public static boolean isEmpty(final CharSequence cs) {
-        return cs == null || cs.isEmpty();
+    public static boolean isEmpty(final CharSequence sequence) {
+        return sequence == null || sequence.isEmpty();
     }
 
     /**
@@ -73,11 +76,11 @@ public class StringAide implements StringConst {
      * StringUtils.isNotEmpty("  bob  ") = true
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is not empty and not null
      */
-    public static boolean isNotEmpty(final CharSequence cs) {
-        return !isEmpty(cs);
+    public static boolean isNotEmpty(final CharSequence sequence) {
+        return !isEmpty(sequence);
     }
 
     /**
@@ -95,14 +98,14 @@ public class StringAide implements StringConst {
      * StringUtils.isAllEmpty("foo", "bar")     = false
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
+     * @param sequences  the CharSequences to check, may be null or empty
      * @return {@code true} if all of the CharSequences are empty or null
      */
-    public static boolean isAllEmpty(final CharSequence... css) {
-        if (ArrayAide.isEmpty(css)) {
+    public static boolean isAllEmpty(final CharSequence... sequences) {
+        if (ArrayAide.isEmpty(sequences)) {
             return true;
         }
-        for (CharSequence cs : css) {
+        for (CharSequence cs : sequences) {
             if (isNotEmpty(cs)) {
                 return false;
             }
@@ -126,14 +129,14 @@ public class StringAide implements StringConst {
      * StringUtils.isAnyEmpty(new String[]{""}) = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
+     * @param sequences  the CharSequences to check, may be null or empty
      * @return {@code true} if any of the CharSequences are empty or null
      */
-    public static boolean isAnyEmpty(final CharSequence... css) {
-        if (ArrayAide.isEmpty(css)) {
+    public static boolean isAnyEmpty(final CharSequence... sequences) {
+        if (ArrayAide.isEmpty(sequences)) {
             return false;
         }
-        for (CharSequence cs : css) {
+        for (CharSequence cs : sequences) {
             if (isEmpty(cs)) {
                 return true;
             }
@@ -157,11 +160,11 @@ public class StringAide implements StringConst {
      * StringUtils.isNoneEmpty("foo", "bar")     = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
+     * @param sequences  the CharSequences to check, may be null or empty
      * @return {@code true} if none of the CharSequences are empty or null
      */
-    public static boolean isNoneEmpty(final CharSequence... css) {
-        return !isAnyEmpty(css);
+    public static boolean isNoneEmpty(final CharSequence... sequences) {
+        return !isAnyEmpty(sequences);
     }
 
     /**
@@ -177,16 +180,16 @@ public class StringAide implements StringConst {
      * StringUtils.isBlank("  bob  ") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is null, empty or whitespace only
      */
-    public static boolean isBlank(final CharSequence cs) {
-        final int length = length(cs);
+    public static boolean isBlank(final CharSequence sequence) {
+        final int length = length(sequence);
         if (length == 0) {
             return true;
         }
         for (int i = 0; i < length; i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
+            if (!Character.isWhitespace(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -206,12 +209,12 @@ public class StringAide implements StringConst {
      * StringUtils.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if the CharSequence is
      *  not empty and not null and not whitespace only
      */
-    public static boolean isNotBlank(final CharSequence cs) {
-        return !isBlank(cs);
+    public static boolean isNotBlank(final CharSequence sequence) {
+        return !isBlank(sequence);
     }
 
     /**
@@ -231,14 +234,14 @@ public class StringAide implements StringConst {
      * StringUtils.isAllBlank(new String[] {})  = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
+     * @param sequences  the CharSequences to check, may be null or empty
      * @return {@code true} if all of the CharSequences are empty or null or whitespace only
      */
-    public static boolean isAllBlank(final CharSequence... css) {
-        if (ArrayAide.isEmpty(css)) {
+    public static boolean isAllBlank(final CharSequence... sequences) {
+        if (ArrayAide.isEmpty(sequences)) {
             return true;
         }
-        for (CharSequence cs : css) {
+        for (CharSequence cs : sequences) {
             if (isNotBlank(cs)) {
                 return false;
             }
@@ -265,14 +268,14 @@ public class StringAide implements StringConst {
      * StringUtils.isAnyBlank("foo", "bar")     = false
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
+     * @param sequences  the CharSequences to check, may be null or empty
      * @return {@code true} if any of the CharSequences are empty or null or whitespace only
      */
-    public static boolean isAnyBlank(final CharSequence... css) {
-        if (ArrayAide.isEmpty(css)) {
+    public static boolean isAnyBlank(final CharSequence... sequences) {
+        if (ArrayAide.isEmpty(sequences)) {
             return false;
         }
-        for (CharSequence cs : css) {
+        for (CharSequence cs : sequences) {
             if (isBlank(cs)) {
                 return true;
             }
@@ -299,11 +302,11 @@ public class StringAide implements StringConst {
      * StringUtils.isNoneBlank("foo", "bar")     = true
      * </pre>
      *
-     * @param css  the CharSequences to check, may be null or empty
+     * @param sequences  the CharSequences to check, may be null or empty
      * @return {@code true} if none of the CharSequences are empty or null or whitespace only
      */
-    public static boolean isNoneBlank(final CharSequence... css) {
-        return !isAnyBlank(css);
+    public static boolean isNoneBlank(final CharSequence... sequences) {
+        return !isAnyBlank(sequences);
     }
 
     /**
@@ -323,16 +326,16 @@ public class StringAide implements StringConst {
      * StringUtils.isAllLowerCase("ab/c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains lowercase characters, and is non-null
      * @see Character#isLowerCase(char)
      */
-    public static boolean isAllLowerCase(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isAllLowerCase(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!Character.isLowerCase(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isLowerCase(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -342,16 +345,16 @@ public class StringAide implements StringConst {
     /**
      * xxxxxxxxxxxxxxx
      *
-     * @param cs
+     * @param sequence
      * @return
      * @see Character#isLowerCase(char)
      */
-    public static boolean isAnyLowerCase(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isAnyLowerCase(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (Character.isLowerCase(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (Character.isLowerCase(sequence.charAt(i))) {
                 return true;
             }
         }
@@ -375,16 +378,16 @@ public class StringAide implements StringConst {
      * StringUtils.isAllUpperCase("A/C")  = false
      * </pre>
      *
-     * @param cs the CharSequence to check, may be null
+     * @param sequence the CharSequence to check, may be null
      * @return {@code true} if only contains uppercase characters, and is non-null
      * @see Character#isUpperCase(char)
      */
-    public static boolean isAllUpperCase(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isAllUpperCase(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!Character.isUpperCase(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isUpperCase(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -394,16 +397,16 @@ public class StringAide implements StringConst {
     /**
      * xxxxxxxxxxxxxxx
      *
-     * @param cs
+     * @param sequence
      * @return
      * @see Character#isUpperCase(char)
      */
-    public static boolean isAnyUpperCase(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isAnyUpperCase(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (Character.isUpperCase(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (Character.isUpperCase(sequence.charAt(i))) {
                 return true;
             }
         }
@@ -429,20 +432,20 @@ public class StringAide implements StringConst {
      * StringUtils.isMixedCase("aC\t")  = true
      * </pre>
      *
-     * @param cs the CharSequence to check, may be null
+     * @param sequence the CharSequence to check, may be null
      * @return {@code true} if the CharSequence contains both uppercase and lowercase characters
      * @see Character#isUpperCase(char)
      * @see Character#isLowerCase(char)
      */
-    public static boolean isMixedCase(final CharSequence cs) {
-        if (isEmpty(cs) || cs.length() == 1) {
+    public static boolean isMixedCase(final CharSequence sequence) {
+        if (isEmpty(sequence) || sequence.length() == 1) {
             return false;
         }
         boolean containsUppercase = false;
         boolean containsLowercase = false;
-        final int length = cs.length();
+        final int length = sequence.length();
         for (int i = 0; i < length; i++) {
-            final char ch = cs.charAt(i);
+            final char ch = sequence.charAt(i);
             if (Character.isUpperCase(ch)) {
                 containsUppercase = true;
             }
@@ -473,16 +476,16 @@ public class StringAide implements StringConst {
      * StringUtils.isWhitespace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains whitespace, and is non-null
      * @see Character#isWhitespace(char)
      */
-    public static boolean isWhitespace(final CharSequence cs) {
-        if (cs == null) {
+    public static boolean isWhitespace(final CharSequence sequence) {
+        if (sequence == null) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!Character.isWhitespace(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isWhitespace(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -504,16 +507,16 @@ public class StringAide implements StringConst {
      * StringUtils.isAlpha("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains letters, and is non-null
      * @see Character#isLetter(char)
      */
-    public static boolean isAlpha(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isAlpha(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!Character.isLetter(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isLetter(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -536,17 +539,17 @@ public class StringAide implements StringConst {
      * StringUtils.isAlphanumeric("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains letters or digits,
      *  and is non-null
      * @see Character#isLetterOrDigit(char)
      */
-    public static boolean isAlphanumeric(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isAlphanumeric(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!Character.isLetterOrDigit(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isLetterOrDigit(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -570,18 +573,18 @@ public class StringAide implements StringConst {
      * StringUtils.isAlphanumericSpace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains letters, digits or space,
      *  and is non-null
      * @see CharConst#SPACE_CHAR
      * @see Character#isLetterOrDigit(char)
      */
-    public static boolean isAlphanumericSpace(final CharSequence cs) {
-        if (cs == null) {
+    public static boolean isAlphanumericSpace(final CharSequence sequence) {
+        if (sequence == null) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            final char c = cs.charAt(i);
+        for (int i = 0; i < sequence.length(); i++) {
+            final char c = sequence.charAt(i);
             if (c != CharConst.SPACE_CHAR && !Character.isLetterOrDigit(c)) {
                 return false;
             }
@@ -606,18 +609,18 @@ public class StringAide implements StringConst {
      * StringUtils.isAlphaSpace("ab-c") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains letters and space,
      *  and is non-null
      * @see CharConst#SPACE_CHAR
      * @see Character#isLetter(char)
      */
-    public static boolean isAlphaSpace(final CharSequence cs) {
-        if (cs == null) {
+    public static boolean isAlphaSpace(final CharSequence sequence) {
+        if (sequence == null) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            final char c = cs.charAt(i);
+        for (int i = 0; i < sequence.length(); i++) {
+            final char c = sequence.charAt(i);
             if (c != CharConst.SPACE_CHAR && !Character.isLetter(c)) {
                 return false;
             }
@@ -651,16 +654,16 @@ public class StringAide implements StringConst {
      * StringUtils.isNumeric("+123") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains digits, and is non-null
      * @see Character#isDigit(char)
      */
-    public static boolean isNumeric(final CharSequence cs) {
-        if (isEmpty(cs)) {
+    public static boolean isNumeric(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!Character.isDigit(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isDigit(sequence.charAt(i))) {
                 return false;
             }
         }
@@ -688,18 +691,18 @@ public class StringAide implements StringConst {
      * StringUtils.isNumericSpace("12.3") = false
      * </pre>
      *
-     * @param cs  the CharSequence to check, may be null
+     * @param sequence  the CharSequence to check, may be null
      * @return {@code true} if only contains digits or space,
      *  and is non-null
      * @see CharConst#SPACE_CHAR
      * @see Character#isDigit(char)
      */
-    public static boolean isNumericSpace(final CharSequence cs) {
-        if (cs == null) {
+    public static boolean isNumericSpace(final CharSequence sequence) {
+        if (sequence == null) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            final char c = cs.charAt(i);
+        for (int i = 0; i < sequence.length(); i++) {
+            final char c = sequence.charAt(i);
             if (c != CharConst.SPACE_CHAR && !Character.isDigit(c)) {
                 return false;
             }
@@ -727,21 +730,554 @@ public class StringAide implements StringConst {
      * StringUtils.isAsciiPrintable("Ceki G\u00fclc\u00fc") = false
      * </pre>
      *
-     * @param cs the CharSequence to check, may be null
+     * @param sequence the CharSequence to check, may be null
      * @return {@code true} if every character is in the range
      *  32 through 126
      * @see CharAide#isAsciiPrintable(char)
      */
-    public static boolean isAsciiPrintable(final CharSequence cs) {
-        if (cs == null) {
+    public static boolean isAsciiPrintable(final CharSequence sequence) {
+        if (sequence == null) {
             return false;
         }
-        for (int i = 0; i < cs.length(); i++) {
-            if (!CharAide.isAsciiPrintable(cs.charAt(i))) {
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!CharAide.isAsciiPrintable(sequence.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
 
+    /**
+     * Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.contains(null, *)    = false
+     * StringUtils.contains("", *)      = false
+     * StringUtils.contains("abc", 'a') = true
+     * StringUtils.contains("abc", 'z') = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchChar  the character to find
+     * @return true if the CharSequence contains the search character,
+     *  false if not or {@code null} string input
+     */
+    public static boolean contains(final CharSequence sequence, final int searchChar) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, searchChar, 0) >= 0;
+    }
+
+    /**
+     * xxxxxxxxxx
+     *
+     * @param sequence
+     * @param searchChar
+     * @return
+     */
+    public static boolean contains(final CharSequence sequence, final char searchChar) {
+        return contains(sequence, Character.digit(searchChar, 10));
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String)} if possible.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.contains(null, *)     = false
+     * StringUtils.contains(*, null)     = false
+     * StringUtils.contains("", "")      = true
+     * StringUtils.contains("abc", "")   = true
+     * StringUtils.contains("abc", "a")  = true
+     * StringUtils.contains("abc", "z")  = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param search  the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence,
+     *  false if not or {@code null} string input
+     */
+    public static boolean contains(final CharSequence sequence, final CharSequence search) {
+        if (sequence == null || search == null) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, 0) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence irrespective of case,
+     * handling {@code null}. Case-insensitivity is defined as by
+     * {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     *
+     * <pre>
+     * StringUtils.containsIgnoreCase(null, *) = false
+     * StringUtils.containsIgnoreCase(*, null) = false
+     * StringUtils.containsIgnoreCase("", "") = true
+     * StringUtils.containsIgnoreCase("abc", "") = true
+     * StringUtils.containsIgnoreCase("abc", "a") = true
+     * StringUtils.containsIgnoreCase("abc", "z") = false
+     * StringUtils.containsIgnoreCase("abc", "A") = true
+     * StringUtils.containsIgnoreCase("abc", "Z") = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param search  the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence irrespective of
+     * case or false if not or {@code null} string input
+     */
+    public static boolean containsIgnoreCase(final CharSequence sequence, final CharSequence search) {
+        if (sequence == null || search == null) {
+            return false;
+        }
+        final int searchLength = search.length();
+        // sequence.length() - searchLength : 从头查找到剩余长度不足 searchLength 即可
+        for (int i = 0; i <= (sequence.length() - searchLength); i++) {
+            if (_CharSequenceAide.regionMatches(sequence, true, i, search, 0, searchLength)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given
+     * set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.</p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)                  = false
+     * StringUtils.containsAny("", *)                    = false
+     * StringUtils.containsAny(*, null)                  = false
+     * StringUtils.containsAny(*, [])                    = false
+     * StringUtils.containsAny("zzabyycdxx", ['z', 'a']) = true
+     * StringUtils.containsAny("zzabyycdxx", ['b', 'y']) = true
+     * StringUtils.containsAny("zzabyycdxx", ['z', 'y']) = true
+     * StringUtils.containsAny("aba", ['z'])             = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found,
+     * {@code false} if no match or null input
+     */
+    public static boolean containsAny(final CharSequence sequence, final char... searchChars) {
+        if(isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
+            return false;
+        }
+        final int sequenceLength = sequence.length();
+        final int searchLength = searchChars.length;
+        final int sequenceLast = sequenceLength - 1;
+        final int searchLast = searchLength - 1;
+        for (int i = 0; i < sequenceLength; i++) {
+            final char ch = sequence.charAt(i);
+            for (int j = 0; j < searchLength; j++) {
+                if (searchChars[j] == ch) {
+                    if (!Character.isHighSurrogate(ch)) {
+                        // ch 属于基本多文种平面（Basic Multilingual Plane, BMP）
+                        return true;
+                    }
+                    if (j == searchLast) {
+                        // 缺少低代理项，就像 String.indexOf(String)
+                        return true;
+                    }
+                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given set of characters.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code false}. A {@code null} search CharSequence will return
+     * {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)               = false
+     * StringUtils.containsAny("", *)                 = false
+     * StringUtils.containsAny(*, null)               = false
+     * StringUtils.containsAny(*, "")                 = false
+     * StringUtils.containsAny("zzabyycdxx", "za")    = true
+     * StringUtils.containsAny("zzabyycdxx", "by")    = true
+     * StringUtils.containsAny("zzabyycdxx", "zy")    = true
+     * StringUtils.containsAny("zzabyycdxx", "\tx")   = true
+     * StringUtils.containsAny("zzabyycdxx", "$.#yF") = true
+     * StringUtils.containsAny("aba", "z")            = false
+     * </pre>
+     *
+     * @param sequence
+     *            the CharSequence to check, may be null
+     * @param searchChars
+     *            the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAny(final CharSequence sequence, final CharSequence searchChars) {
+        if (searchChars == null) {
+            return false;
+        }
+        return containsAny(sequence, toCharArray(searchChars));
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * </pre>
+     *
+     * @param sequence The CharSequence to check, may be null
+     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     */
+    public static boolean containsAny(final CharSequence sequence, final CharSequence... searchSequences) {
+        if(sequence == null || ArrayAide.isEmpty(searchSequences)) {
+            return false;
+        }
+        for (CharSequence searchSequence : searchSequences) {
+            if (contains(sequence, searchSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringUtils.containsAny(null, *)            = false
+     * StringUtils.containsAny("", *)              = false
+     * StringUtils.containsAny(*, null)            = false
+     * StringUtils.containsAny(*, [])              = false
+     * StringUtils.containsAny("abcd", "ab", null) = true
+     * StringUtils.containsAny("abcd", "ab", "cd") = true
+     * StringUtils.containsAny("abc", "d", "abc")  = true
+     * StringUtils.containsAny("abc", "D", "ABC")  = true
+     * StringUtils.containsAny("ABC", "d", "abc")  = true
+     * </pre>
+     *
+     * @param sequence The CharSequence to check, may be null
+     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @since 3.12.0
+     */
+    public static boolean containsAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchSequences) {
+        if(sequence == null || ArrayAide.isEmpty(searchSequences)) {
+            return false;
+        }
+        for (CharSequence searchSequence : searchSequences) {
+            if (containsIgnoreCase(sequence, searchSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty CharSequence (length()=0) always returns true.</p>
+     *
+     * <pre>
+     * StringUtils.containsNone(null, *)       = true
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone("", *)         = true
+     * StringUtils.containsNone("ab", '')      = true
+     * StringUtils.containsNone("abab", 'xyz') = true
+     * StringUtils.containsNone("ab1", 'xyz')  = true
+     * StringUtils.containsNone("abz", 'xyz')  = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchChars  an array of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNone(final CharSequence sequence, final char... searchChars) {
+        if (sequence == null || searchChars == null) {
+            return true;
+        }
+        final int sequenceLength = sequence.length();
+        final int sequenceLast = sequenceLength - 1;
+        final int searchLength = searchChars.length;
+        final int searchLast = searchLength - 1;
+        for (int i = 0; i < sequenceLength; i++) {
+            final char ch = sequence.charAt(i);
+            for (int j = 0; j < searchLength; j++) {
+                if (searchChars[j] == ch) {
+                    if (!Character.isHighSurrogate(ch)) {
+                        // ch 属于基本多文种平面（Basic Multilingual Plane, BMP）
+                        return false;
+                    }
+                    if (j == searchLast) {
+                        // 缺少低代理项，就像 String.indexOf(String)
+                        return false;
+                    }
+                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty String ("") always returns true.</p>
+     *
+     * <pre>
+     * StringUtils.containsNone(null, *)       = true
+     * StringUtils.containsNone(*, null)       = true
+     * StringUtils.containsNone("", *)         = true
+     * StringUtils.containsNone("ab", "")      = true
+     * StringUtils.containsNone("abab", "xyz") = true
+     * StringUtils.containsNone("ab1", "xyz")  = true
+     * StringUtils.containsNone("abz", "xyz")  = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param invalidChars  a String of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
+     */
+    public static boolean containsNone(final CharSequence sequence, final CharSequence invalidChars) {
+        if (invalidChars == null) {
+            return true;
+        }
+        return containsNone(sequence, toCharArray(invalidChars));
+    }
+
+    /**
+     * xxxxxxxxxxxx
+     *
+     * @param sequence
+     * @param invalidSequences
+     * @return
+     */
+    public static boolean containsNone(final CharSequence sequence, final CharSequence... invalidSequences) {
+        if (sequence == null || invalidSequences == null) {
+            return true;
+        }
+        for (CharSequence invalidSequence : invalidSequences) {
+            if (contains(sequence, invalidSequence)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.</p>
+     *
+     * <pre>
+     * StringUtils.containsOnly(null, *)       = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly("", *)         = true
+     * StringUtils.containsOnly("ab", '')      = false
+     * StringUtils.containsOnly("abab", 'abc') = true
+     * StringUtils.containsOnly("ab1", 'abc')  = false
+     * StringUtils.containsOnly("abz", 'abc')  = false
+     * </pre>
+     *
+     * @param sequence  the String to check, may be null
+     * @param validChars  an array of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char...)
+     */
+    public static boolean containsOnly(final CharSequence sequence, final char... validChars) {
+        if (sequence == null || validChars == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (validChars.length == 0) {
+            return false;
+        }
+        return indexOfNotAny(sequence, validChars) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character String will return {@code false}.
+     * An empty String (length()=0) always returns {@code true}.</p>
+     *
+     * <pre>
+     * StringUtils.containsOnly(null, *)       = false
+     * StringUtils.containsOnly(*, null)       = false
+     * StringUtils.containsOnly("", *)         = true
+     * StringUtils.containsOnly("ab", "")      = false
+     * StringUtils.containsOnly("abab", "abc") = true
+     * StringUtils.containsOnly("ab1", "abc")  = false
+     * StringUtils.containsOnly("abz", "abc")  = false
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param validChars  a String of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
+     */
+    public static boolean containsOnly(final CharSequence sequence, final CharSequence validChars) {
+        if (sequence == null || validChars == null) {
+            return false;
+        }
+        return containsOnly(sequence, toCharArray(validChars));
+    }
+
+    /**
+     * Searches a CharSequence to find the first index of any
+     * character not in the given set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code -1}.
+     * A {@code null} or zero length search array will return {@code -1}.</p>
+     *
+     * <pre>
+     * StringUtils.indexOfAnyBut(null, *)                              = -1
+     * StringUtils.indexOfAnyBut("", *)                                = -1
+     * StringUtils.indexOfAnyBut(*, null)                              = -1
+     * StringUtils.indexOfAnyBut(*, [])                                = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
+     * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
+     * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
+
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
+     */
+    public static int indexOfNotAny(final CharSequence sequence, final char... searchChars) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final int sequenceLength = sequence.length();
+        final int sequenceLast = sequenceLength - 1;
+        final int searchLength = searchChars.length;
+        final int searchLast = searchLength - 1;
+        outer:
+        for (int i = 0; i < sequenceLength; i++) {
+            final char ch = sequence.charAt(i);
+            for (int j = 0; j < searchLength; j++) {
+                if (searchChars[j] == ch) {
+                    if (i >= sequenceLast || j >= searchLast || !Character.isHighSurrogate(ch)) {
+                        continue outer;
+                    }
+                    if (searchChars[j + 1] == sequence.charAt(i + 1)) {
+                        continue outer;
+                    }
+                }
+            }
+            return i;
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Search a CharSequence to find the first index of any
+     * character not in the given set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code -1}.
+     * A {@code null} or empty search string will return {@code -1}.</p>
+     *
+     * <pre>
+     * StringUtils.indexOfAnyBut(null, *)            = -1
+     * StringUtils.indexOfAnyBut("", *)              = -1
+     * StringUtils.indexOfAnyBut(*, null)            = -1
+     * StringUtils.indexOfAnyBut(*, "")              = -1
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "za") = 3
+     * StringUtils.indexOfAnyBut("zzabyycdxx", "")   = -1
+     * StringUtils.indexOfAnyBut("aba", "ab")        = -1
+     * </pre>
+     *
+     * @param sequence  the CharSequence to check, may be null
+     * @param searchChars  the chars to search for, may be null
+     * @return the index of any of the chars, -1 if no match or null input
+     */
+    public static int indexOfNotAny(final CharSequence sequence, final CharSequence searchChars) {
+        if (isEmpty(sequence) || isEmpty(searchChars)) {
+            return INDEX_NOT_FOUND;
+        }
+        final int sequenceLength = sequence.length();
+        for (int i = 0; i < sequenceLength; i++) {
+            final char ch = sequence.charAt(i);
+            final boolean chFound = _CharSequenceAide.indexOf(searchChars, ch, 0) >= 0;
+            if (i + 1 < sequenceLength && Character.isHighSurrogate(ch)) {
+                final char ch2 = sequence.charAt(i + 1);
+                if (chFound && _CharSequenceAide.indexOf(searchChars, ch2, 0) < 0) {
+                    return i;
+                }
+            } else if (!chFound) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Converts the given CharSequence to a char[].
+     *
+     * @param sequence the {@link CharSequence} to be processed.
+     * @return the resulting char array, never null.
+     * @since 3.11
+     */
+    public static char[] toCharArray(final CharSequence sequence) {
+        final int length = StringAide.length(sequence);
+        if (length == 0) {
+            return ArrayConst.EMPTY_CHAR_ARRAY;
+        }
+        if (sequence instanceof String string) {
+            return string.toCharArray();
+        }
+        final char[] array = new char[length];
+        for (int i = 0; i < length; i++) {
+            array[i] = sequence.charAt(i);
+        }
+        return array;
+    }
 }
