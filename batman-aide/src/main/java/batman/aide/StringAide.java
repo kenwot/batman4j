@@ -1185,7 +1185,6 @@ public class StringAide implements StringConst {
      * StringUtils.indexOfAnyBut("zzabyycdxx", new char[] {'z', 'a'} ) = 3
      * StringUtils.indexOfAnyBut("aba", new char[] {'z'} )             = 0
      * StringUtils.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
-
      * </pre>
      *
      * @param sequence  the CharSequence to check, may be null
