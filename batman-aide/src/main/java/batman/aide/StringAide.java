@@ -1814,7 +1814,7 @@ public class StringAide implements StringConst {
      * @since 3.11
      */
     public static char[] toCharArray(final CharSequence sequence) {
-        final int length = StringAide.length(sequence);
+        final int length = length(sequence);
         if (length == 0) {
             return ArrayConst.EMPTY_CHAR_ARRAY;
         }
