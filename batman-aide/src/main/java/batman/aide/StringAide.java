@@ -41,6 +41,16 @@ public class StringAide implements StringConst {
     }
 
     /**
+     * 获取字符序列 {@link CharSequence} 的代码点长度，如果 CharSequence 为 {@code null} 则返回 {@code 0}。
+     *
+     * @param sequence CharSequence 或 {@code null}
+     * @return CharSequence 的代码点长度，如果 CharSequence 为 {@code null} 则为 {@code 0}
+     */
+    public static int codepointLength(final CharSequence sequence) {
+        return sequence == null ? 0 : (int) sequence.codePoints().count();
+    }
+
+    /**
      * 检查字符序列是否为 {@code empty}（""）或者 {@code null}。
      *
      * <pre>

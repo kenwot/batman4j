@@ -53,12 +53,12 @@ class _CharSequenceAide {
      * 搜索字符序列 {@code cs} 中指定字符 {@code searchChar} 第一次出现的索引位置，从指定索引 {@code start} 处开始搜索。
      *
      * <p>
-     * 对于 0 到 0xFFFF（含）范围内的 {@code searchChar}，结果为满足以下条件的最小 <i>k</i> 值：
+     * 对于 0 到 0xFFFF（含）范围内的 {@code searchChar}（BMP），结果为满足以下条件的最小 <i>k</i> 值：
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
      * </pre></blockquote>
      *
-     * 对于其他值的 {@code searchChar}，结果为满足以下条件的最小 <i>k</i> 值：
+     * 对于其他值的 {@code searchChar}（SMP），结果为满足以下条件的最小 <i>k</i> 值：
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
      * </pre></blockquote>
@@ -73,7 +73,7 @@ class _CharSequenceAide {
      * </p>
      *
      * <p>
-     * 所有索引都以 {@code char} 值（Unicode 代码单元）指定。
+     * 所有索引都以 {@code char} 值（Unicode 代码单元而非代码点）为准。
      * </p>
      *
      * @param cs 要处理的 {@link CharSequence}，不能为 {@code null}
