@@ -21,7 +21,7 @@ import batman.aide.consts.CharConst;
 import batman.aide.consts.StringConst;
 
 /**
- * 操作字符串的工具方法。
+ * Operations on {@link String} that are {@code null} safe.
  *
  * @author Kenown
  * @since 1.0.0
@@ -31,27 +31,27 @@ public class StringAide implements StringConst {
     public static final int INDEX_NOT_FOUND = _CharSequenceAide.NOT_FOUND;
 
     /**
-     * 获取字符序列 {@link CharSequence} 的长度，如果 CharSequence 为 {@code null} 则返回 {@code 0}。
+     * Gets a CharSequence length or {@code 0} if the CharSequence is {@code null}.
      *
-     * @param sequence CharSequence 或 {@code null}
-     * @return CharSequence 的长度，如果 CharSequence 为 {@code null} 则为 {@code 0}
+     * @param sequence a CharSequence or {@code null}
+     * @return CharSequence length or {@code 0} if the CharSequence is {@code null}.
      */
     public static int length(final CharSequence sequence) {
         return sequence == null ? 0 : sequence.length();
     }
 
     /**
-     * 获取字符序列 {@link CharSequence} 的代码点长度，如果 CharSequence 为 {@code null} 则返回 {@code 0}。
+     * Gets the Code Point length of a CharSequence or {@code 0} if the CharSequence is {@code null}.
      *
-     * @param sequence CharSequence 或 {@code null}
-     * @return CharSequence 的代码点长度，如果 CharSequence 为 {@code null} 则为 {@code 0}
+     * @param sequence a CharSequence or {@code null}
+     * @return CharSequence's Code Point length or {@code 0} if the CharSequence is {@code null}
      */
     public static int codepointLength(final CharSequence sequence) {
         return sequence == null ? 0 : (int) sequence.codePoints().count();
     }
 
     /**
-     * 检查字符序列是否为 {@code empty}（""）或者 {@code null}。
+     * Checks if a CharSequence is empty ("") or null.
      *
      * <pre>
      * StringAide.isEmpty(null)      = true
@@ -61,15 +61,15 @@ public class StringAide implements StringConst {
      * StringAide.isEmpty("  bob  ") = false
      * </pre>
      *
-     * @param sequence 要检查的 CharSequence，可能为 {@code null}
-     * @return 若 CharSequence 为 {@code empty} 或 {@code null} 则为 {@code true}，否则为 {@code false}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is empty or null
      */
     public static boolean isEmpty(final CharSequence sequence) {
         return sequence == null || sequence.isEmpty();
     }
 
     /**
-     * 检查字符序列是否不为 {@code empty}（""）而且不为 {@code null}。
+     * Checks if a CharSequence is not empty ("") and not null.
      *
      * <pre>
      * StringAide.isNotEmpty(null)      = false
@@ -79,15 +79,15 @@ public class StringAide implements StringConst {
      * StringAide.isNotEmpty("  bob  ") = true
      * </pre>
      *
-     * @param sequence 要检查的 CharSequence，可能为 {@code null}
-     * @return 若 CharSequence 不为 {@code empty} 且不为 {@code null} 则为 {@code true}，否则为 {@code false}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code null} if the CharSequence is not empty and not null
      */
     public static boolean isNotEmpty(final CharSequence sequence) {
         return !isEmpty(sequence);
     }
 
     /**
-     * 检查所有字符序列是否都为 {@code empty}（""）或者 {@code null}。
+     * Checks if all the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringAide.isAllEmpty(null)             = true
@@ -101,8 +101,8 @@ public class StringAide implements StringConst {
      * StringAide.isAllEmpty("foo", "bar")     = false
      * </pre>
      *
-     * @param sequences 要检查的字符序列数组，可能为 {@code null} 或 {@code empty}
-     * @return 若所有 CharSequence 都为 {@code empty} 或者 {@code null} 则为 {@code true}，否则为 {@code false}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if all the CharSequences are empty or null
      */
     public static boolean isAllEmpty(final CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
@@ -117,7 +117,7 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列数组中是否存在任何为 {@code empty} 或 {@code null} 的元素。
+     * Checks if any of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringAide.isAnyEmpty((String) null)    = true
@@ -132,8 +132,8 @@ public class StringAide implements StringConst {
      * StringAide.isAnyEmpty(new String[]{""}) = true
      * </pre>
      *
-     * @param sequences 要检查的字符序列数组，可能为 {@code null} 或 {@code empty}
-     * @return 若存在任何 {@code empty} 或 {@code null} 的元素则为 {@code true}，否则为 {@code false}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences are empty or null
      */
     public static boolean isAnyEmpty(final CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
@@ -148,7 +148,7 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查所有字符序列是否都不为 {@code empty} 且都不为 {@code null}。
+     * Checks if none of the CharSequences are empty ("") or null.
      *
      * <pre>
      * StringAide.isNoneEmpty((String) null)    = false
@@ -163,20 +163,21 @@ public class StringAide implements StringConst {
      * StringAide.isNoneEmpty("foo", "bar")     = true
      * </pre>
      *
-     * @param sequences 要检查的字符序列数组，可能为 {@code null} 或 {@code empty}
-     * @return 若所有 CharSequence 都不为 {@code empty} 且都不为 {@code null} 则为 {@code true}，否则为 {@code false}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if none of the CharSequences are empty or null
      */
     public static boolean isNoneEmpty(final CharSequence... sequences) {
         return !isAnyEmpty(sequences);
     }
 
     /**
-     * 检查字符序列是否为 {@code empty}（""）或 {@code null} 或 {@code blank}（Whitespace，空白）。
+     * Checks if a CharSequence is empty (""), null or whitespace only.
      *
-     * <p>{@code blank} 由 {@link Character#isWhitespace(char)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
-     * <p>注意：此方法无法处理增补字符。
-     * 要支持所有 Unicode 字符（包括增补字符）请使用 {@link #isBlankCoverSupplementary(CharSequence)} 方法。</p>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isBlankCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isBlank(null)      = true
@@ -186,8 +187,8 @@ public class StringAide implements StringConst {
      * StringAide.isBlank("  bob  ") = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 如果 CharSequence 为 {@code empty} 或 {@code null} 或 {@code blank} 则为 {@code true}，否额为 {@code false}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is null, empty or whitespace only
      * @see #isBlankCoverSupplementary(CharSequence)
      */
     public static boolean isBlank(final CharSequence sequence) {
@@ -204,29 +205,29 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 包含 BMP 和 SMP 的空白检查。
+     * Checks if a CharSequence is empty (""), null or whitespace only.
      *
-     * <p>空白符由 {@link Character#isWhitespace(int)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(int)}, including supplementary characters.</p>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若字符序列全部为 BMP 或 SMP 的空白符则为 {@code true}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is null, empty or whitespace only
      * @see #isBlank(CharSequence)
      */
     public static boolean isBlankCoverSupplementary(final CharSequence sequence) {
-        final int length = length(sequence);
-        if (length == 0) {
+        if (length(sequence) == 0) {
             return true;
         }
         return sequence.codePoints().allMatch(Character::isWhitespace);
     }
 
     /**
-     * 检查字符序列是否不为 {@code empty} 且不为 {@code null} 且不为 {@code blank}。
+     * Checks if a CharSequence is not empty (""), not null and not whitespace only.
      *
-     * <p>{@code blank} 由 {@link Character#isWhitespace(char)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
-     * <p>注意：此方法无法处理增补字符。
-     * 要支持所有 Unicode 字符（包括增补字符）请使用 {@link #isNotBlankCoverSupplementary(CharSequence)} 方法。</p>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isNotBlankCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isNotBlank(null)      = false
@@ -236,8 +237,8 @@ public class StringAide implements StringConst {
      * StringAide.isNotBlank("  bob  ") = true
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若 CharSequence 不为 {@code empty} 且不为 {@code null} 且不为 {@code blank} 则为 {@code true}，否则为 {@code false}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is not empty and not null and not whitespace only
      * @see #isNotBlankCoverSupplementary(CharSequence)
      */
     public static boolean isNotBlank(final CharSequence sequence) {
@@ -245,12 +246,12 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 包含 BMP 和 SMP 的空白检查。
+     * Checks if a CharSequence is not empty (""), not null and not whitespace only.
      *
-     * <p>空白符由 {@link Character#isWhitespace(int)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(int)}, including supplementary characters.</p>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若字符序列非空且包含除了 BMP 或 SMP 空白符以外的字符则为 {@code true}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is not empty and not null and not whitespace only
      * @see #isNotBlank(CharSequence)
      */
     public static boolean isNotBlankCoverSupplementary(final CharSequence sequence) {
@@ -258,12 +259,13 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查所有字符序列是否都为 {@code empty} 或 {@code null} 或 {@code blank} 。
+     * Checks if all the CharSequences are empty (""), null or whitespace only.
      *
-     * <p>{@code blank} 由 {@link Character#isWhitespace(char)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
-     * <p>注意：此方法无法处理增补字符。
-     * 要支持所有 Unicode 字符（包括增补字符）请使用 {@link #isAllBlankCoverSupplementary(CharSequence...)} 方法。</p>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAllBlankCoverSupplementary(CharSequence...)} method.</p>
      *
      * <pre>
      * StringAide.isAllBlank(null)             = true
@@ -277,8 +279,8 @@ public class StringAide implements StringConst {
      * StringAide.isAllBlank(new String[] {})  = true
      * </pre>
      *
-     * @param sequences 要检查的字符序列，可能为 {@code null} 或 {@code empty}
-     * @return 若所有 CharSequence 都为 {@code empty} 或 {@code null} 或 {@code blank} 则为 {@code true}，否则为 {@code false}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if all the CharSequences are empty or null or whitespace only
      * @see #isAllBlankCoverSupplementary(CharSequence...)
      */
     public static boolean isAllBlank(final CharSequence... sequences) {
@@ -294,12 +296,12 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 包含 BMP 和 SMP 的空白检查。
+     * Checks if all the CharSequences are empty (""), null or whitespace only.
      *
-     * <p>空白符由 {@link Character#isWhitespace(int)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(int)}, including supplementary characters.</p>
      *
-     * @param sequences 要检查的字符序列，可能为 {@code null} 或 {@code empty}
-     * @return 若所有字符序列都为空或只包含 BMP 或 SMP 空白符则为 {@code true}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if all the CharSequences are empty or null or whitespace only
      * @see #isAllBlank(CharSequence...)
      */
     public static boolean isAllBlankCoverSupplementary(final CharSequence... sequences) {
@@ -315,12 +317,13 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列数组中是否存在任何 {@code empty} 或 {@code null} 或 {@code blank} 的元素。
+     * Checks if any of the CharSequences are empty ("") or null or whitespace only.
      *
-     * <p>{@code blank} 由 {@link Character#isWhitespace(char)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
-     * <p>注意：此方法无法处理增补字符。
-     * 要支持所有 Unicode 字符（包括增补字符）请使用 {@link #isAnyBlankCoverSupplementary(CharSequence...)} 方法。</p>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAnyBlankCoverSupplementary(CharSequence...)} method.</p>
      *
      * <pre>
      * StringAide.isAnyBlank((String) null)    = true
@@ -336,8 +339,8 @@ public class StringAide implements StringConst {
      * StringAide.isAnyBlank("foo", "bar")     = false
      * </pre>
      *
-     * @param sequences 要检查的字符序列，可能为 {@code null} 或 {@code empty}
-     * @return 若存在任何 {@code empty} 或 {@code null} 或 {@code blank} 的元素则为 {@code true}，否则为 {@code false}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences are empty or null or whitespace only
      * @see #isAnyBlankCoverSupplementary(CharSequence...)
      */
     public static boolean isAnyBlank(final CharSequence... sequences) {
@@ -353,12 +356,12 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 包含 BMP 和 SMP 的空白检查。
+     * Checks if any of the CharSequences are empty ("") or null or whitespace only.
      *
-     * <p>空白符由 {@link Character#isWhitespace(int)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(int)}, including supplementary character.</p>
      *
-     * @param sequences 要检查的字符序列，可能为 {@code null} 或 {@code empty}
-     * @return 若有任何字符序列为空或只包含 BMP 或 SMP 空白符则为 {@code true}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if any of the CharSequences are empty or null or whitespace only
      * @see #isAnyBlank(CharSequence...)
      */
     public static boolean isAnyBlankCoverSupplementary(final CharSequence... sequences) {
@@ -374,12 +377,13 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查所有字符序列是否都不为 {@code empty} 且都不为 {@code null} 且都不为 {@code blank}。
+     * Checks if none of the CharSequences are empty (""), null or whitespace only.
      *
-     * <p>{@code blank} 由 {@link Character#isWhitespace(char)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
      *
-     * <p>注意：此方法无法处理增补字符。
-     * 要支持所有 Unicode 字符（包括增补字符）请使用 {@link #isNoneBlankCoverSupplementary(CharSequence...)} 方法。</p>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isNoneBlankCoverSupplementary(CharSequence...)} method.</p>
      *
      * <pre>
      * StringAide.isNoneBlank((String) null)    = false
@@ -395,8 +399,8 @@ public class StringAide implements StringConst {
      * StringAide.isNoneBlank("foo", "bar")     = true
      * </pre>
      *
-     * @param sequences 要检查的字符序列，可能为 {@code null} 或 {@code empty}
-     * @return 若所有 CharSequence 都不为 {@code empty} 且都不为 {@code null} 且都不为 {@code blank} 则为 {@code true}，否则为 {@code false}
+     * @param sequences the CharSequences to check, may be null or empty
+     * @return {@code true} if none of the CharSequences are empty or null or whitespace only
      * @see #isNoneBlankCoverSupplementary(CharSequence...)
      */
     public static boolean isNoneBlank(final CharSequence... sequences) {
@@ -404,9 +408,9 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 包含 BMP 和 SMP 的空白检查。
+     * Checks if none of the CharSequences are empty (""), null or whitespace only.
      *
-     * <p>空白符由 {@link Character#isWhitespace(int)} 定义。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(int)}, including supplementary characters.</p>
      *
      * @param sequences 要检查的字符序列，可能为 {@code null} 或 {@code empty}
      * @return 若所有字符序列都非空且包含除了 BMP 或 SMP 空白符以外的字符则为 {@code true}
@@ -417,11 +421,15 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列中是否仅包含小写字符。
+     * Checks if the CharSequence contains only lowercase characters.
      *
-     * <p>小写字符由 {@link Character#isLowerCase(char)} 定义。</p>
+     * <p>Lowercase is defined by {@link Character#isLowerCase(char)}.</p>
      *
-     * <p>若字符序列为 {@code null} 或 {@code empty} 贼返回 {@code false}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAllLowerCaseCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAllLowerCase(null)   = false
@@ -434,9 +442,9 @@ public class StringAide implements StringConst {
      * StringAide.isAllLowerCase("ab/c") = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若非空且仅包含小写字符则为 {@code true}
-     * @see Character#isLowerCase(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains lowercase characters, and is non-null
+     * @see #isAllLowerCaseCoverSupplementary(CharSequence)
      */
     public static boolean isAllLowerCase(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -450,13 +458,34 @@ public class StringAide implements StringConst {
         return true;
     }
 
+    /**
+     * Checks if the CharSequence contains only lowercase characters.
+     *
+     * <p>Lowercase is defined by {@link Character#isLowerCase(int)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains lowercase characters, and is non-null
+     * @see #isAllLowerCase(CharSequence)
+     */
+    public static boolean isAllLowerCaseCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(Character::isLowerCase);
+    }
 
     /**
-     * 检查字符序列中是否包含任何小写字符。
+     * Checks if the CharSequence contains any lowercase characters.
      *
-     * <p>小写字符由 {@link Character#isLowerCase(char)} 定义。</p>
+     * <p>Lowercase is defined by {@link Character#isLowerCase(char)}.</p>
      *
-     * <p>若字符序列为 {@code null} 或 {@code empty} 贼返回 {@code false}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAnyLowerCaseCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAnyLowerCase(null)   = false
@@ -469,9 +498,9 @@ public class StringAide implements StringConst {
      * StringAide.isAnyLowerCase("ABC")  = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若非空且包含任何小写字符则为 {@code true}
-     * @see Character#isLowerCase(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if contains any lowercase characters, and is non-null
+     * @see #isAnyLowerCaseCoverSupplementary(CharSequence)
      */
     public static boolean isAnyLowerCase(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -486,11 +515,33 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列中是否仅包含大写字符。
+     * Checks if the CharSequence contains any lowercase characters.
      *
-     * <p>大写字符由 {@link Character#isUpperCase(char)} 定义。</p>
+     * <p>Lowercase is defined by {@link Character#isLowerCase(int)}, including supplementary characters.</p>
      *
-     * <p>若字符序列为 {@code null} 或 {@code empty} 贼返回 {@code false}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if contains any lowercase characters, and is non-null
+     * @see #isAnyLowerCase(CharSequence)
+     */
+    public static boolean isAnyLowerCaseCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().anyMatch(Character::isLowerCase);
+    }
+
+    /**
+     * Checks if the CharSequence contains only uppercase characters.
+     *
+     * <p>Uppercase is defined by {@link Character#isUpperCase(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAllUpperCaseCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAllUpperCase(null)   = false
@@ -503,9 +554,9 @@ public class StringAide implements StringConst {
      * StringAide.isAllUpperCase("A/C")  = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若非空且仅包含大写字符则为 {@code true}
-     * @see Character#isUpperCase(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains uppercase characters, and is non-null
+     * @see #isAllUpperCaseCoverSupplementary(CharSequence)
      */
     public static boolean isAllUpperCase(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -520,11 +571,33 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列中是否包含任何大写字符。
+     * Checks if the CharSequence contains only uppercase characters.
      *
-     * <p>大写字符由 {@link Character#isUpperCase(char)} 定义。</p>
+     * <p>Uppercase is defined by {@link Character#isUpperCase(int)}, including supplementary characters.</p>
      *
-     * <p>若字符序列为 {@code null} 或 {@code empty} 贼返回 {@code false}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains uppercase characters, and is non-null
+     * @see #isAllUpperCase(CharSequence)
+     */
+    public static boolean isAllUpperCaseCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(Character::isUpperCase);
+    }
+
+    /**
+     * Checks if the CharSequence contains any uppercase characters.
+     *
+     * <p>Lowercase is defined by {@link Character#isUpperCase(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAnyUpperCaseCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAllUpperCase(null)   = false
@@ -537,9 +610,9 @@ public class StringAide implements StringConst {
      * StringAide.isAllUpperCase("abc")  = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若非空且包含任何大写字符则为 {@code true}
-     * @see Character#isUpperCase(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if contains any uppercase characters, and is non-null
+     * @see #isAnyUpperCaseCoverSupplementary(CharSequence)
      */
     public static boolean isAnyUpperCase(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -554,11 +627,34 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列是否同时包含大写和小写字符。
+     * Checks if the CharSequence contains any uppercase characters.
      *
-     * <p>大写字符由 {@link Character#isUpperCase(char)} 定义；小写字符由 {@link Character#isLowerCase(char)} 定义。</p>
+     * <p>Lowercase is defined by {@link Character#isUpperCase(int)}, including supplementary characters.</p>
      *
-     * <p>若字符序列为 {@code null} 或 {@code empty} 贼返回 {@code false}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if contains any uppercase characters, and is non-null
+     * @see #isAnyUpperCase(CharSequence)
+     */
+    public static boolean isAnyUpperCaseCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().anyMatch(Character::isUpperCase);
+    }
+
+    /**
+     * Checks if the CharSequence contains mixed casing of both uppercase and lowercase characters.
+     *
+     * <p>Uppercase is defined by {@link Character#isUpperCase(char)}.
+     * Lowercase is defined by {@link Character#isLowerCase(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isMixedCaseCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isMixedCase(null)    = false
@@ -573,10 +669,9 @@ public class StringAide implements StringConst {
      * StringAide.isMixedCase("aC\t")  = true
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若非空且同时包含大写和小写字符则为 {@code true}
-     * @see Character#isUpperCase(char)
-     * @see Character#isLowerCase(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence contains both uppercase and lowercase characters
+     * @see #isMixedCaseCoverSupplementary(CharSequence)
      */
     public static boolean isMixedCase(final CharSequence sequence) {
         if (isEmpty(sequence) || sequence.length() == 1) {
@@ -601,15 +696,96 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列是否仅包含空白符。
-     * 与 {@link #isBlank(CharSequence)} 不同的是 {@code null} 字符序列将返回 {@code false}。
+     * Checks if the CharSequence contains mixed casing of both uppercase and lowercase characters.
      *
-     * <p>空白符由 {@link Character#isWhitespace(char)} 定义。</p>
+     * <p>Uppercase is defined by {@link Character#isUpperCase(int)}.
+     * Lowercase is defined by {@link Character#isLowerCase(int)}.
+     * Including supplementary characters.</p>
      *
-     * <p>若字符序列为 {@code null} 则返回 {@code false}；若字符序列为 {@code empty} 则返回 {@code true}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
      *
-     * <p>注意：此方法无法处理增补字符。
-     * 要支持所有 Unicode 字符（包括增补字符）请使用 {@link #isWhitespaceCoverSupplementary(CharSequence)} 方法。</p>
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence contains both uppercase and lowercase characters
+     * @see #isMixedCase(CharSequence)
+     */
+    public static boolean isMixedCaseCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence) || sequence.length() == 1) {
+            return false;
+        }
+        boolean containsUppercase = false;
+        boolean containsLowercase = false;
+        for (int codepoint : sequence.codePoints().toArray()) {
+            if (Character.isUpperCase(codepoint)) {
+                containsUppercase = true;
+            }
+            if (Character.isLowerCase(codepoint)) {
+                containsLowercase = true;
+            }
+            if (containsUppercase && containsLowercase) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains only space.
+     *
+     * <p>Space is defined by {@link Character#isSpaceChar(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isMixedCaseCoverSupplementary(CharSequence)} method.</p>
+     *
+     * @param sequence the CharSequence to check, may be {@code null}
+     * @return {@code true} if only contains space, and is non-null
+     * @see #isSpaceCoverSupplementary(CharSequence)
+     */
+    public static boolean isSpace(final CharSequence sequence) {
+        if (sequence == null) {
+            return false;
+        }
+        for (int i = 0; i < sequence.length(); i++) {
+            if (!Character.isSpaceChar(sequence.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the CharSequence contains only space.
+     *
+     * <p>Space is defined by {@link Character#isSpaceChar(int)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * @param sequence the CharSequence to check, may be {@code null}
+     * @return {@code true} if only contains space, and is non-null
+     * @see #isSpace(CharSequence)
+     */
+    public static boolean isSpaceCoverSupplementary(final CharSequence sequence) {
+        if (sequence == null) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(Character::isSpaceChar);
+    }
+
+    /**
+     * Checks if the CharSequence contains only whitespace.
+     *
+     * <p>This method is similar to {@link #isBlank(CharSequence)},
+     * but will return {@code false} instead of {@code true} if the CharSequence is {@code null}.</p>
+     *
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isWhitespaceCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isWhitespace(null)   = false
@@ -620,8 +796,8 @@ public class StringAide implements StringConst {
      * StringAide.isWhitespace("ab-c") = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若字符序列为 {@code null} 则为 {@code false}；若字符序列为 {@code empty} 则为 {@code true}；若字符序列仅包含空白符则为 {@code true}
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains whitespace, and is non-null
      * @see #isWhitespaceCoverSupplementary(CharSequence)
      */
     public static boolean isWhitespace(final CharSequence sequence) {
@@ -632,15 +808,17 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 包含 BMP 和 SMP 的空白检查。
-     * 与 {@link #isBlankCoverSupplementary(CharSequence)} 不同的是 {@code null} 字符序列将返回 {@code false}。
+     * Checks if the CharSequence contains only whitespace.
      *
-     * <p>空白符由 {@link Character#isWhitespace(int)} 定义。</p>
+     * <p>This method is similar to {@link #isBlankCoverSupplementary(CharSequence)},
+     * but will return {@code false} instead of {@code true} if the CharSequence is {@code null}.</p>
      *
-     * <p>若字符序列为 {@code null} 则返回 {@code false}；若字符序列为 {@code empty} 则返回 {@code true}。</p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(int)}, including supplementary characters.</p>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若字符序列为 {@code null} 则为 {@code false}；若字符序列为 {@code empty} 则为 {@code true}；若字符序列仅包含 BMP、SMP 空白符则为 {@code true}
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains whitespace, and is non-null
      * @see #isWhitespace(CharSequence)
      */
     public static boolean isWhitespaceCoverSupplementary(final CharSequence sequence) {
@@ -651,11 +829,15 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * 检查字符序列是否仅包含 Unicode 字母。
+     * Checks if the CharSequence contains only Unicode letters.
      *
-     * <p>字母由 {@link Character#isLetter(char)} 定义。</p>
+     * <p>Letter is defined by {@link Character#isLetter(char)}.</p>
      *
-     * <p>若字符序列为 {@code null} 或 {@code empty} 将返回 {@code false}。</p>
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAlphaCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAlpha(null)   = false
@@ -666,9 +848,9 @@ public class StringAide implements StringConst {
      * StringAide.isAlpha("ab-c") = false
      * </pre>
      *
-     * @param sequence 要检查的字符序列，可能为 {@code null}
-     * @return 若非空且仅包含字母则为 {@code true}
-     * @see Character#isLetter(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters, and is non-null
+     * @see #isAlphaCoverSupplementary(CharSequence)
      */
     public static boolean isAlpha(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -683,10 +865,33 @@ public class StringAide implements StringConst {
     }
 
     /**
+     * Checks if the CharSequence contains only Unicode letters.
+     *
+     * <p>Letter is defined by {@link Character#isLetter(int)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters, and is non-null
+     * @see #isAlpha(CharSequence)
+     */
+    public static boolean isAlphaCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(Character::isLetter);
+    }
+
+    /**
      * Checks if the CharSequence contains only Unicode letters or digits.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>Letter and digit are defined by {@link Character#isLetterOrDigit(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAlphanumericCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAlphanumeric(null)   = false
@@ -698,10 +903,9 @@ public class StringAide implements StringConst {
      * StringAide.isAlphanumeric("ab-c") = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters or digits,
-     *  and is non-null
-     * @see Character#isLetterOrDigit(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters or digits, and is non-null
+     * @see #isAlphanumericCoverSupplementary(CharSequence)
      */
     public static boolean isAlphanumeric(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -716,11 +920,33 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters, digits
-     * or space ({@code ' '}).
+     * Checks if the CharSequence contains only Unicode letters or digits.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>Letter and digit are defined by {@link Character#isLetterOrDigit(int)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters or digits, and is non-null
+     * @see #isAlphanumeric(CharSequence)
+     */
+    public static boolean isAlphanumericCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(Character::isLetterOrDigit);
+    }
+
+    /**
+     * Checks if the CharSequence contains only Unicode letters, digits or space ({@code ' '}).
+     *
+     * <p>Letter and digit are defined by {@link Character#isLetterOrDigit(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAlphanumericSpaceCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAlphanumericSpace(null)   = false
@@ -732,11 +958,9 @@ public class StringAide implements StringConst {
      * StringAide.isAlphanumericSpace("ab-c") = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters, digits or space,
-     *  and is non-null
-     * @see CharConst#SPACE_CHAR
-     * @see Character#isLetterOrDigit(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters, digits or space, and is non-null
+     * @see #isAlphanumericSpaceCoverSupplementary(CharSequence)
      */
     public static boolean isAlphanumericSpace(final CharSequence sequence) {
         if (sequence == null) {
@@ -752,11 +976,33 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode letters and
-     * space (' ').
+     * Checks if the CharSequence contains only Unicode letters, digits or space ({@code ' '}).
      *
-     * <p>{@code null} will return {@code false}
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>Letter and digit are defined by {@link Character#isLetterOrDigit(int)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters, digits or space, and is non-null
+     * @see #isAlphanumericSpace(CharSequence)
+     */
+    public static boolean isAlphanumericSpaceCoverSupplementary(final CharSequence sequence) {
+        if (sequence == null) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(cp -> cp == CharConst.SPACE_CHAR || Character.isLetterOrDigit(cp));
+    }
+
+    /**
+     * Checks if the CharSequence contains only Unicode letters and space ({@code ' '}).
+     *
+     * <p>Letter is defined by {@link Character#isLetter(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false} An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isAlphaSpaceCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isAlphaSpace(null)   = false
@@ -768,11 +1014,9 @@ public class StringAide implements StringConst {
      * StringAide.isAlphaSpace("ab-c") = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @return {@code true} if only contains letters and space,
-     *  and is non-null
-     * @see CharConst#SPACE_CHAR
-     * @see Character#isLetter(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters and space, and is non-null
+     * @see #isAlphaSpaceCoverSupplementary(CharSequence)
      */
     public static boolean isAlphaSpace(final CharSequence sequence) {
         if (sequence == null) {
@@ -788,16 +1032,39 @@ public class StringAide implements StringConst {
     }
 
     /**
+     * Checks if the CharSequence contains only Unicode letters and space ({@code ' '}).
+     *
+     * <p>Letter is defined by {@link Character#isLetter(char)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false} An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains letters and space, and is non-null
+     * @see #isAlphaSpace(CharSequence)
+     */
+    public static boolean isAlphaSpaceCoverSupplementary(final CharSequence sequence) {
+        if (sequence == null) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(cp -> cp == CharConst.SPACE_CHAR || Character.isLetter(cp));
+    }
+
+    /**
      * Checks if the CharSequence contains only Unicode digits.
      * A decimal point is not a Unicode digit and returns false.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code false}.</p>
+     * <p>Digit is defined by {@link Character#isDigit(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
      *
      * <p>Note that the method does not allow for a leading sign, either positive or negative.
      * Also, if a String passes the numeric test, it may still generate a NumberFormatException
      * when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range
      * for int or long respectively.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isNumericCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isNumeric(null)   = false
@@ -813,9 +1080,9 @@ public class StringAide implements StringConst {
      * StringAide.isNumeric("+123") = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
+     * @param sequence the CharSequence to check, may be null
      * @return {@code true} if only contains digits, and is non-null
-     * @see Character#isDigit(char)
+     * @see #isNumericCoverSupplementary(CharSequence)
      */
     public static boolean isNumeric(final CharSequence sequence) {
         if (isEmpty(sequence)) {
@@ -830,12 +1097,40 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if the CharSequence contains only Unicode digits or space
-     * ({@code ' '}).
+     * Checks if the CharSequence contains only Unicode digits.
      * A decimal point is not a Unicode digit and returns false.
      *
-     * <p>{@code null} will return {@code false}.
-     * An empty CharSequence (length()=0) will return {@code true}.</p>
+     * <p>Digit is defined by {@link Character#isDigit(char)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code false}.</p>
+     *
+     * <p>Note that the method does not allow for a leading sign, either positive or negative.
+     * Also, if a String passes the numeric test, it may still generate a NumberFormatException
+     * when parsed by Integer.parseInt or Long.parseLong, e.g. if the value is outside the range
+     * for int or long respectively.</p>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains digits, and is non-null
+     * @see #isNumeric(CharSequence)
+     */
+    public static boolean isNumericCoverSupplementary(final CharSequence sequence) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(Character::isDigit);
+    }
+
+    /**
+     * Checks if the CharSequence contains only Unicode digits or space ({@code ' '}).
+     * A decimal point is not a Unicode digit and returns false.
+     *
+     * <p>Letter is defined by {@link Character#isDigit(char)}.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #isNumericSpaceCoverSupplementary(CharSequence)} method.</p>
      *
      * <pre>
      * StringAide.isNumericSpace(null)   = false
@@ -850,11 +1145,9 @@ public class StringAide implements StringConst {
      * StringAide.isNumericSpace("12.3") = false
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @return {@code true} if only contains digits or space,
-     *  and is non-null
-     * @see CharConst#SPACE_CHAR
-     * @see Character#isDigit(char)
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains digits or space, and is non-null
+     * @see #isNumericSpaceCoverSupplementary(CharSequence)
      */
     public static boolean isNumericSpace(final CharSequence sequence) {
         if (sequence == null) {
@@ -867,6 +1160,38 @@ public class StringAide implements StringConst {
             }
         }
         return true;
+    }
+
+    /**
+     * Checks if the CharSequence contains only Unicode digits or space ({@code ' '}).
+     * A decimal point is not a Unicode digit and returns false.
+     *
+     * <p>Letter is defined by {@link Character#isDigit(int)}, including supplementary characters.</p>
+     *
+     * <p>{@code null} will return {@code false}. An empty CharSequence (length()=0) will return {@code true}.</p>
+     *
+     * <pre>
+     * StringAide.isNumericSpace(null)   = false
+     * StringAide.isNumericSpace("")     = true
+     * StringAide.isNumericSpace("  ")   = true
+     * StringAide.isNumericSpace("123")  = true
+     * StringAide.isNumericSpace("12 3") = true
+     * StringAide.isNumericSpace("&#92;u0967&#92;u0968&#92;u0969")  = true
+     * StringAide.isNumericSpace("&#92;u0967&#92;u0968 &#92;u0969")  = true
+     * StringAide.isNumericSpace("ab2c") = false
+     * StringAide.isNumericSpace("12-3") = false
+     * StringAide.isNumericSpace("12.3") = false
+     * </pre>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @return {@code true} if only contains digits or space, and is non-null
+     * @see #isNumericSpace(CharSequence)
+     */
+    public static boolean isNumericSpaceCoverSupplementary(final CharSequence sequence) {
+        if (sequence == null) {
+            return false;
+        }
+        return sequence.codePoints().allMatch(cp -> cp == CharConst.SPACE_CHAR || Character.isDigit(cp));
     }
 
     /**
@@ -890,8 +1215,7 @@ public class StringAide implements StringConst {
      * </pre>
      *
      * @param sequence the CharSequence to check, may be null
-     * @return {@code true} if every character is in the range
-     *  32 through 126
+     * @return {@code true} if every character is in the range 32 through 126
      * @see CharAide#isAsciiPrintable(char)
      */
     public static boolean isAsciiPrintable(final CharSequence sequence) {
@@ -904,429 +1228,6 @@ public class StringAide implements StringConst {
             }
         }
         return true;
-    }
-
-    /**
-     * Checks if CharSequence contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)} if possible.
-     *
-     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
-     *
-     * <pre>
-     * StringAide.contains(null, *)    = false
-     * StringAide.contains("", *)      = false
-     * StringAide.contains("abc", 'a') = true
-     * StringAide.contains("abc", 'z') = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChar  the character to find
-     * @return true if the CharSequence contains the search character,
-     *  false if not or {@code null} string input
-     */
-    public static boolean containsChar(final CharSequence sequence, final int searchChar) {
-        if (isEmpty(sequence)) {
-            return false;
-        }
-        return _CharSequenceAide.indexOf(sequence, searchChar, 0) >= 0;
-    }
-
-    /**
-     * xxxxxxxxxx
-     *
-     * @param sequence
-     * @param searchChar
-     * @return
-     */
-    public static boolean containsChar(final CharSequence sequence, final char searchChar) {
-        return containsChar(sequence, Character.digit(searchChar, 10));
-    }
-
-    /**
-     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String)} if possible.
-     *
-     * <p>A {@code null} CharSequence will return {@code false}.</p>
-     *
-     * <pre>
-     * StringAide.contains(null, *)     = false
-     * StringAide.contains(*, null)     = false
-     * StringAide.contains("", "")      = true
-     * StringAide.contains("abc", "")   = true
-     * StringAide.contains("abc", "a")  = true
-     * StringAide.contains("abc", "z")  = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param search  the CharSequence to find, may be null
-     * @return true if the CharSequence contains the search CharSequence,
-     *  false if not or {@code null} string input
-     */
-    public static boolean contains(final CharSequence sequence, final CharSequence search) {
-        if (sequence == null || search == null) {
-            return false;
-        }
-        return _CharSequenceAide.indexOf(sequence, search, 0) >= 0;
-    }
-
-    /**
-     * Checks if CharSequence contains a search CharSequence irrespective of case,
-     * handling {@code null}. Case-insensitivity is defined as by
-     * {@link String#equalsIgnoreCase(String)}.
-     *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     *
-     * <pre>
-     * StringAide.containsIgnoreCase(null, *) = false
-     * StringAide.containsIgnoreCase(*, null) = false
-     * StringAide.containsIgnoreCase("", "") = true
-     * StringAide.containsIgnoreCase("abc", "") = true
-     * StringAide.containsIgnoreCase("abc", "a") = true
-     * StringAide.containsIgnoreCase("abc", "z") = false
-     * StringAide.containsIgnoreCase("abc", "A") = true
-     * StringAide.containsIgnoreCase("abc", "Z") = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param search  the CharSequence to find, may be null
-     * @return true if the CharSequence contains the search CharSequence irrespective of
-     * case or false if not or {@code null} string input
-     */
-    public static boolean containsIgnoreCase(final CharSequence sequence, final CharSequence search) {
-        if (sequence == null || search == null) {
-            return false;
-        }
-        final int searchLength = search.length();
-        // sequence.length() - searchLength : 从头查找到剩余长度不足 searchLength 即可
-        for (int i = 0; i <= (sequence.length() - searchLength); i++) {
-            if (_CharSequenceAide.regionMatches(sequence, true, i, search, 0, searchLength)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the CharSequence contains any character in the given
-     * set of characters.
-     *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} or zero length search array will return {@code false}.</p>
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)                  = false
-     * StringAide.containsAny("", *)                    = false
-     * StringAide.containsAny(*, null)                  = false
-     * StringAide.containsAny(*, [])                    = false
-     * StringAide.containsAny("zzabyycdxx", ['z', 'a']) = true
-     * StringAide.containsAny("zzabyycdxx", ['b', 'y']) = true
-     * StringAide.containsAny("zzabyycdxx", ['z', 'y']) = true
-     * StringAide.containsAny("aba", ['z'])             = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found,
-     * {@code false} if no match or null input
-     */
-    public static boolean containsAnyChar(final CharSequence sequence, final char... searchChars) {
-        if(isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
-            return false;
-        }
-        final int sequenceLength = sequence.length();
-        final int searchLength = searchChars.length;
-        final int sequenceLast = sequenceLength - 1;
-        final int searchLast = searchLength - 1;
-        for (int i = 0; i < sequenceLength; i++) {
-            final char ch = sequence.charAt(i);
-            for (int j = 0; j < searchLength; j++) {
-                if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch 属于基本多文种平面（Basic Multilingual Plane, BMP）
-                        return true;
-                    }
-                    if (j == searchLast) {
-                        // 缺少低代理项，就像 String.indexOf(String)
-                        return true;
-                    }
-                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the CharSequence contains any character in the given set of characters.
-     *
-     * <p>
-     * A {@code null} CharSequence will return {@code false}. A {@code null} search CharSequence will return
-     * {@code false}.
-     * </p>
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)               = false
-     * StringAide.containsAny("", *)                 = false
-     * StringAide.containsAny(*, null)               = false
-     * StringAide.containsAny(*, "")                 = false
-     * StringAide.containsAny("zzabyycdxx", "za")    = true
-     * StringAide.containsAny("zzabyycdxx", "by")    = true
-     * StringAide.containsAny("zzabyycdxx", "zy")    = true
-     * StringAide.containsAny("zzabyycdxx", "\tx")   = true
-     * StringAide.containsAny("zzabyycdxx", "$.#yF") = true
-     * StringAide.containsAny("aba", "z")            = false
-     * </pre>
-     *
-     * @param sequence
-     *            the CharSequence to check, may be null
-     * @param searchChars
-     *            the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
-     */
-    public static boolean containsAnyChar(final CharSequence sequence, final CharSequence searchChars) {
-        if (searchChars == null) {
-            return false;
-        }
-        return containsAnyChar(sequence, toCharArray(searchChars));
-    }
-
-    /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
-     *
-     * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
-     * return {@code false}.
-     * </p>
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)            = false
-     * StringAide.containsAny("", *)              = false
-     * StringAide.containsAny(*, null)            = false
-     * StringAide.containsAny(*, [])              = false
-     * StringAide.containsAny("abcd", "ab", null) = true
-     * StringAide.containsAny("abcd", "ab", "cd") = true
-     * StringAide.containsAny("abc", "d", "abc")  = true
-     * </pre>
-     *
-     * @param sequence The CharSequence to check, may be null
-     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     */
-    public static boolean containsAny(final CharSequence sequence, final CharSequence... searchSequences) {
-        if(sequence == null || ArrayAide.isEmpty(searchSequences)) {
-            return false;
-        }
-        for (CharSequence searchSequence : searchSequences) {
-            if (contains(sequence, searchSequence)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
-     *
-     * <p>
-     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
-     * return {@code false}.
-     * </p>
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)            = false
-     * StringAide.containsAny("", *)              = false
-     * StringAide.containsAny(*, null)            = false
-     * StringAide.containsAny(*, [])              = false
-     * StringAide.containsAny("abcd", "ab", null) = true
-     * StringAide.containsAny("abcd", "ab", "cd") = true
-     * StringAide.containsAny("abc", "d", "abc")  = true
-     * StringAide.containsAny("abc", "D", "ABC")  = true
-     * StringAide.containsAny("ABC", "d", "abc")  = true
-     * </pre>
-     *
-     * @param sequence The CharSequence to check, may be null
-     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
-     * @since 3.12.0
-     */
-    public static boolean containsAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchSequences) {
-        if(sequence == null || ArrayAide.isEmpty(searchSequences)) {
-            return false;
-        }
-        for (CharSequence searchSequence : searchSequences) {
-            if (containsIgnoreCase(sequence, searchSequence)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Checks that the CharSequence does not contain certain characters.
-     *
-     * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty CharSequence (length()=0) always returns true.</p>
-     *
-     * <pre>
-     * StringAide.containsNone(null, *)       = true
-     * StringAide.containsNone(*, null)       = true
-     * StringAide.containsNone("", *)         = true
-     * StringAide.containsNone("ab", '')      = true
-     * StringAide.containsNone("abab", 'xyz') = true
-     * StringAide.containsNone("ab1", 'xyz')  = true
-     * StringAide.containsNone("abz", 'xyz')  = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChars  an array of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
-     */
-    public static boolean containsNoneChar(final CharSequence sequence, final char... searchChars) {
-        if (sequence == null || searchChars == null) {
-            return true;
-        }
-        final int sequenceLength = sequence.length();
-        final int sequenceLast = sequenceLength - 1;
-        final int searchLength = searchChars.length;
-        final int searchLast = searchLength - 1;
-        for (int i = 0; i < sequenceLength; i++) {
-            final char ch = sequence.charAt(i);
-            for (int j = 0; j < searchLength; j++) {
-                if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch 属于基本多文种平面（Basic Multilingual Plane, BMP）
-                        return false;
-                    }
-                    if (j == searchLast) {
-                        // 缺少低代理项，就像 String.indexOf(String)
-                        return false;
-                    }
-                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Checks that the CharSequence does not contain certain characters.
-     *
-     * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty String ("") always returns true.</p>
-     *
-     * <pre>
-     * StringAide.containsNone(null, *)       = true
-     * StringAide.containsNone(*, null)       = true
-     * StringAide.containsNone("", *)         = true
-     * StringAide.containsNone("ab", "")      = true
-     * StringAide.containsNone("abab", "xyz") = true
-     * StringAide.containsNone("ab1", "xyz")  = true
-     * StringAide.containsNone("abz", "xyz")  = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param invalidChars  a String of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
-     * @since 2.0
-     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
-     */
-    public static boolean containsNoneChar(final CharSequence sequence, final CharSequence invalidChars) {
-        if (invalidChars == null) {
-            return true;
-        }
-        return containsNoneChar(sequence, toCharArray(invalidChars));
-    }
-
-    /**
-     * xxxxxxxxxxxx
-     *
-     * @param sequence
-     * @param invalidSequences
-     * @return
-     */
-    public static boolean containsNone(final CharSequence sequence, final CharSequence... invalidSequences) {
-        if (sequence == null || invalidSequences == null) {
-            return true;
-        }
-        for (CharSequence invalidSequence : invalidSequences) {
-            if (contains(sequence, invalidSequence)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the CharSequence contains only certain characters.
-     *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} valid character array will return {@code false}.
-     * An empty CharSequence (length()=0) always returns {@code true}.</p>
-     *
-     * <pre>
-     * StringAide.containsOnly(null, *)       = false
-     * StringAide.containsOnly(*, null)       = false
-     * StringAide.containsOnly("", *)         = true
-     * StringAide.containsOnly("ab", '')      = false
-     * StringAide.containsOnly("abab", 'abc') = true
-     * StringAide.containsOnly("ab1", 'abc')  = false
-     * StringAide.containsOnly("abz", 'abc')  = false
-     * </pre>
-     *
-     * @param sequence  the String to check, may be null
-     * @param validChars  an array of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
-     * @since 3.0 Changed signature from containsOnly(String, char[]) to containsOnly(CharSequence, char...)
-     */
-    public static boolean containsOnlyChars(final CharSequence sequence, final char... validChars) {
-        if (sequence == null || validChars == null) {
-            return false;
-        }
-        if (sequence.isEmpty()) {
-            return true;
-        }
-        if (validChars.length == 0) {
-            return false;
-        }
-        return indexOfNotAnyChar(sequence, validChars) == INDEX_NOT_FOUND;
-    }
-
-    /**
-     * Checks if the CharSequence contains only certain characters.
-     *
-     * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} valid character String will return {@code false}.
-     * An empty String (length()=0) always returns {@code true}.</p>
-     *
-     * <pre>
-     * StringAide.containsOnly(null, *)       = false
-     * StringAide.containsOnly(*, null)       = false
-     * StringAide.containsOnly("", *)         = true
-     * StringAide.containsOnly("ab", "")      = false
-     * StringAide.containsOnly("abab", "abc") = true
-     * StringAide.containsOnly("ab1", "abc")  = false
-     * StringAide.containsOnly("abz", "abc")  = false
-     * </pre>
-     *
-     * @param sequence  the CharSequence to check, may be null
-     * @param validChars  a String of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
-     * @since 2.0
-     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
-     */
-    public static boolean containsOnlyChars(final CharSequence sequence, final CharSequence validChars) {
-        if (sequence == null || validChars == null) {
-            return false;
-        }
-        return containsOnlyChars(sequence, toCharArray(validChars));
     }
 
     /**
@@ -1346,10 +1247,10 @@ public class StringAide implements StringConst {
      * StringAide.indexOf("aabaabaa", "")   = 0
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param search  the CharSequence to find, may be null
+     * @param sequence the CharSequence to check, may be null
+     * @param search   the CharSequence to find, may be null
      * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * -1 if no match or {@code null} string input
      */
     public static int indexOf(final CharSequence sequence, final CharSequence search) {
         if (sequence == null || search == null) {
@@ -1384,20 +1285,20 @@ public class StringAide implements StringConst {
      * </pre>
      *
      * @param sequence  the CharSequence to check, may be null
-     * @param search  the CharSequence to find, may be null
-     * @param start  the start position, negative treated as zero
-     * @return the first index of the search CharSequence (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param search    the CharSequence to find, may be null
+     * @param fromIndex the start position, negative treated as zero
+     * @return the first index of the search CharSequence (always &ge; fromIndex),
+     * -1 if no match or {@code null} string input
      */
-    public static int indexOf(final CharSequence sequence, final CharSequence search, final int start) {
+    public static int indexOf(final CharSequence sequence, final CharSequence search, final int fromIndex) {
         if (sequence == null || search == null) {
             return INDEX_NOT_FOUND;
         }
-        return _CharSequenceAide.indexOf(sequence, search, start);
+        return _CharSequenceAide.indexOf(sequence, search, fromIndex);
     }
 
     /**
-     * Find the first index of any of a set of potential substrings.
+     * Find the first index any of a set of potential substrings.
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.
@@ -1418,8 +1319,8 @@ public class StringAide implements StringConst {
      * StringAide.indexOfAny("", ["a"])                    = -1
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchSequences  the CharSequences to search for, may be null
+     * @param sequence        the CharSequence to check, may be null
+     * @param searchSequences the CharSequences to search for, may be null
      * @return the first index of any of the searchStrs in str, -1 if no match
      */
     public static int indexOfAny(final CharSequence sequence, final CharSequence... searchSequences) {
@@ -1462,10 +1363,10 @@ public class StringAide implements StringConst {
      * StringAide.indexOfIgnoreCase("aabaabaa", "ab") = 1
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param search  the CharSequence to find, may be null
+     * @param sequence the CharSequence to check, may be null
+     * @param search   the CharSequence to find, may be null
      * @return the first index of the search CharSequence,
-     *  -1 if no match or {@code null} string input
+     * -1 if no match or {@code null} string input
      * @since 2.5
      * @since 3.0 Changed signature from indexOfIgnoreCase(String, String) to indexOfIgnoreCase(CharSequence, CharSequence)
      */
@@ -1498,10 +1399,10 @@ public class StringAide implements StringConst {
      * </pre>
      *
      * @param sequence  the CharSequence to check, may be null
-     * @param search  the CharSequence to find, may be null
-     * @param fromIndex  the start position, negative treated as zero
-     * @return the first index of the search CharSequence (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param search    the CharSequence to find, may be null
+     * @param fromIndex the start position, negative treated as zero
+     * @return the first index of the search CharSequence (always &ge; fromIndex),
+     * -1 if no match or {@code null} string input
      */
     public static int indexOfIgnoreCase(final CharSequence sequence, final CharSequence search, int fromIndex) {
         if (sequence == null || search == null) {
@@ -1554,10 +1455,10 @@ public class StringAide implements StringConst {
      * StringAide.indexOf("aabaabaa", 'b') = 2
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChar  the character to find
+     * @param sequence   the CharSequence to check, may be null
+     * @param searchChar the character to find
      * @return the first index of the search character,
-     *  -1 if no match or {@code null} string input
+     * -1 if no match or {@code null} string input
      */
     public static int indexOfChar(final CharSequence sequence, final int searchChar) {
         if (isEmpty(sequence)) {
@@ -1571,25 +1472,25 @@ public class StringAide implements StringConst {
      * specified character, starting the search at the specified index.
      * <p>
      * If a character with value {@code searchChar} occurs in the
-     * character sequence represented by the {@code seq} {@link CharSequence}
-     * object at an index no smaller than {@code startPos}, then
+     * character sequence represented by the {@code sequence} {@link CharSequence}
+     * object at an index no smaller than {@code fromIndex}, then
      * the index of the first such occurrence is returned. For values
      * of {@code searchChar} in the range from 0 to 0xFFFF (inclusive),
      * this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
+     * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= fromIndex)
      * </pre></blockquote>
      * is true. For other values of {@code searchChar}, it is the
      * smallest value <i>k</i> such that:
      * <blockquote><pre>
-     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= startPos)
+     * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= fromIndex)
      * </pre></blockquote>
-     * is true. In either case, if no such character occurs in {@code seq}
-     * at or after position {@code startPos}, then
+     * is true. In either case, if no such character occurs in {@code sequence}
+     * at or after position {@code fromIndex}, then
      * {@code -1} is returned.
      *
      * <p>
-     * There is no restriction on the value of {@code startPos}. If it
+     * There is no restriction on the value of {@code fromIndex}. If it
      * is negative, it has the same effect as if it were zero: this entire
      * string may be searched. If it is greater than the length of this
      * string, it has the same effect as if it were equal to the length of
@@ -1609,45 +1510,52 @@ public class StringAide implements StringConst {
      * StringAide.indexOf("aabaabaa", 'b', -1) = 2
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChar  the character to find
-     * @param start  the start position, negative treated as zero
-     * @return the first index of the search character (always &ge; startPos),
-     *  -1 if no match or {@code null} string input
+     * @param sequence   the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @param fromIndex  the start position, negative treated as zero
+     * @return the first index of the search character (always &ge; fromIndex), -1 if no match or {@code null} string input
      */
-    public static int indexOfChar(final CharSequence sequence, final int searchChar, int start) {
+    public static int indexOfChar(final CharSequence sequence, final int searchChar, int fromIndex) {
         if (isEmpty(sequence)) {
             return INDEX_NOT_FOUND;
         }
-        return _CharSequenceAide.indexOf(sequence, searchChar, start);
+        return _CharSequenceAide.indexOf(sequence, searchChar, fromIndex);
     }
 
     /**
-     * xxxxxxxxxxxxxxxxxxx
+     * Returns the index within {@code seq} of the first occurrence of the specified character.
      *
-     * @param sequence
-     * @param searchChar
-     * @return
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #indexOfChar(CharSequence, int)} method.</p>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @return the first index of the search character, -1 if no match or {@code null} string input
      */
     public static int indexOfChar(final CharSequence sequence, final char searchChar) {
-        return indexOfChar(sequence, Character.digit(searchChar, 10));
+        return indexOfChar(sequence, (int) searchChar);
     }
 
     /**
-     * xxxxxxxxxxxxxxx
+     * Returns the index within {@code seq} of the first occurrence of the specified character,
+     * starting the search at the specified index.
      *
-     * @param sequence
-     * @param searchChar
-     * @param start
-     * @return
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #indexOfChar(CharSequence, int, int)} method.</p>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @param fromIndex  the start position, negative treated as zero
+     * @return the first index of the search character (always &ge; fromIndex), -1 if no match or {@code null} string input
      */
-    public static int indexOfChar(final CharSequence sequence, final char searchChar, int start) {
-        return indexOfChar(sequence, Character.digit(searchChar, 10), start);
+    public static int indexOfChar(final CharSequence sequence, final char searchChar, int fromIndex) {
+        return indexOfChar(sequence, (int) searchChar, fromIndex);
     }
 
     /**
-     * Search a CharSequence to find the first index of any
-     * character in the given set of characters.
+     * Search a CharSequence to find the first index of any character in the given set of characters.
      *
      * <p>A {@code null} String will return {@code -1}.
      * A {@code null} or zero length search array will return {@code -1}.</p>
@@ -1662,9 +1570,9 @@ public class StringAide implements StringConst {
      * StringAide.indexOfAny("aba", ['z'])             = -1
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the index of any the chars, -1 if no match or null input
      */
     public static int indexOfAnyChar(final CharSequence sequence, final char... searchChars) {
         if (isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
@@ -1691,6 +1599,32 @@ public class StringAide implements StringConst {
     }
 
     /**
+     * Search a CharSequence to find the first index of any character in the given set of characters (code points).
+     *
+     * <p>A {@code null} String will return {@code -1}.
+     * A {@code null} or zero length search array will return {@code -1}.</p>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param codepoints the chars to search for, may be null
+     * @return the index of any the chars, -1 if no match or null input
+     */
+    public static int indexOfAnyChar(final CharSequence sequence, final int... codepoints) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(codepoints)) {
+            return INDEX_NOT_FOUND;
+        }
+        int[] sequenceChars = sequence.codePoints().toArray();
+        for (int i = 0; i < sequenceChars.length; i++) {
+            final int cp = sequenceChars[i];
+            for (int codepoint : codepoints) {
+                if (codepoint == cp) {
+                    return i;
+                }
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
      * Search a CharSequence to find the first index of any
      * character in the given set of characters.
      *
@@ -1707,8 +1641,8 @@ public class StringAide implements StringConst {
      * StringAide.indexOfAny("aba", "z")         = -1
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
      * @return the index of any of the chars, -1 if no match or null input
      */
     public static int indexOfAnyChar(final CharSequence sequence, final CharSequence searchChars) {
@@ -1735,9 +1669,9 @@ public class StringAide implements StringConst {
      * StringAide.indexOfAnyBut("aba", new char[] {'a', 'b'} )        = -1
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the index of any the chars, -1 if no match or null input
      */
     public static int indexOfNotAnyChar(final CharSequence sequence, final char... searchChars) {
         if (isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
@@ -1766,8 +1700,35 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Search a CharSequence to find the first index of any
-     * character not in the given set of characters.
+     * Searches a CharSequence to find the first index of any character not in the given set of characters (code points).
+     *
+     * <p>A {@code null} CharSequence will return {@code -1}.
+     * A {@code null} or zero length search array will return {@code -1}.</p>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param codepoints the chars to search for, may be null
+     * @return the index of any the chars, -1 if no match or null input
+     */
+    public static int indexOfNotAnyChar(final CharSequence sequence, final int... codepoints) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(codepoints)) {
+            return INDEX_NOT_FOUND;
+        }
+        int[] sequenceChars = sequence.codePoints().toArray();
+        outer:
+        for (int i = 0; i < sequenceChars.length; i++) {
+            final int ch = sequenceChars[i];
+            for (int codepoint : codepoints) {
+                if (codepoint == ch) {
+                    continue outer;
+                }
+            }
+            return i;
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Search a CharSequence to find the first index of any character not in the given set of characters.
      *
      * <p>A {@code null} CharSequence will return {@code -1}.
      * A {@code null} or empty search string will return {@code -1}.</p>
@@ -1782,9 +1743,9 @@ public class StringAide implements StringConst {
      * StringAide.indexOfAnyBut("aba", "ab")        = -1
      * </pre>
      *
-     * @param sequence  the CharSequence to check, may be null
-     * @param searchChars  the chars to search for, may be null
-     * @return the index of any of the chars, -1 if no match or null input
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the index of any the chars, -1 if no match or null input
      */
     public static int indexOfNotAnyChar(final CharSequence sequence, final CharSequence searchChars) {
         if (isEmpty(sequence) || isEmpty(searchChars)) {
@@ -1807,11 +1768,538 @@ public class StringAide implements StringConst {
     }
 
     /**
+     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
+     * This method uses {@link String#indexOf(String)} if possible.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.</p>
+     *
+     * <pre>
+     * StringAide.contains(null, *)     = false
+     * StringAide.contains(*, null)     = false
+     * StringAide.contains("", "")      = true
+     * StringAide.contains("abc", "")   = true
+     * StringAide.contains("abc", "a")  = true
+     * StringAide.contains("abc", "z")  = false
+     * </pre>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @param search   the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence, false if not or {@code null} string input
+     */
+    public static boolean contains(final CharSequence sequence, final CharSequence search) {
+        if (sequence == null || search == null) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, 0) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence irrespective of case, handling {@code null}.
+     * Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     *
+     * <pre>
+     * StringAide.containsIgnoreCase(null, *) = false
+     * StringAide.containsIgnoreCase(*, null) = false
+     * StringAide.containsIgnoreCase("", "") = true
+     * StringAide.containsIgnoreCase("abc", "") = true
+     * StringAide.containsIgnoreCase("abc", "a") = true
+     * StringAide.containsIgnoreCase("abc", "z") = false
+     * StringAide.containsIgnoreCase("abc", "A") = true
+     * StringAide.containsIgnoreCase("abc", "Z") = false
+     * </pre>
+     *
+     * @param sequence the CharSequence to check, may be null
+     * @param search   the CharSequence to find, may be null
+     * @return true if the CharSequence contains the search CharSequence irrespective of case or false if not or {@code null} string input
+     */
+    public static boolean containsIgnoreCase(final CharSequence sequence, final CharSequence search) {
+        if (sequence == null || search == null) {
+            return false;
+        }
+        final int searchLength = search.length();
+        for (int i = 0; i <= (sequence.length() - searchLength); i++) {
+            if (_CharSequenceAide.regionMatches(sequence, true, i, search, 0, searchLength)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
+     * return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringAide.containsAny(null, *)            = false
+     * StringAide.containsAny("", *)              = false
+     * StringAide.containsAny(*, null)            = false
+     * StringAide.containsAny(*, [])              = false
+     * StringAide.containsAny("abcd", "ab", null) = true
+     * StringAide.containsAny("abcd", "ab", "cd") = true
+     * StringAide.containsAny("abc", "d", "abc")  = true
+     * </pre>
+     *
+     * @param sequence        The CharSequence to check, may be null
+     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *                        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     */
+    public static boolean containsAny(final CharSequence sequence, final CharSequence... searchSequences) {
+        if (sequence == null || ArrayAide.isEmpty(searchSequences)) {
+            return false;
+        }
+        for (CharSequence searchSequence : searchSequences) {
+            if (contains(sequence, searchSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     *
+     * <p>
+     * A {@code null} {@code cs} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringAide.containsAny(null, *)            = false
+     * StringAide.containsAny("", *)              = false
+     * StringAide.containsAny(*, null)            = false
+     * StringAide.containsAny(*, [])              = false
+     * StringAide.containsAny("abcd", "ab", null) = true
+     * StringAide.containsAny("abcd", "ab", "cd") = true
+     * StringAide.containsAny("abc", "d", "abc")  = true
+     * StringAide.containsAny("abc", "D", "ABC")  = true
+     * StringAide.containsAny("ABC", "d", "abc")  = true
+     * </pre>
+     *
+     * @param sequence        The CharSequence to check, may be null
+     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
+     *                        null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     */
+    public static boolean containsAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchSequences) {
+        if (sequence == null || ArrayAide.isEmpty(searchSequences)) {
+            return false;
+        }
+        for (CharSequence searchSequence : searchSequences) {
+            if (containsIgnoreCase(sequence, searchSequence)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the given array, handling {@code null}.
+     *
+     * <p>
+     * A {@code null} {@code sequence} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     * </p>
+     *
+     * @param sequence         the CharSequence to check, may be null
+     * @param invalidSequences an array of invalid sequences, may be null
+     * @return {@code true} if it contains none of the invalid sequences, or is null
+     */
+    public static boolean containsNone(final CharSequence sequence, final CharSequence... invalidSequences) {
+        if (sequence == null || invalidSequences == null) {
+            return true;
+        }
+        for (CharSequence invalidSequence : invalidSequences) {
+            if (contains(sequence, invalidSequence)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the given array, handling {@code null}.
+     * Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     *
+     * <p>
+     * A {@code null} {@code sequence} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     * </p>
+     *
+     * @param sequence         the CharSequence to check, may be null
+     * @param invalidSequences an array of invalid sequences, may be null
+     * @return {@code true} if it contains none of the invalid sequences irrespective of case, or is null
+     */
+    public static boolean containsNoneIgnoreCase(final CharSequence sequence, final CharSequence... invalidSequences) {
+        if (sequence == null || invalidSequences == null) {
+            return true;
+        }
+        for (CharSequence invalidSequence : invalidSequences) {
+            if (containsIgnoreCase(sequence, invalidSequence)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsChar(CharSequence, int)} method.</p>
+     *
+     * <pre>
+     * StringAide.contains(null, *)    = false
+     * StringAide.contains("", *)      = false
+     * StringAide.contains("abc", 'a') = true
+     * StringAide.contains("abc", 'z') = false
+     * </pre>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input
+     * @see #containsChar(CharSequence, int)
+     */
+    public static boolean containsChar(final CharSequence sequence, final char searchChar) {
+        return containsChar(sequence, (int) searchChar);
+    }
+
+    /**
+     * Checks if CharSequence contains a search character, handling {@code null}.
+     * This method uses {@link String#indexOf(int)} if possible.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.</p>
+     *
+     * <pre>
+     * StringAide.contains(null, *)    = false
+     * StringAide.contains("", *)      = false
+     * StringAide.contains("abc", 'a') = true
+     * StringAide.contains("abc", 'z') = false
+     * </pre>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param searchChar the character to find
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input
+     * @see #containsChar(CharSequence, char)
+     */
+    public static boolean containsChar(final CharSequence sequence, final int searchChar) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, searchChar, 0) >= 0;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given set of characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.</p>
+     *
+     * <pre>
+     * StringAide.containsAny(null, *)                  = false
+     * StringAide.containsAny("", *)                    = false
+     * StringAide.containsAny(*, null)                  = false
+     * StringAide.containsAny(*, [])                    = false
+     * StringAide.containsAny("zzabyycdxx", ['z', 'a']) = true
+     * StringAide.containsAny("zzabyycdxx", ['b', 'y']) = true
+     * StringAide.containsAny("zzabyycdxx", ['z', 'y']) = true
+     * StringAide.containsAny("aba", ['z'])             = false
+     * </pre>
+     *
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(final CharSequence sequence, final char... searchChars) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
+            return false;
+        }
+        final int sequenceLength = sequence.length();
+        final int searchLength = searchChars.length;
+        final int sequenceLast = sequenceLength - 1;
+        final int searchLast = searchLength - 1;
+        for (int i = 0; i < sequenceLength; i++) {
+            final char ch = sequence.charAt(i);
+            for (int j = 0; j < searchLength; j++) {
+                if (searchChars[j] == ch) {
+                    if (!Character.isHighSurrogate(ch)) {
+                        // ch is in the Basic Multilingual Plane
+                        return true;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return true;
+                    }
+                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given set of characters (code points).
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.</p>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param codepoints the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(final CharSequence sequence, final int... codepoints) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(codepoints)) {
+            return false;
+        }
+        return sequence.codePoints().anyMatch(cp -> {
+            for (int searchChar : codepoints) {
+                if (cp == searchChar) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the given set of characters.
+     *
+     * <p>
+     * A {@code null} CharSequence will return {@code false}.
+     * A {@code null} search CharSequence will return {@code false}.
+     * </p>
+     *
+     * <pre>
+     * StringAide.containsAny(null, *)               = false
+     * StringAide.containsAny("", *)                 = false
+     * StringAide.containsAny(*, null)               = false
+     * StringAide.containsAny(*, "")                 = false
+     * StringAide.containsAny("zzabyycdxx", "za")    = true
+     * StringAide.containsAny("zzabyycdxx", "by")    = true
+     * StringAide.containsAny("zzabyycdxx", "zy")    = true
+     * StringAide.containsAny("zzabyycdxx", "\tx")   = true
+     * StringAide.containsAny("zzabyycdxx", "$.#yF") = true
+     * StringAide.containsAny("aba", "z")            = false
+     * </pre>
+     *
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars the chars to search for, may be null
+     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(final CharSequence sequence, final CharSequence searchChars) {
+        if (searchChars == null) {
+            return false;
+        }
+        return containsAnyChar(sequence, toCharArray(searchChars));
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty CharSequence (length()=0) always returns true.</p>
+     *
+     * <pre>
+     * StringAide.containsNone(null, *)       = true
+     * StringAide.containsNone(*, null)       = true
+     * StringAide.containsNone("", *)         = true
+     * StringAide.containsNone("ab", '')      = true
+     * StringAide.containsNone("abab", 'xyz') = true
+     * StringAide.containsNone("ab1", 'xyz')  = true
+     * StringAide.containsNone("abz", 'xyz')  = false
+     * </pre>
+     *
+     * @param sequence    the CharSequence to check, may be null
+     * @param searchChars an array of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(final CharSequence sequence, final char... searchChars) {
+        if (sequence == null || searchChars == null) {
+            return true;
+        }
+        final int sequenceLength = sequence.length();
+        final int sequenceLast = sequenceLength - 1;
+        final int searchLength = searchChars.length;
+        final int searchLast = searchLength - 1;
+        for (int i = 0; i < sequenceLength; i++) {
+            final char ch = sequence.charAt(i);
+            for (int j = 0; j < searchLength; j++) {
+                if (searchChars[j] == ch) {
+                    if (!Character.isHighSurrogate(ch)) {
+                        // ch is in the Basic Multilingual Plane
+                        return false;
+                    }
+                    if (j == searchLast) {
+                        // missing low surrogate, fine, like String.indexOf(String)
+                        return false;
+                    }
+                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters (code points).
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty CharSequence (length()=0) always returns true.</p>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param codepoints an array of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(final CharSequence sequence, final int... codepoints) {
+        if (sequence == null || codepoints == null) {
+            return true;
+        }
+        return sequence.codePoints().noneMatch(cp -> {
+            for (int searchChar : codepoints) {
+                if (cp == searchChar) {
+                    return true;
+                }
+            }
+            return false;
+        });
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} invalid character array will return {@code true}.
+     * An empty String ("") always returns true.</p>
+     *
+     * <pre>
+     * StringAide.containsNone(null, *)       = true
+     * StringAide.containsNone(*, null)       = true
+     * StringAide.containsNone("", *)         = true
+     * StringAide.containsNone("ab", "")      = true
+     * StringAide.containsNone("abab", "xyz") = true
+     * StringAide.containsNone("ab1", "xyz")  = true
+     * StringAide.containsNone("abz", "xyz")  = false
+     * </pre>
+     *
+     * @param sequence     the CharSequence to check, may be null
+     * @param invalidChars a String of invalid chars, may be null
+     * @return true if it contains none of the invalid chars, or is null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
+     */
+    public static boolean containsNoneChar(final CharSequence sequence, final CharSequence invalidChars) {
+        if (invalidChars == null) {
+            return true;
+        }
+        return containsNoneChar(sequence, toCharArray(invalidChars));
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.</p>
+     *
+     * <pre>
+     * StringAide.containsOnly(null, *)       = false
+     * StringAide.containsOnly(*, null)       = false
+     * StringAide.containsOnly("", *)         = true
+     * StringAide.containsOnly("ab", '')      = false
+     * StringAide.containsOnly("abab", 'abc') = true
+     * StringAide.containsOnly("ab1", 'abc')  = false
+     * StringAide.containsOnly("abz", 'abc')  = false
+     * </pre>
+     *
+     * @param sequence   the String to check, may be null
+     * @param validChars an array of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     */
+    public static boolean containsOnlyChars(final CharSequence sequence, final char... validChars) {
+        if (sequence == null || validChars == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (validChars.length == 0) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, validChars) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters (code points).
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.</p>
+     *
+     * @param sequence   the String to check, may be null
+     * @param codepoints an array of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     */
+    public static boolean containsOnlyChars(final CharSequence sequence, final int... codepoints) {
+        if (sequence == null || codepoints == null || codepoints.length == 0) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        return indexOfNotAnyChar(sequence, codepoints) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character String will return {@code false}.
+     * An empty String (length()=0) always returns {@code true}.</p>
+     *
+     * <pre>
+     * StringAide.containsOnly(null, *)       = false
+     * StringAide.containsOnly(*, null)       = false
+     * StringAide.containsOnly("", *)         = true
+     * StringAide.containsOnly("ab", "")      = false
+     * StringAide.containsOnly("abab", "abc") = true
+     * StringAide.containsOnly("ab1", "abc")  = false
+     * StringAide.containsOnly("abz", "abc")  = false
+     * </pre>
+     *
+     * @param sequence   the CharSequence to check, may be null
+     * @param validChars a String of valid chars, may be null
+     * @return true if it only contains valid chars and is non-null
+     * @since 2.0
+     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
+     */
+    public static boolean containsOnlyChars(final CharSequence sequence, final CharSequence validChars) {
+        if (sequence == null || validChars == null) {
+            return false;
+        }
+        return containsOnlyChars(sequence, toCharArray(validChars));
+    }
+
+    /**
      * Converts the given CharSequence to a char[].
      *
      * @param sequence the {@link CharSequence} to be processed.
      * @return the resulting char array, never null.
-     * @since 3.11
      */
     public static char[] toCharArray(final CharSequence sequence) {
         final int length = length(sequence);

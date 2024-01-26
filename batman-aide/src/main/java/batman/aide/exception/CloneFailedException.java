@@ -19,7 +19,8 @@ package batman.aide.exception;
 import java.io.Serial;
 
 /**
- * 对象克隆失败时抛出的异常。相比 {@link CloneNotSupportedException} 这是一个 {@link RuntimeException}。
+ * Exception thrown when a clone cannot be created. In contrast to
+ * {@link CloneNotSupportedException} this is a {@link RuntimeException}.
  *
  * @author Kenown
  * @since 1.0.0
@@ -29,28 +30,28 @@ public class CloneFailedException extends RuntimeException {
     private static final long serialVersionUID = -8890776807148591266L;
 
     /**
-     * 构造一个 {@link CloneFailedException}。
+     * Constructs a CloneFailedException.
      *
-     * @param message 异常描述
+     * @param message description of the exception
      */
     public CloneFailedException(String message) {
         super(message);
     }
 
     /**
-     * 构造一个 {@link CloneFailedException}。
+     * Constructs a CloneFailedException.
      *
-     * @param message 异常描述
-     * @param cause 异常原因
+     * @param message description of the exception
+     * @param cause cause of the exception
      */
     public CloneFailedException(String message, final Throwable cause) {
         super(message, cause);
     }
 
     /**
-     * 构造一个 {@link CloneFailedException}。
+     * Constructs a CloneFailedException.
      *
-     * @param cause 异常原因
+     * @param cause cause of the exception
      */
     public CloneFailedException(Throwable cause) {
         super(cause);

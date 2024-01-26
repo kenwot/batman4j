@@ -17,8 +17,6 @@
 package batman.aide;
 
 /**
- * TODO-Kenown _CharSequenceAide
- *
  * @author Kenown
  * @since 1.0.0
  */
@@ -31,9 +29,9 @@ class _CharSequenceAide {
     /**
      * Used by the indexOf(CharSequence methods) as a green implementation of indexOf.
      *
-     * @param cs the {@link CharSequence} to be processed
+     * @param cs     the {@link CharSequence} to be processed
      * @param search the {@link CharSequence} to be searched for
-     * @param start the start index
+     * @param start  the start index
      * @return the index where the search sequence was found
      */
     static int indexOf(final CharSequence cs, final CharSequence search, final int start) {
@@ -50,36 +48,38 @@ class _CharSequenceAide {
     }
 
     /**
-     * 搜索字符序列 {@code cs} 中指定字符 {@code searchChar} 第一次出现的索引位置，从指定索引 {@code start} 处开始搜索。
+     * Returns the index within {@code cs} of the first occurrence of the
+     * specified character, starting the search at the specified index.
      *
-     * <p>
-     * 对于 0 到 0xFFFF（含）范围内的 {@code searchChar}（BMP），结果为满足以下条件的最小 <i>k</i> 值：
+     * <p>If a character with value {@code searchChar} occurs in the
+     * character sequence represented by the {@code cs}
+     * object at an index no smaller than {@code start}, then
+     * the index of the first such occurrence is returned.</p>
+     *
+     * <p>For values of {@code searchChar} in the range from 0 to 0xFFFF (inclusive), this is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.charAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
-     * </pre></blockquote>
+     * </pre></blockquote></p>
      *
-     * 对于其他值的 {@code searchChar}（SMP），结果为满足以下条件的最小 <i>k</i> 值：
+     * <p>For other values of {@code searchChar}, it is the smallest value <i>k</i> such that:
      * <blockquote><pre>
      * (this.codePointAt(<i>k</i>) == searchChar) &amp;&amp; (<i>k</i> &gt;= start)
-     * </pre></blockquote>
+     * </pre></blockquote></p>
      *
-     * 无论哪种情况，如果 {@code cs} 中在 {@code start} 处或之后没有出现 {@code searchChar} 字符，则返回 {@code -1}。
-     * </p>
+     * <p>In either case, if no such character occurs inm {@code cs}
+     * at or after position {@code start}, then {@code -1} is returned.</p>
      *
-     * <p>
-     * {@code start} 的值没有限制。
-     * 如果是负数，则等同于零（搜索整个字符序列）；
-     * 如果大于字符序列的长度，则等同于字符序列的长度（返回 {@code -1}）。
-     * </p>
+     * <p>There is no restriction on the value of {@code start}.
+     * If it is negative, it has the same effect as if it were zero: the entire {@link CharSequence} may be searched.
+     * If it is greater than the length of {@code cs}, it has the same effect as if it were
+     * equal to the length of {@code cs}: {@code -1} is returned.</p>
      *
-     * <p>
-     * 所有索引都以 {@code char} 值（Unicode 代码单元而非代码点）为准。
-     * </p>
+     * <p>All indices are specified in {@code char} values (Unicode code units).</p>
      *
-     * @param cs 要处理的 {@link CharSequence}，不能为 {@code null}
-     * @param searchChar 要搜索的字符
-     * @param start 起始索引
-     * @return 搜索字符的第一个索引位置，如果未找到则为 {@code -1}
+     * @param cs         the {@link CharSequence} to be processed, not null
+     * @param searchChar the char to be searched for
+     * @param start      the start index, negative starts at the string start
+     * @return the index where the search char was found, -1 if not found
      */
     static int indexOf(final CharSequence cs, final int searchChar, int start) {
         if (cs instanceof String string) {
@@ -97,7 +97,7 @@ class _CharSequenceAide {
             }
             return NOT_FOUND;
         }
-        // 增补字符 LANG1300
+        // supplementary characters (LANG1300)
         if (searchChar <= Character.MAX_CODE_POINT) {
             final char[] chars = Character.toChars(searchChar);
             for (int i = start; i < length - 1; i++) {
@@ -114,12 +114,12 @@ class _CharSequenceAide {
     /**
      * Green implementation of regionMatches.
      *
-     * @param sequence the {@link CharSequence} to be processed
-     * @param ignoreCase whether or not to be case-insensitive
-     * @param thisStart the index to start on the {@code cs} CharSequence
+     * @param sequence    the {@link CharSequence} to be processed
+     * @param ignoreCase  whether to be case-insensitive
+     * @param thisStart   the index to start on the {@code cs} CharSequence
      * @param subsequence the {@link CharSequence} to be looked for
-     * @param subStart the index to start on the {@code substring} CharSequence
-     * @param length character length of the region
+     * @param subStart    the index to start on the {@code substring} CharSequence
+     * @param length      character length of the region
      * @return whether the region matched
      */
     static boolean regionMatches(final CharSequence sequence, final boolean ignoreCase, final int thisStart,

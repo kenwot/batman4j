@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 /**
- * 数组常量
+ * Defines some array constants.
  *
  * @author Kenown
  * @since 1.0.0
@@ -120,15 +120,11 @@ public interface ArrayConst {
 
     /**
      * An empty immutable {@link Throwable} array.
-     *
-     * @since 3.10
      */
     Throwable[] EMPTY_THROWABLE_ARRAY = {};
 
     /**
      * An empty immutable {@link Type} array.
-     *
-     * @since 3.10
      */
     Type[] EMPTY_TYPE_ARRAY = {};
 
@@ -139,15 +135,11 @@ public interface ArrayConst {
 
     /**
      * An empty immutable {@link Field} array.
-     *
-     * @since 3.10
      */
     Field[] EMPTY_FIELD_ARRAY = {};
 
     /**
      * An empty immutable {@link Method} array.
-     *
-     * @since 3.10
      */
     Method[] EMPTY_METHOD_ARRAY = {};
 

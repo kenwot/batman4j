@@ -29,7 +29,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * 操作 {@link Object} 的工具方法。
+ * Operations on {@link Object}.
  *
  * @author Kenown
  * @since 1.0.0
@@ -37,26 +37,26 @@ import java.util.stream.Stream;
 public class ObjectAide implements ObjectConst {
 
     /**
-     * 判断给定对象是否是一个数组（对象数组或原始数组）。
+     * Tests whether the given object is an Object array or a primitive array in a null-safe manner.
      *
-     * <p>{@code null} Object 将返回 {@code false}。</p>
+     * <p>A {@code null} {@code object} Object will return {@code false}.</p>
      *
-     * @param object 要检查的对象，可以为 {@code null}
-     * @return 如果对象是数组则为 {@code true}，否则为 {@code false}
+     * @param object the object to check, may be {@code null}
+     * @return {@code true} if the object is an {@code array}, {@code false} otherwise
      */
     public static boolean isArray(final Object object) {
         return object != null && object.getClass().isArray();
     }
 
     /**
-     * 判断给定对象是否为空（{@code null} 或 {@code empty}）。
-     * 支持以下类型：
+     * Tests if an Object is empty or null.
+     * The following types are supported:
      * <ul>
-     * <li>{@link CharSequence}：取 {@link CharSequence#isEmpty()}。</li>
-     * <li>{@link Array}：如果长度为 0，则视为空。</li>
-     * <li>{@link Collection}：取 {@link Collection#isEmpty()}。</li>
-     * <li>{@link Map}：取 {@link Map#isEmpty()}。</li>
-     * <li>{@link Optional}：取 {@link Optional#isEmpty()}。</li>
+     * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
+     * <li>{@link Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Collection}: Considered empty if it has zero elements.</li>
+     * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
      *
      * <pre>
@@ -71,8 +71,8 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.isEmpty(Optional.empty()) = true
      * </pre>
      *
-     * @param object 要检查的 {@link Object}，可以为 {@code null}
-     * @return 如果对象具有受支持的类型并且为 {@code null} 或 {@code empty}，则为 {@code true}，否则为 {@code false}
+     * @param object the {@link Object} to test, may be {@code null}
+     * @return {@code true} if the object has a supported type and is empty or null, {@code false} otherwise
      */
     public static boolean isEmpty(final Object object) {
         if (object == null) {
@@ -97,14 +97,14 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 检查给定对象是否不为空（{@code non-null} 且 {@code non-empty}）
-     * 支持以下类型：
+     * Tests if an Object is not empty and not null.
+     * The following types are supported:
      * <ul>
-     * <li>{@link CharSequence}：取 {@link CharSequence#isEmpty()}。</li>
-     * <li>{@link Array}：如果长度为 0，则视为空。</li>
-     * <li>{@link Collection}：取 {@link Collection#isEmpty()}。</li>
-     * <li>{@link Map}：取 {@link Map#isEmpty()}。</li>
-     * <li>{@link Optional}：取 {@link Optional#isEmpty()}。</li>
+     * <li>{@link CharSequence}: Considered empty if its length is zero.</li>
+     * <li>{@link Array}: Considered empty if its length is zero.</li>
+     * <li>{@link Collection}: Considered empty if it has zero elements.</li>
+     * <li>{@link Map}: Considered empty if it has zero key-value mappings.</li>
+     * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
      *
      * <pre>
@@ -118,18 +118,20 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.isNotEmpty(Optional.empty()) = false
      * </pre>
      *
-     * @param object 要检查的 {@link Object}，可以为 {@code null}
-     * @return 如果对象类型不受支持，或者 {@code non-null} 且 {@code non-empty}，则为 {@code true}，否则为 {@code false}
+     * @param object the {@link Object} to test, may be {@code null}
+     * @return {@code true} if the object has an unsupported type or is not empty and not null, {@code false} otherwise
      */
     public static boolean isNotEmpty(final Object object) {
         return !isEmpty(object);
     }
 
     /**
-     * 检查数组中的所有元素是否都是 {@code null}。
+     * Checks if all values in the given array are {@code null}.
      *
-     * <p>如果数组为 {@code null} 或 {@code empty} 或者其中所有元素都为 {@code null}，则返回 {@code true}，
-     * 否则返回 {@code false}。</p>
+     * <p>
+     * If all the values are {@code null} or the array is {@code null}
+     * or empty, then {@code true} is returned, otherwise {@code false} is returned.
+     * </p>
      *
      * <pre>
      * ObjectAide.allNull(*)                = false
@@ -140,19 +142,23 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.allNull(null, null)       = true
      * </pre>
      *
-     * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
-     * @return 如果数组中的元素均为 {@code null}，则为 {@code true}，
-     * 如果数组中至少有一个不是 {@code null} 的元素，则为 {@code false}
+     * @param values the values to test, may be {@code null} or {@code empty}
+     * @return {@code true} if all values in the array are {@code null}s,
+     * {@code false} if there is at least one non-null value in the array.
      */
     public static boolean isAllNull(final Object... values) {
         return !isAnyNonnull(values);
     }
 
     /**
-     * 检查数组中的所有元素是否都不是 {@code null}。
+     * Checks if all values in the array are not {@code nulls}.
      *
-     * <p>如果数组为 {@code null} 或者其中的任何元素为 {@code null}，则返回 {@code false}。
-     * 如果数组为 {@code empty}（不含任何元素）或其中的所有元素都不为 {@code null}，则返回 {@code true}。</p>
+     * <p>
+     * If any value is {@code null} or the array is {@code null} then
+     * {@code false} is returned. If all elements in array are not
+     * {@code null} or the array is empty (contains no elements) {@code true}
+     * is returned.
+     * </p>
      *
      * <pre>
      * ObjectAide.allNonnull(*)             = true
@@ -164,18 +170,21 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.allNonnull(*, *, null, *) = false
      * </pre>
      *
-     * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
-     * @return 如果数组为 {@code null} 或其中至少有一个 {@code null} 元素，则为 {@code false}；
-     * 如果数组不包含任何元素或者其中所有元素都不为 {@code null}，则为 {@code true}
+     * @param values the values to test, may be {@code null} or empty
+     * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null},
+     * {@code true} if all values in the array are not {@code null}s or array contains no elements.
      */
     public static boolean isAllNonnull(final Object... values) {
         return values != null && Stream.of(values).noneMatch(Objects::isNull);
     }
 
     /**
-     * 检查数组中是否存在任何是 {@code null} 的元素。
+     * Checks if any value in the given array is {@code null}.
      *
-     * <p>如果数组为 {@code null} 或其中任何元素为 {@code null}，则返回 {@code true}，否则返回 {@code false}。</p>
+     * <p>
+     * If any of the values are {@code null} or the array is {@code null},
+     * then {@code true} is returned, otherwise {@code false} is returned.
+     * </p>
      *
      * <pre>
      * ObjectAide.anyNull(*)             = false
@@ -187,19 +196,22 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.anyNull(*, *, null, *) = true
      * </pre>
      *
-     * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
-     * @return 如果数组中至少有一个 {@code null} 元素，则为 {@code true}；
-     * 如果所有元素都不为 {@code null}，则为 {@code false}；
-     * 如果数组为 {@code null} 或 {@code empty}，则为 {@code true}
+     * @param values the values to test, may be {@code null} or empty
+     * @return {@code true} if there is at least one {@code null} value in the array,
+     * {@code false} if all the values are non-null.
+     * If the array is {@code null} or empty, {@code true} is also returned.
      */
     public static boolean isAnyNull(final Object... values) {
         return !isAllNonnull(values);
     }
 
     /**
-     * 检查数组中是否存在任何不是 {@code null} 的元素。
+     * Checks if any value in the given array is not {@code null}.
      *
-     * <p>如果数组为 {@code null} 或 {@code empty} 或者其中所有元素都是 {@code null}，则返回 {@code false}，否则返回 {@code true}。</p>
+     * <p>
+     * If all the values are {@code null} or the array is {@code null}
+     * or empty then {@code false} is returned. Otherwise {@code true} is returned.
+     * </p>
      *
      * <pre>
      * ObjectAide.anyNonnull(*)                = true
@@ -210,18 +222,19 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.anyNonnull(null, null)       = false
      * </pre>
      *
-     * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
-     * @return 如果数组中至少有一个不是 {@code null} 的元素，则为 {@code true}；
-     * 如果数组中的所有元素均为 {@code null}，则为 {@code false}；
-     * 如果数组为 {@code null} 或 {@code empty}，则为 {@code false}
+     * @param values the values to test, may be {@code null} or empty
+     * @return {@code true} if there is at least one non-null value in the array,
+     * {@code false} if all values in the array are {@code null}s.
+     * If the array is {@code null} or empty {@code false} is also returned.
      */
     public static boolean isAnyNonnull(final Object... values) {
         return firstNonnull(values) != null;
     }
 
     /**
-     * 返回数组中第一个不是 {@code null} 的值。
-     * 如果数组为 {@code null} 或其中所有值均为 {@code null}，则返回 {@code null}。
+     * Returns the first value in the array which is not {@code null}.
+     * If all the values are {@code null} or the array is {@code null}
+     * or empty then {@code null} is returned.
      *
      * <pre>
      * ObjectAide.firstNonNull(null, null)      = null
@@ -234,9 +247,10 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.firstNonNull()                = null
      * </pre>
      *
-     * @param values 要检查的值，可以为 {@code null} 或 {@code empty}
-     * @param <T>    数组元素的类型
-     * @return 数组中第一个不是 {@code null} 的值，如果没有 {@code non-null} 值，则为 null
+     * @param values the values to test, may be {@code null} or empty
+     * @param <T>    the component type of the array
+     * @return the first value from {@code values} which is not {@code null},
+     * or {@code null} if there are no non-null values
      */
     @SafeVarargs
     public static <T> T firstNonnull(final T... values) {
@@ -246,9 +260,12 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 按顺序执行给定的提供器 {@link Supplier}，并返回第一个不是 {@code null} 的返回值。
-     * 一旦获得 {@code non-null} 值，所有后续 Supplier 将不再执行。
-     * 如果未提供任何 Supplier 或者所有返回值均为 {@code null}，则返回 {@code null}。
+     * Executes the given suppliers in order and returns the first return
+     * value where a value other than {@code null} is returned.
+     * Once a non-{@code null} value is obtained, all following suppliers are
+     * not executed anymore.
+     * If all the return values are {@code null} or no suppliers are provided
+     * then {@code null} is returned.
      *
      * <pre>
      * ObjectAide.firstNonNullLazy(null, () -&gt; null) = null
@@ -258,11 +275,12 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.firstNonNullLazy() = null
      * </pre>
      *
-     * @param suppliers 提供返回值的 {@link Supplier}。
-     *                  {@code null} 值将被忽略。
-     *                  Supplier 可以返回 {@code null} 或 {@code T} 类型的值
-     * @param <T>       返回值的类型
-     * @return 第一个不是 {@code null} 的 Supplier 返回值，如果没有 {@code non-null} 返回值则返回 {@code null}
+     * @param suppliers the suppliers returning the values to test.
+     *                  {@code null} values are ignored.
+     *                  Suppliers may return {@code null} or a value of type {@code T}
+     * @param <T>       the type of the return values
+     * @return the first return value from {@code suppliers} which is not {@code null},
+     * or {@code null} if there are no non-null values
      */
     @SafeVarargs
     public static <T> T firstNonnull(final Supplier<T>... suppliers) {
@@ -272,7 +290,7 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 如果给定的对象不是 {@code null} 则将其返回，否则返回提供的默认值。
+     * Returns a default value if the object passed is {@code null}.
      *
      * <pre>
      * ObjectAide.defaultIfNull(null, null)      = null
@@ -282,19 +300,22 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
      * </pre>
      *
-     * @param value        给定的对象，可以为 {@code null}
-     * @param defaultValue 当给定对象为 {@code null} 时要返回的默认值，可以为 {@code null}
-     * @param <T>          对象的类型
-     * @return 如果 value 不为 {@code null}，则为 value，否则为 defaultValue
+     * @param value        the {@link Object} to test, may be {@code null}
+     * @param defaultValue the default value to return, may be {@code null}
+     * @param <T>          the type of the object
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise
      */
     public static <T> T defaultIfNull(final T value, final T defaultValue) {
         return value != null ? value : defaultValue;
     }
 
     /**
-     * 如果给定的 value 不是 {@code null}，则返回该 value，否则返回默认值提供器 {@link Supplier#get()} 的值。
+     * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()}
+     * value.
      *
-     * <p>调用者负责默认值提供器的线程安全和异常处理。</p>
+     * <p>
+     * The caller responsible for thread-safety and exception handling of default value supplier.
+     * </p>
      *
      * <pre>
      * ObjectAide.defaultIfNull(null, () -&gt; null)     = null
@@ -305,10 +326,10 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.defaultIfNull(Boolean.TRUE, *)         = Boolean.TRUE
      * </pre>
      *
-     * @param value           给定的对象，可以为 {@code null}
-     * @param defaultSupplier 当给定对象为 {@code null} 时要返回的默认值提供器，可以Wie {@code null}
-     * @param <T>             对象的类型
-     * @return 如果 value 不为 {@code null}，则为 value，否则为 {@code defaultSupplier.get()}
+     * @param value           the {@link Object} to test, may be {@code null}
+     * @param defaultSupplier the default value to return, may be {@code null}
+     * @param <T>             the type of the object
+     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
      */
     public static <T> T defaultIfNull(final T value, final Supplier<T> defaultSupplier) {
         return value != null
@@ -317,10 +338,10 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 如果给定的提供器不是 {@code null} 且其 {@link Supplier#get()} 不是 null，则返回该提供器的 {@link Supplier#get()}，
-     * 否则返回默认值提供器 {@link Supplier#get()} 的值。
+     * Returns the value Supplier's {@link Supplier#get()} value is it is non-null and its Supplier.get() is non-null,
+     * otherwise returns the default Supplier's Supplier.get() value.
      *
-     * <p>调用者负责提供器的线程安全和异常处理。</p>
+     * <p>The caller responsible for thread-safety and exception handling of default value supplier.</p>
      *
      * <pre>
      * ObjectAide.defaultIfNull(null, () -&gt; null)       = null
@@ -331,11 +352,10 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.defaultIfNull(() -&gt; Boolean.TRUE, *)  = Boolean.TRUE
      * </pre>
      *
-     * @param valueSupplier   给定的值提供器，可以为 {@code null}
-     * @param defaultSupplier 当给定对象为 {@code null} 时要返回的默认值提供器，可以Wie {@code null}
-     * @param <T>             对象的类型
-     * @return 如果 valueSupplier 不为 {@code null} 且其 {@link Supplier#get()} 不为 {@code null}，
-     * 则为该提供器的 {@code valueSupplier.get()}，否则为默认提供器的 {@code defaultSupplier.get()}
+     * @param valueSupplier   the value Supplier to test, may be {@code null}
+     * @param defaultSupplier the default value to return, may be {@code null}
+     * @param <T>             the type of the object
+     * @return {@code valueSupplier.get()} value or {@code defaultSupplier.get()} value
      */
     public static <T> T defaultIfNull(final Supplier<T> valueSupplier, final Supplier<T> defaultSupplier) {
         T value = valueSupplier != null ? valueSupplier.get() : null;
@@ -343,11 +363,12 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 获取对象的 {@code toString}，如果对象为 {@code null} 则返回指定默认值提供器的返回值。
+     * Gets the {@code toString} of an {@link Object} returning a specified text if {@code null} input.
      *
      * <pre>
      * ObjectAide.toString(obj, () -&gt; expensive())
      * </pre>
+     *
      * <pre>
      * ObjectAide.toString(null, () -&gt; expensive())         = result of expensive()
      * ObjectAide.toString(null, () -&gt; expensive())         = result of expensive()
@@ -356,10 +377,10 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
      * </pre>
      *
-     * @param object   要获取其 {@code toString} 的对象，可以为 {@code null}
-     * @param supplier 当 object 为 {@code null} 时用于返回默认值的提供器
-     * @param <T>      对象的类型
-     * @return 当 object 不是 {@code null}，则为其 {@code toString}，否则为 supplier 的返回值
+     * @param object   the Object to {@code toString}, may be null
+     * @param supplier the Supplier of String used on {@code null} input, may be null
+     * @param <T>      the obj type
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      */
     public static <T> String toString(final T object, final Supplier<String> supplier) {
         return object != null
@@ -368,12 +389,13 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 获取指定提供器 {@link Supplier#get()} 返回值的 {@code toString}，
-     * 如果该提供器或其 Supplier.get() 为 {@code null} 则返回指定默认值提供器的返回值。
+     * Gets the {@code toString} of an {@link Supplier}'s {@link Supplier#get()} returning
+     * a specified text if {@code null} input.
      *
      * <pre>
      * ObjectAide.toString(() -&gt; obj, () -&gt; expensive())
      * </pre>
+     *
      * <pre>
      * ObjectAide.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
      * ObjectAide.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
@@ -382,9 +404,9 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
      * </pre>
      *
-     * @param object   要获取其 {@code toString} 的对象提供器，可以为 {@code null}
-     * @param supplier 当 object 为 {@code null} 时用于返回默认值的提供器
-     * @return object 的 {@code toString} 或这 supplier 的返回值
+     * @param object   the Object to {@code toString}, may be null
+     * @param supplier the Supplier of String used on {@code null} input, may be null
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
      */
     public static String toString(final Supplier<Object> object, final Supplier<String> supplier) {
         return object != null
@@ -393,10 +415,11 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 忽略对象重写的 {@code toString()} 方法，而获取由 {@link Object} 生成的 {@code toString}，
-     * 若传入对象为 {@code null} 则返回 {@code null}。
+     * Gets the toString that would be produced by {@link Object}
+     * if a class did not override toString itself. {@code null}
+     * will return {@code null}.
      *
-     * <p>即此方法返回一个等于如下值的字符串：
+     * <p>The method returns a string equivalent to:
      * <blockquote><pre>
      * object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object))
      * </pre></blockquote>
@@ -408,8 +431,8 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.toIdentityString(Boolean.TRUE) = "java.lang.Boolean@7fa"
      * </pre>
      *
-     * @param object 要生成 {@code toString} 的对象，可以为 {@code null}
-     * @return 对象的默认 {@code toString} 文本，如果传入对象是 {@code null} 则返回 {@code null}
+     * @param object the object to create a toString for, may be {@code null}
+     * @return the default toString text, or {@code null} if {@code null} passed in
      */
     public static String toIdentityString(final Object object) {
         if (object == null) {
@@ -419,13 +442,11 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 找出数组中最常出现的元素。
+     * Find the most frequently occurring item.
      *
-     * @param items 要检查的数组
-     * @param <T>   数组元素类型
-     * @return 最常出现的元素，
-     * 如果提供的数组为 {@code null} 或 {@code empty} 则为 {@code null}，
-     * 如果有两个及以上的元素出现次数相同则为 {@code null}
+     * @param items to check
+     * @param <T>   type of values processed by this method
+     * @return most populous T, {@code null} if non-unique or no items supplied
      */
     @SafeVarargs
     public static <T> T mode(final T... items) {
@@ -456,14 +477,14 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 克隆一个对象。
+     * Clone an object.
      *
-     * <p>若源对象为 {@code null} 或者不是 {@link Cloneable} 的实现，则返回 {@code null}。</p>
+     * <p>If the provided instance is {@code null} or is not cloneable, {@code null} is returned.</p>
      *
-     * @param object 要克隆的对象，若为 {@code null} 则返回 {@code null}
-     * @param <T> 对象类型
-     * @return 如果源对象不是 {@code null} 且是 {@link Cloneable} 的实现，则为克隆，否则为 {@code null}
-     * @throws CloneFailedException 如果对象可以克隆但克隆失败
+     * @param object the object to clone, null returns null
+     * @param <T>    the type of the object
+     * @return the clone if the object implements {@link Cloneable} otherwise {@code null}
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails
      */
     public static <T> T clone(final T object) {
         if (object instanceof Cloneable) {
@@ -499,15 +520,19 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 如果可能的话克隆一个对象。
+     * Clone an object if possible.
      *
-     * <p>此方法类似 {@link #clone(Object)}</p>，所不同的是若提供的源对象不可克隆，则返回提供的源对象本身，而不是 {@code null}。</p>
+     * <p>This method is similar to {@link #clone(Object)}, but will return the provided
+     * instance as the return value instead of {@code null} if the instance
+     * is not cloneable. This is more convenient if the caller uses different
+     * implementations (e.g. of a service) and some of the implementations do not allow concurrent
+     * processing or have state. In such cases the implementation can simply provide a proper
+     * clone implementation and the caller's code does not have to change.</p>
      *
-     * @param object 要克隆的对象，若为 {@code null} 或者不可克隆，则返回源对象本身
-     * @param <T> 对象类型
-     * @return 如果源对象不是 {@code null} 且是 {@link Cloneable} 的实现，则为克隆，否则为源对象本身
-     * @see #clone(Object)
-     * @throws CloneFailedException 如果对象可以克隆但克隆失败
+     * @param object the object to clone, null returns null
+     * @param <T>    the type of the object
+     * @return the clone if the object implements {@link Cloneable} otherwise the object itself
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails
      */
     public static <T> T cloneIfPossible(final T object) {
         final T clone = clone(object);
@@ -515,13 +540,15 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 使用给定的 {@link Duration} 作为超时调用 {@link Object#wait(long, int)}。
+     * Calls {@link Object#wait(long, int)} for the given Duration.
      *
-     * @param object wait 调用的接收者
-     * @param duration 等待时间
-     * @throws IllegalArgumentException 如果超时持续时间为负数
-     * @throws IllegalMonitorStateException 如果当前线程不是 object 监视器的拥有者
-     * @throws InterruptedException 如果当前线程在等待通知之前或期间被中断
+     * @param object   The receiver of the wait call.
+     * @param duration How long to wait.
+     * @throws IllegalArgumentException     if the timeout duration is negative.
+     * @throws IllegalMonitorStateException if the current thread is not the owner of the {@code obj}'s monitor.
+     * @throws InterruptedException         if any thread interrupted the current thread before or while the current thread was
+     *                                      waiting for a notification. The <em>interrupted status</em> of the current thread is cleared when this
+     *                                      exception is thrown.
      * @see Object#wait(long, int)
      */
     public static void wait(final Object object, final Duration duration) throws InterruptedException {
@@ -532,10 +559,12 @@ public class ObjectAide implements ObjectConst {
     }
 
     /**
-     * 公共构造函数，以便一些需要 JavaBean 实例才能运行的工具使用。
+     * {@link ObjectAide} instances should NOT be constructed in
+     * standard programming. Instead, the static methods on the class should
+     * be used, such as {@code ObjectAide.isAllNonnull("a", "b");}.
      *
-     * <p>在标准编程中不应构造 {@link ObjectAide} 实例，而应该直接使用类的静态方法，
-     * 例如 {@code ObjectAide#isAllNonnull(Object...)}</p>
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
      */
     public ObjectAide() {
     }

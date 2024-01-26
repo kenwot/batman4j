@@ -17,7 +17,7 @@
 package batman.aide.consts;
 
 /**
- * 字符常量
+ * Defines some character constants.
  *
  * @author Kenown
  * @since 1.0.0

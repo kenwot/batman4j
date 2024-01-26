@@ -18,9 +18,12 @@ package batman.aide.consts;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
 
 /**
- * 对象常量
+ * Defines some Object constants.
  *
  * @author Kenown
  * @since 1.0.0
@@ -28,13 +31,14 @@ import java.io.Serializable;
 public interface ObjectConst {
 
     /**
-     * 用作 {@code null} 占位符的类，用于当 {@code null} 有其他含义时。
+     * Class used as a null placeholder where {@code null} has another meaning.
      *
-     * <p>例如，在 {@link java.util.HashMap} 中如果键对应的值是 {@code null}，
-     * 或者没有匹配的键时，{@link java.util.HashMap#get(Object)} 都返回 {@code null}，
-     * 使用该占位符可以区分这两种情况</p>
+     * <p>For example, in a {@link HashMap} the {@link java.util.HashMap#get(Object)} method
+     * returns {@code null} if the {@link Map} contains {@code null} or if there is no matching key.
+     * The {@code null} placeholder can be used to distinguish
+     * between these two cases.</p>
      *
-     * <p>再如，{@link java.util.Hashtable} 中不能存储 {@code null}，也可以使用该占位符代替。</p>
+     * <p>Another example is {@link Hashtable}, where {@code null} cannot be stored.</p>
      */
     class Null implements Serializable {
         @Serial
@@ -43,15 +47,15 @@ public interface ObjectConst {
         private static final Null INSTANCE = new Null();
 
         /**
-         * 受限构造函数，用于单例
+         * Restricted constructor - singleton.
          */
         private Null() {
         }
 
         /**
-         * 确保序列化后单例
+         * Ensure Singleton after serialization.
          *
-         * @return 单例实例
+         * @return the singleton value
          */
         @Serial
         private Object readResolve() {
@@ -60,15 +64,15 @@ public interface ObjectConst {
     }
 
     /**
-     * 一个用作 {@code null} 占位符的单例对象，用于当 {@code null} 有其他含义时。
+     * Singleton used as a {@code null} placeholder where {@code null} has another meaning.
      *
-     * <p>例如，在 {@link java.util.HashMap} 中如果键对应的值是 {@code null}，
-     * 或者没有匹配的键时，{@link java.util.HashMap#get(Object)} 都返回 {@code null}，
-     * 使用该占位符可以区分这两种情况</p>
+     * <p>For example, in a {@link HashMap} the {@link java.util.HashMap#get(Object)} method
+     * returns {@code null} if the {@link Map} contains {@code null} or if there is no matching key.
+     * The {@code null} placeholder can be used to distinguish between these two cases.</p>
      *
-     * <p>再如，{@link java.util.Hashtable} 中不能存储 {@code null}，也可以使用该占位符代替。</p>
+     * <p>Another example is {@link Hashtable}, where {@code null} cannot be stored.</p>
      *
-     * <p>该实例可序列化（Serializable）。</p>
+     * <p>This instance is Serializable.</p>
      */
     Null NULL = Null.INSTANCE;
 

@@ -22,7 +22,7 @@ import batman.aide.consts.ObjectConst;
 import batman.aide.consts.StringConst;
 
 /**
- * 常量工具类
+ * Operations for {@code Constant}.
  *
  * @author Kenown
  * @since 1.0.0
@@ -30,172 +30,204 @@ import batman.aide.consts.StringConst;
 public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayConst {
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static boolean MAGIC_FLAG = ObjectAide.CONST(true);
+     *     public final static boolean MAGIC_FLAG = ObjectUtils.CONST(true);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code boolean} 值
-     * @return {@code boolean} 值 value， 不变
+     * @param value the boolean value to return
+     * @return the boolean value, unchanged
      */
     public static boolean CONST(final boolean value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static char MAGIC_CHAR = ObjectAide.CONST('a');
+     *     public final static char MAGIC_CHAR = ObjectUtils.CONST('a');
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code char} 值
-     * @return {@code char} 值 value， 不变
+     * @param value the char value to return
+     * @return the char value, unchanged
      */
     public static char CONST(final char value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static byte MAGIC_BYTE = ObjectAide.CONST((byte) 127);
+     *     public final static byte MAGIC_BYTE = ObjectUtils.CONST((byte) 127);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code byte} 值
-     * @return {@code byte} 值 value， 不变
+     * @param value the byte value to return
+     * @return the byte value, unchanged
      */
     public static byte CONST(final byte value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static short MAGIC_SHORT = ObjectAide.CONST((short) 123);
+     *     public final static short MAGIC_SHORT = ObjectUtils.CONST((short) 123);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code short} 值
-     * @return {@code short} 值 value， 不变
+     * @param value the short value to return
+     * @return the short value, unchanged
      */
     public static short CONST(final short value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static int MAGIC_INT = ObjectAide.CONST(123);
+     *     public final static int MAGIC_INT = ObjectUtils.CONST(123);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code int} 值
-     * @return {@code int} 值 value， 不变
+     * @param value the int value to return
+     * @return the int value, unchanged
      */
     public static int CONST(final int value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static int MAGIC_INT = ObjectAide.CONST(123);
+     *     public final static long MAGIC_LONG = ObjectUtils.CONST(123L);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code long} 值
-     * @return {@code long} 值 value， 不变
+     * @param value the long value to return
+     * @return the long value, unchanged
      */
     public static long CONST(final long value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static float MAGIC_FLOAT = ObjectAide.CONST(1.0f);
+     *     public final static float MAGIC_FLOAT = ObjectUtils.CONST(1.0f);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code float} 值
-     * @return {@code float} 值 value， 不变
+     * @param value the float value to return
+     * @return the float value, unchanged
      */
     public static float CONST(final float value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static double MAGIC_DOUBLE = ObjectAide.CONST(1.0);
+     *     public final static double MAGIC_DOUBLE = ObjectUtils.CONST(1.0);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code double} 值
-     * @return {@code double} 值 value， 不变
+     * @param value the double value to return
+     * @return the double value, unchanged
      */
     public static double CONST(final double value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static String MAGIC_STRING = ObjectAide.CONST("abc");
+     *     public final static String MAGIC_STRING = ObjectUtils.CONST("abc");
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的泛型对象值（通常是字符串）
-     * @param <T> 对象类型
-     * @return 泛型对象值 value，不变（通常是字符串）
+     * @param value the genericized Object value to return (typically a String).
+     * @param <T> the Object type
+     * @return the genericized Object value, unchanged (typically a String).
      */
     public static <T> T CONST(final T value) {
         return value;
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static byte MAGIC_BYTE = ObjectAide.CONST_BYTE(127);
+     *     public final static byte MAGIC_BYTE = ObjectUtils.CONST_BYTE(127);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code byte} 值（以 {@code int} 提供）
-     * @throws IllegalArgumentException 如果提供的 value 值超出 {@code byte} 范围，即小于 -128 或大于 127。
-     * @return {@code byte} 值，不变
+     * @param value the byte literal (as an int) value to return
+     * @throws IllegalArgumentException if the value passed to v
+     *         is larger than a byte, that is, smaller than -128 or
+     *         larger than 127.
+     * @return the byte value, unchanged
      */
     public static byte CONST_BYTE(final int value) {
         if (value < Byte.MAX_VALUE || value > Byte.MAX_VALUE) {
@@ -205,18 +237,23 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
     }
 
     /**
-     * 将提供的值原封不动地返回。这可以防止 javac 内联常量字段。
-     * 例如，
+     * This method returns the provided value unchanged.
+     * This can prevent javac from inlining a constant
+     * field, e.g.,
      *
      * <pre>
-     *     public final static short MAGIC_SHORT = ObjectAide.CONST_SHORT(127);
+     *     public final static short MAGIC_SHORT = ObjectUtils.CONST_SHORT(127);
      * </pre>
      *
-     * 这样，如果该字段的值在未来某个时期发生变化，任何引用该字段的 jar 都不必重新编译自己。
+     * This way any jars that refer to this field do not
+     * have to recompile themselves if the field's value
+     * changes at some future date.
      *
-     * @param value 要返回的 {@code short} 值（以 {@code int} 提供）
-     * @throws IllegalArgumentException 如果提供的 value 值超出 {@code short} 范围，即小于 -32768 或大于 32768。
-     * @return {@code short} 值，不变
+     * @param value the short literal (as an int) value to return
+     * @throws IllegalArgumentException if the value passed to v
+     *         is larger than a short, that is, smaller than -32768 or
+     *         larger than 32767.
+     * @return the byte value, unchanged
      */
     public static short CONST_SHORT(final int value) {
         if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
@@ -226,10 +263,12 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
     }
 
     /**
-     * 公共构造函数，以便一些需要 JavaBean 实例才能运行的工具使用。
+     * {@link ConstantAide} instances should NOT be constructed in
+     * standard programming. Instead, the static methods on the class should
+     * be used, such as {@code ConstantAide.NULL;}.
      *
-     * <p>在标准编程中不应构造 {@link ConstantAide} 实例，而应该直接使用类的静态方法，
-     * 例如 {@code ConstantAide#NULL}</p>
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
      */
     public ConstantAide() {
     }
