@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class StreamAide {
 
     @SafeVarargs
-    public static <T> Stream<T> of(final T... values) {
+    public static <T> Stream<T> of(T... values) {
         return values != null ? Stream.of(values) : Stream.empty();
     }
 

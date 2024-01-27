@@ -38,7 +38,7 @@ class _CharSequenceAide {
      * @param beginIndex the index from which to start the search.
      * @return the index where the search sequence was found.
      */
-    static int indexOf(final CharSequence sequence, final CharSequence search, final int beginIndex) {
+    static int indexOf(CharSequence sequence, CharSequence search, int beginIndex) {
         if (sequence instanceof String string) {
             return string.indexOf(search.toString(), beginIndex);
         }
@@ -65,6 +65,19 @@ class _CharSequenceAide {
      *         or -1 if there is no such occurrence.
      */
     static int indexOf(CharSequence sequence, CharSequence search, int beginIndex, int endIndex) {
+        int sequenceLength = sequence.length();
+        if (beginIndex > sequenceLength) {
+            return NOT_FOUND;
+        }
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+        if (endIndex > sequenceLength) {
+            endIndex = sequenceLength;
+        }
+        if (endIndex <= beginIndex) {
+            return NOT_FOUND;
+        }
         if (sequence instanceof String string) {
             return string.indexOf(search.toString(), beginIndex, endIndex);
         }
@@ -87,8 +100,8 @@ class _CharSequenceAide {
             }
         }
 
-        final int sequenceLength = sequence.length();
-        final int searchLength = search.length();
+        int sequenceLength = sequence.length();
+        int searchLength = search.length();
         if (start > sequenceLength) {
             start = sequenceLength;
         }
@@ -115,7 +128,7 @@ class _CharSequenceAide {
             start = sequenceLength - searchLength;
         }
 
-        final char char0 = search.charAt(0);
+        char char0 = search.charAt(0);
 
         int i = start;
         while (true) {
@@ -278,8 +291,8 @@ class _CharSequenceAide {
      * @return whether the region matched
      */
     static boolean regionMatches(boolean ignoreCase,
-                                 CharSequence thisSequence, final int thisOffset,
-                                 CharSequence thatSequence, final int thatOffset,
+                                 CharSequence thisSequence, int thisOffset,
+                                 CharSequence thatSequence, int thatOffset,
                                  int length) {
         if (thisSequence instanceof String string && thatSequence instanceof String substring) {
             return string.regionMatches(ignoreCase, thisOffset, substring, thatOffset, length);
@@ -289,8 +302,8 @@ class _CharSequenceAide {
             return false;
         }
 
-        final int thisLength = thisSequence.length() - thisOffset;
-        final int thatLength = thatSequence.length() - thatOffset;
+        int thisLength = thisSequence.length() - thisOffset;
+        int thatLength = thatSequence.length() - thatOffset;
 
         if (thisLength < length || thatLength < length) {
             return false;
@@ -300,8 +313,8 @@ class _CharSequenceAide {
         int thatIndex = thatOffset;
 
         while (length-- > 0) {
-            final char thisChar = thisSequence.charAt(thisIndex++);
-            final char thatChar = thatSequence.charAt(thatIndex++);
+            char thisChar = thisSequence.charAt(thisIndex++);
+            char thatChar = thatSequence.charAt(thatIndex++);
 
             if (thisChar == thatChar) {
                 continue;
@@ -311,8 +324,8 @@ class _CharSequenceAide {
                 return false;
             }
 
-            final char thisCharUpper = Character.toUpperCase(thisChar);
-            final char thatCharUpper = Character.toUpperCase(thatChar);
+            char thisCharUpper = Character.toUpperCase(thisChar);
+            char thatCharUpper = Character.toUpperCase(thatChar);
             if (thisCharUpper != thatCharUpper
                     && Character.toLowerCase(thisCharUpper) != Character.toLowerCase(thatCharUpper)) {
                 return false;

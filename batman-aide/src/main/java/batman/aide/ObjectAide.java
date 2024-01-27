@@ -44,7 +44,7 @@ public class ObjectAide implements ObjectConst {
      * @param object the object to check, may be {@code null}.
      * @return {@code true} if the object is an {@code array}, {@code false} otherwise.
      */
-    public static boolean isArray(final Object object) {
+    public static boolean isArray(Object object) {
         return object != null && object.getClass().isArray();
     }
 
@@ -62,7 +62,7 @@ public class ObjectAide implements ObjectConst {
      * @param object the {@link Object} to test, may be {@code null}.
      * @return {@code true} if the object has a supported type and is empty or null, {@code false} otherwise.
      */
-    public static boolean isEmpty(final Object object) {
+    public static boolean isEmpty(Object object) {
         if (object == null) {
             return true;
         }
@@ -98,7 +98,7 @@ public class ObjectAide implements ObjectConst {
      * @param object the {@link Object} to test, may be {@code null}.
      * @return {@code true} if the object has an unsupported type or is not empty and not null, {@code false} otherwise.
      */
-    public static boolean isNotEmpty(final Object object) {
+    public static boolean isNotEmpty(Object object) {
         return !isEmpty(object);
     }
 
@@ -113,7 +113,7 @@ public class ObjectAide implements ObjectConst {
      * @return {@code true} if all values in the array are {@code null}s,
      *         {@code false} if there is at least one non-null value in the array.
      */
-    public static boolean isAllNull(final Object... values) {
+    public static boolean isAllNull(Object... values) {
         return !isAnyNonnull(values);
     }
 
@@ -130,7 +130,7 @@ public class ObjectAide implements ObjectConst {
      * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null},
      *         {@code true} if all values in the array are not {@code null}s or array contains no elements.
      */
-    public static boolean isAllNonnull(final Object... values) {
+    public static boolean isAllNonnull(Object... values) {
         return values != null && Stream.of(values).noneMatch(Objects::isNull);
     }
 
@@ -146,7 +146,7 @@ public class ObjectAide implements ObjectConst {
      *         {@code false} if all the values are non-null.
      *         If the array is {@code null} or empty, {@code true} is also returned.
      */
-    public static boolean isAnyNull(final Object... values) {
+    public static boolean isAnyNull(Object... values) {
         return !isAllNonnull(values);
     }
 
@@ -162,7 +162,7 @@ public class ObjectAide implements ObjectConst {
      *         {@code false} if all values in the array are {@code null}s.
      *         If the array is {@code null} or empty {@code false} is also returned.
      */
-    public static boolean isAnyNonnull(final Object... values) {
+    public static boolean isAnyNonnull(Object... values) {
         return firstNonnull(values) != null;
     }
 
@@ -177,7 +177,7 @@ public class ObjectAide implements ObjectConst {
      *         or {@code null} if there are no non-null values.
      */
     @SafeVarargs
-    public static <T> T firstNonnull(final T... values) {
+    public static <T> T firstNonnull(T... values) {
         return values != null
                 ? Stream.of(values).filter(Objects::nonNull).findFirst().orElse(null)
                 : null;
@@ -199,7 +199,7 @@ public class ObjectAide implements ObjectConst {
      *         or {@code null} if there are no non-null values.
      */
     @SafeVarargs
-    public static <T> T firstNonnull(final Supplier<T>... suppliers) {
+    public static <T> T firstNonnull(Supplier<T>... suppliers) {
         return suppliers != null
                 ? Stream.of(suppliers).map(s -> s != null ? s.get() : null).filter(Objects::nonNull).findFirst().orElse(null)
                 : null;
@@ -213,7 +213,7 @@ public class ObjectAide implements ObjectConst {
      * @param <T>          the type of the object.
      * @return {@code object} if it is not {@code null}, defaultValue otherwise.
      */
-    public static <T> T defaultIfNull(final T value, final T defaultValue) {
+    public static <T> T defaultIfNull(T value, T defaultValue) {
         return value != null ? value : defaultValue;
     }
 
@@ -229,7 +229,7 @@ public class ObjectAide implements ObjectConst {
      * @param <T>             the type of the object.
      * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise.
      */
-    public static <T> T defaultIfNull(final T value, final Supplier<T> defaultSupplier) {
+    public static <T> T defaultIfNull(T value, Supplier<T> defaultSupplier) {
         return value != null
                 ? value
                 : defaultSupplier != null ? defaultSupplier.get() : null;
@@ -246,7 +246,7 @@ public class ObjectAide implements ObjectConst {
      * @param <T>             the type of the object.
      * @return {@code valueSupplier.get()} value or {@code defaultSupplier.get()} value.
      */
-    public static <T> T defaultIfNull(final Supplier<T> valueSupplier, final Supplier<T> defaultSupplier) {
+    public static <T> T defaultIfNull(Supplier<T> valueSupplier, Supplier<T> defaultSupplier) {
         T value = valueSupplier != null ? valueSupplier.get() : null;
         return defaultIfNull(value, defaultSupplier);
     }
@@ -263,7 +263,7 @@ public class ObjectAide implements ObjectConst {
      * @param <T>      the obj type.
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      */
-    public static <T> String toString(final T object, final Supplier<String> supplier) {
+    public static <T> String toString(T object, Supplier<String> supplier) {
         return object != null
                 ? object.toString()
                 : supplier != null ? supplier.get() : null;
@@ -281,7 +281,7 @@ public class ObjectAide implements ObjectConst {
      * @param supplier the Supplier of String used on {@code null} input, may be null.
      * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      */
-    public static String toString(final Supplier<Object> object, final Supplier<String> supplier) {
+    public static String toString(Supplier<Object> object, Supplier<String> supplier) {
         return object != null
                 ? toString(object.get(), supplier)
                 : supplier != null ? supplier.get() : null;
@@ -301,7 +301,7 @@ public class ObjectAide implements ObjectConst {
      * @param object the object to create a toString for, may be {@code null}.
      * @return the default toString text, or {@code null} if {@code null} passed in.
      */
-    public static String toIdentityString(final Object object) {
+    public static String toIdentityString(Object object) {
         if (object == null) {
             return null;
         }
@@ -316,9 +316,9 @@ public class ObjectAide implements ObjectConst {
      * @return most populous T, {@code null} if non-unique or no items supplied.
      */
     @SafeVarargs
-    public static <T> T mode(final T... items) {
+    public static <T> T mode(T... items) {
         if (ArrayAide.isNotEmpty(items)) {
-            final HashMap<T, Integer> occurrences = new HashMap<>(items.length);
+            HashMap<T, Integer> occurrences = new HashMap<>(items.length);
             for (T item : items) {
                 Integer count = occurrences.get(item);
                 if (count == null) {
@@ -330,7 +330,7 @@ public class ObjectAide implements ObjectConst {
             T result = null;
             int max = 0;
             for (Map.Entry<T, Integer> entry : occurrences.entrySet()) {
-                final int count = entry.getValue();
+                int count = entry.getValue();
                 if (count == max) {
                     result = null;
                 } else if (count > max) {
@@ -353,11 +353,11 @@ public class ObjectAide implements ObjectConst {
      * @return the clone if the object implements {@link Cloneable} otherwise {@code null}.
      * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      */
-    public static <T> T clone(final T object) {
+    public static <T> T clone(T object) {
         if (object instanceof Cloneable) {
-            final Object result;
+            Object result;
             if (isArray(object)) {
-                final Class<?> componentType = object.getClass().getComponentType();
+                Class<?> componentType = object.getClass().getComponentType();
                 if (componentType.isPrimitive()) {
                     int length = Array.getLength(object);
                     result = Array.newInstance(componentType, length);
@@ -369,7 +369,7 @@ public class ObjectAide implements ObjectConst {
                 }
             } else {
                 try {
-                    final Method clone = object.getClass().getMethod("clone");
+                    Method clone = object.getClass().getMethod("clone");
                     result = clone.invoke(object);
                 } catch (NoSuchMethodException ex) {
                     throw new CloneFailedException("Cloneable type " + object.getClass().getName() + " has no clone method", ex);
@@ -380,7 +380,7 @@ public class ObjectAide implements ObjectConst {
                 }
             }
             @SuppressWarnings("unchecked")  // OK because input is of type T
-            final T checked = (T) result;
+            T checked = (T) result;
             return checked;
         }
         return null;
@@ -401,8 +401,8 @@ public class ObjectAide implements ObjectConst {
      * @return the clone if the object implements {@link Cloneable} otherwise the object itself.
      * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      */
-    public static <T> T cloneIfPossible(final T object) {
-        final T clone = clone(object);
+    public static <T> T cloneIfPossible(T object) {
+        T clone = clone(object);
         return clone != null ? clone : object;
     }
 
@@ -418,7 +418,7 @@ public class ObjectAide implements ObjectConst {
      *                                      exception is thrown.
      * @see Object#wait(long, int)
      */
-    public static void wait(final Object object, final Duration duration) throws InterruptedException {
+    public static void wait(Object object, Duration duration) throws InterruptedException {
         Duration timeout = defaultIfNull(duration, Duration.ZERO);
         long millis = timeout.toMillis();
         int nanos = timeout.getNano() % 1_000_000;

@@ -26,79 +26,79 @@ import java.lang.reflect.Array;
  */
 public class ArrayAide {
 
-    public static int length(final Object array) {
+    public static int length(Object array) {
         return array != null ? Array.getLength(array) : 0;
     }
 
-    public static boolean isEmpty(final boolean[] array) {
+    public static boolean isEmpty(boolean[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final char[] array) {
+    public static boolean isEmpty(char[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final byte[] array) {
+    public static boolean isEmpty(byte[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final short[] array) {
+    public static boolean isEmpty(short[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final int[] array) {
+    public static boolean isEmpty(int[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final long[] array) {
+    public static boolean isEmpty(long[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final float[] array) {
+    public static boolean isEmpty(float[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final double[] array) {
+    public static boolean isEmpty(double[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isEmpty(final Object[] array) {
+    public static boolean isEmpty(Object[] array) {
         return length(array) == 0;
     }
 
-    public static boolean isNotEmpty(final boolean[] array) {
+    public static boolean isNotEmpty(boolean[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final char[] array) {
+    public static boolean isNotEmpty(char[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final byte[] array) {
+    public static boolean isNotEmpty(byte[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final short[] array) {
+    public static boolean isNotEmpty(short[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final int[] array) {
+    public static boolean isNotEmpty(int[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final long[] array) {
+    public static boolean isNotEmpty(long[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final float[] array) {
+    public static boolean isNotEmpty(float[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final double[] array) {
+    public static boolean isNotEmpty(double[] array) {
         return !isEmpty(array);
     }
 
-    public static boolean isNotEmpty(final Object[] array) {
+    public static boolean isNotEmpty(Object[] array) {
         return !isEmpty(array);
     }
 

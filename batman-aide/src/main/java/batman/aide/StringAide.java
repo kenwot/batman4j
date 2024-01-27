@@ -28,6 +28,9 @@ import batman.aide.consts.StringConst;
  */
 public class StringAide implements StringConst {
 
+    /**
+     * Represents a failed index search.
+     */
     public static final int INDEX_NOT_FOUND = _CharSequenceAide.NOT_FOUND;
 
     /**
@@ -36,7 +39,7 @@ public class StringAide implements StringConst {
      * @param sequence a CharSequence or {@code null}.
      * @return CharSequence length or {@code 0} if the CharSequence is {@code null}.
      */
-    public static int length(final CharSequence sequence) {
+    public static int length(CharSequence sequence) {
         return sequence == null ? 0 : sequence.length();
     }
 
@@ -46,7 +49,7 @@ public class StringAide implements StringConst {
      * @param sequence a CharSequence or {@code null}.
      * @return CharSequence's Code Point length or {@code 0} if the CharSequence is {@code null}.
      */
-    public static int codepointLength(final CharSequence sequence) {
+    public static int codepointLength(CharSequence sequence) {
         return sequence == null ? 0 : (int) sequence.codePoints().count();
     }
 
@@ -56,7 +59,7 @@ public class StringAide implements StringConst {
      * @param sequence the CharSequence to check, may be null.
      * @return {@code true} if the CharSequence is empty or null.
      */
-    public static boolean isEmpty(final CharSequence sequence) {
+    public static boolean isEmpty(CharSequence sequence) {
         return sequence == null || sequence.isEmpty();
     }
 
@@ -66,7 +69,7 @@ public class StringAide implements StringConst {
      * @param sequence the CharSequence to check, may be null.
      * @return {@code null} if the CharSequence is not empty and not null.
      */
-    public static boolean isNotEmpty(final CharSequence sequence) {
+    public static boolean isNotEmpty(CharSequence sequence) {
         return !isEmpty(sequence);
     }
 
@@ -76,7 +79,7 @@ public class StringAide implements StringConst {
      * @param sequences the CharSequences to check, may be null or empty.
      * @return {@code true} if all the CharSequences are empty or null.
      */
-    public static boolean isAllEmpty(final CharSequence... sequences) {
+    public static boolean isAllEmpty(CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
             return true;
         }
@@ -94,7 +97,7 @@ public class StringAide implements StringConst {
      * @param sequences the CharSequences to check, may be null or empty.
      * @return {@code true} if any of the CharSequences are empty or null.
      */
-    public static boolean isAnyEmpty(final CharSequence... sequences) {
+    public static boolean isAnyEmpty(CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
             return false;
         }
@@ -112,7 +115,7 @@ public class StringAide implements StringConst {
      * @param sequences the CharSequences to check, may be null or empty.
      * @return {@code true} if none of the CharSequences are empty or null.
      */
-    public static boolean isNoneEmpty(final CharSequence... sequences) {
+    public static boolean isNoneEmpty(CharSequence... sequences) {
         return !isAnyEmpty(sequences);
     }
 
@@ -129,8 +132,8 @@ public class StringAide implements StringConst {
      * @return {@code true} if the CharSequence is null, empty or whitespace only.
      * @see #isBlankCoverSupplementary(CharSequence)
      */
-    public static boolean isBlank(final CharSequence sequence) {
-        final int length = length(sequence);
+    public static boolean isBlank(CharSequence sequence) {
+        int length = length(sequence);
         if (length == 0) {
             return true;
         }
@@ -151,7 +154,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if the CharSequence is null, empty or whitespace only.
      * @see #isBlank(CharSequence)
      */
-    public static boolean isBlankCoverSupplementary(final CharSequence sequence) {
+    public static boolean isBlankCoverSupplementary(CharSequence sequence) {
         if (length(sequence) == 0) {
             return true;
         }
@@ -171,7 +174,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if the CharSequence is not empty and not null and not whitespace only.
      * @see #isNotBlankCoverSupplementary(CharSequence)
      */
-    public static boolean isNotBlank(final CharSequence sequence) {
+    public static boolean isNotBlank(CharSequence sequence) {
         return !isBlank(sequence);
     }
 
@@ -184,7 +187,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if the CharSequence is not empty and not null and not whitespace only.
      * @see #isNotBlank(CharSequence)
      */
-    public static boolean isNotBlankCoverSupplementary(final CharSequence sequence) {
+    public static boolean isNotBlankCoverSupplementary(CharSequence sequence) {
         return !isBlankCoverSupplementary(sequence);
     }
 
@@ -201,7 +204,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if all the CharSequences are empty or null or whitespace only.
      * @see #isAllBlankCoverSupplementary(CharSequence...)
      */
-    public static boolean isAllBlank(final CharSequence... sequences) {
+    public static boolean isAllBlank(CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
             return true;
         }
@@ -222,7 +225,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if all the CharSequences are empty or null or whitespace only.
      * @see #isAllBlank(CharSequence...)
      */
-    public static boolean isAllBlankCoverSupplementary(final CharSequence... sequences) {
+    public static boolean isAllBlankCoverSupplementary(CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
             return true;
         }
@@ -247,7 +250,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if any of the CharSequences are empty or null or whitespace only.
      * @see #isAnyBlankCoverSupplementary(CharSequence...)
      */
-    public static boolean isAnyBlank(final CharSequence... sequences) {
+    public static boolean isAnyBlank(CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
             return false;
         }
@@ -268,7 +271,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if any of the CharSequences are empty or null or whitespace only.
      * @see #isAnyBlank(CharSequence...)
      */
-    public static boolean isAnyBlankCoverSupplementary(final CharSequence... sequences) {
+    public static boolean isAnyBlankCoverSupplementary(CharSequence... sequences) {
         if (ArrayAide.isEmpty(sequences)) {
             return false;
         }
@@ -293,7 +296,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if none of the CharSequences are empty or null or whitespace only.
      * @see #isNoneBlankCoverSupplementary(CharSequence...)
      */
-    public static boolean isNoneBlank(final CharSequence... sequences) {
+    public static boolean isNoneBlank(CharSequence... sequences) {
         return !isAnyBlank(sequences);
     }
 
@@ -306,7 +309,7 @@ public class StringAide implements StringConst {
      * @return 若所有字符序列都非空且包含除了 BMP 或 SMP 空白符以外的字符则为 {@code true}.
      * @see #isNoneBlank(CharSequence...)
      */
-    public static boolean isNoneBlankCoverSupplementary(final CharSequence... sequences) {
+    public static boolean isNoneBlankCoverSupplementary(CharSequence... sequences) {
         return !isAnyBlankCoverSupplementary(sequences);
     }
 
@@ -325,7 +328,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains lowercase characters, and is non-null.
      * @see #isAllLowerCaseCoverSupplementary(CharSequence)
      */
-    public static boolean isAllLowerCase(final CharSequence sequence) {
+    public static boolean isAllLowerCase(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -348,7 +351,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains lowercase characters, and is non-null.
      * @see #isAllLowerCase(CharSequence)
      */
-    public static boolean isAllLowerCaseCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAllLowerCaseCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -370,7 +373,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if contains any lowercase characters, and is non-null.
      * @see #isAnyLowerCaseCoverSupplementary(CharSequence)
      */
-    public static boolean isAnyLowerCase(final CharSequence sequence) {
+    public static boolean isAnyLowerCase(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -393,7 +396,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if contains any lowercase characters, and is non-null.
      * @see #isAnyLowerCase(CharSequence)
      */
-    public static boolean isAnyLowerCaseCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAnyLowerCaseCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -415,7 +418,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains uppercase characters, and is non-null.
      * @see #isAllUpperCaseCoverSupplementary(CharSequence)
      */
-    public static boolean isAllUpperCase(final CharSequence sequence) {
+    public static boolean isAllUpperCase(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -438,7 +441,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains uppercase characters, and is non-null.
      * @see #isAllUpperCase(CharSequence)
      */
-    public static boolean isAllUpperCaseCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAllUpperCaseCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -460,7 +463,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if contains any uppercase characters, and is non-null.
      * @see #isAnyUpperCaseCoverSupplementary(CharSequence)
      */
-    public static boolean isAnyUpperCase(final CharSequence sequence) {
+    public static boolean isAnyUpperCase(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -483,7 +486,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if contains any uppercase characters, and is non-null.
      * @see #isAnyUpperCase(CharSequence)
      */
-    public static boolean isAnyUpperCaseCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAnyUpperCaseCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -506,15 +509,15 @@ public class StringAide implements StringConst {
      * @return {@code true} if the CharSequence contains both uppercase and lowercase characters.
      * @see #isMixedCaseCoverSupplementary(CharSequence)
      */
-    public static boolean isMixedCase(final CharSequence sequence) {
+    public static boolean isMixedCase(CharSequence sequence) {
         if (isEmpty(sequence) || sequence.length() == 1) {
             return false;
         }
         boolean containsUppercase = false;
         boolean containsLowercase = false;
-        final int length = sequence.length();
+        int length = sequence.length();
         for (int i = 0; i < length; i++) {
-            final char ch = sequence.charAt(i);
+            char ch = sequence.charAt(i);
             if (Character.isUpperCase(ch)) {
                 containsUppercase = true;
             }
@@ -541,7 +544,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if the CharSequence contains both uppercase and lowercase characters.
      * @see #isMixedCase(CharSequence)
      */
-    public static boolean isMixedCaseCoverSupplementary(final CharSequence sequence) {
+    public static boolean isMixedCaseCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence) || sequence.length() == 1) {
             return false;
         }
@@ -576,7 +579,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains space, and is non-null.
      * @see #isSpaceCoverSupplementary(CharSequence)
      */
-    public static boolean isSpace(final CharSequence sequence) {
+    public static boolean isSpace(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -599,7 +602,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains space, and is non-null.
      * @see #isSpace(CharSequence)
      */
-    public static boolean isSpaceCoverSupplementary(final CharSequence sequence) {
+    public static boolean isSpaceCoverSupplementary(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -624,7 +627,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains whitespace, and is non-null.
      * @see #isWhitespaceCoverSupplementary(CharSequence)
      */
-    public static boolean isWhitespace(final CharSequence sequence) {
+    public static boolean isWhitespace(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -645,7 +648,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains whitespace, and is non-null.
      * @see #isWhitespace(CharSequence)
      */
-    public static boolean isWhitespaceCoverSupplementary(final CharSequence sequence) {
+    public static boolean isWhitespaceCoverSupplementary(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -667,7 +670,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters, and is non-null.
      * @see #isAlphaCoverSupplementary(CharSequence)
      */
-    public static boolean isAlpha(final CharSequence sequence) {
+    public static boolean isAlpha(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -690,7 +693,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters, and is non-null.
      * @see #isAlpha(CharSequence)
      */
-    public static boolean isAlphaCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAlphaCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -712,7 +715,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters or digits, and is non-null.
      * @see #isAlphanumericCoverSupplementary(CharSequence)
      */
-    public static boolean isAlphanumeric(final CharSequence sequence) {
+    public static boolean isAlphanumeric(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -735,7 +738,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters or digits, and is non-null.
      * @see #isAlphanumeric(CharSequence)
      */
-    public static boolean isAlphanumericCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAlphanumericCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -757,12 +760,12 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters, digits or space, and is non-null.
      * @see #isAlphanumericSpaceCoverSupplementary(CharSequence)
      */
-    public static boolean isAlphanumericSpace(final CharSequence sequence) {
+    public static boolean isAlphanumericSpace(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
         for (int i = 0; i < sequence.length(); i++) {
-            final char c = sequence.charAt(i);
+            char c = sequence.charAt(i);
             if (c != CharConst.SPACE_CHAR && !Character.isLetterOrDigit(c)) {
                 return false;
             }
@@ -781,7 +784,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters, digits or space, and is non-null.
      * @see #isAlphanumericSpace(CharSequence)
      */
-    public static boolean isAlphanumericSpaceCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAlphanumericSpaceCoverSupplementary(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -803,12 +806,12 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters and space, and is non-null.
      * @see #isAlphaSpaceCoverSupplementary(CharSequence)
      */
-    public static boolean isAlphaSpace(final CharSequence sequence) {
+    public static boolean isAlphaSpace(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
         for (int i = 0; i < sequence.length(); i++) {
-            final char c = sequence.charAt(i);
+            char c = sequence.charAt(i);
             if (c != CharConst.SPACE_CHAR && !Character.isLetter(c)) {
                 return false;
             }
@@ -827,7 +830,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains letters and space, and is non-null.
      * @see #isAlphaSpace(CharSequence)
      */
-    public static boolean isAlphaSpaceCoverSupplementary(final CharSequence sequence) {
+    public static boolean isAlphaSpaceCoverSupplementary(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -855,7 +858,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains digits, and is non-null.
      * @see #isNumericCoverSupplementary(CharSequence)
      */
-    public static boolean isNumeric(final CharSequence sequence) {
+    public static boolean isNumeric(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -884,7 +887,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains digits, and is non-null.
      * @see #isNumeric(CharSequence)
      */
-    public static boolean isNumericCoverSupplementary(final CharSequence sequence) {
+    public static boolean isNumericCoverSupplementary(CharSequence sequence) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -907,12 +910,12 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains digits or space, and is non-null.
      * @see #isNumericSpaceCoverSupplementary(CharSequence)
      */
-    public static boolean isNumericSpace(final CharSequence sequence) {
+    public static boolean isNumericSpace(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
         for (int i = 0; i < sequence.length(); i++) {
-            final char c = sequence.charAt(i);
+            char c = sequence.charAt(i);
             if (c != CharConst.SPACE_CHAR && !Character.isDigit(c)) {
                 return false;
             }
@@ -932,7 +935,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if only contains digits or space, and is non-null.
      * @see #isNumericSpace(CharSequence)
      */
-    public static boolean isNumericSpaceCoverSupplementary(final CharSequence sequence) {
+    public static boolean isNumericSpaceCoverSupplementary(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -949,7 +952,7 @@ public class StringAide implements StringConst {
      * @return {@code true} if every character is in the range 32 through 126.
      * @see CharAide#isAsciiPrintable(char)
      */
-    public static boolean isAsciiPrintable(final CharSequence sequence) {
+    public static boolean isAsciiPrintable(CharSequence sequence) {
         if (sequence == null) {
             return false;
         }
@@ -1866,7 +1869,7 @@ public class StringAide implements StringConst {
      * @param search   the CharSequence to find, may be null
      * @return true if the CharSequence contains the search CharSequence, false if not or {@code null} string input
      */
-    public static boolean contains(final CharSequence sequence, final CharSequence search) {
+    public static boolean contains(CharSequence sequence, CharSequence search) {
         if (sequence == null || search == null) {
             return false;
         }
@@ -1894,11 +1897,11 @@ public class StringAide implements StringConst {
      * @param search   the CharSequence to find, may be null
      * @return true if the CharSequence contains the search CharSequence irrespective of case or false if not or {@code null} string input
      */
-    public static boolean containsIgnoreCase(final CharSequence sequence, final CharSequence search) {
+    public static boolean containsIgnoreCase(CharSequence sequence, CharSequence search) {
         if (sequence == null || search == null) {
             return false;
         }
-        final int searchLength = search.length();
+        int searchLength = search.length();
         for (int i = 0; i <= (sequence.length() - searchLength); i++) {
             if (_CharSequenceAide.regionMatches(true, sequence, i, search, 0, searchLength)) {
                 return true;
@@ -1929,7 +1932,7 @@ public class StringAide implements StringConst {
      *                        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
-    public static boolean containsAny(final CharSequence sequence, final CharSequence... searchSequences) {
+    public static boolean containsAny(CharSequence sequence, CharSequence... searchSequences) {
         if (sequence == null || ArrayAide.isEmpty(searchSequences)) {
             return false;
         }
@@ -1965,7 +1968,7 @@ public class StringAide implements StringConst {
      *                        null as well.
      * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
      */
-    public static boolean containsAnyIgnoreCase(final CharSequence sequence, final CharSequence... searchSequences) {
+    public static boolean containsAnyIgnoreCase(CharSequence sequence, CharSequence... searchSequences) {
         if (sequence == null || ArrayAide.isEmpty(searchSequences)) {
             return false;
         }
@@ -1988,7 +1991,7 @@ public class StringAide implements StringConst {
      * @param invalidSequences an array of invalid sequences, may be null
      * @return {@code true} if it contains none of the invalid sequences, or is null
      */
-    public static boolean containsNone(final CharSequence sequence, final CharSequence... invalidSequences) {
+    public static boolean containsNone(CharSequence sequence, CharSequence... invalidSequences) {
         if (sequence == null || invalidSequences == null) {
             return true;
         }
@@ -2012,7 +2015,7 @@ public class StringAide implements StringConst {
      * @param invalidSequences an array of invalid sequences, may be null
      * @return {@code true} if it contains none of the invalid sequences irrespective of case, or is null
      */
-    public static boolean containsNoneIgnoreCase(final CharSequence sequence, final CharSequence... invalidSequences) {
+    public static boolean containsNoneIgnoreCase(CharSequence sequence, CharSequence... invalidSequences) {
         if (sequence == null || invalidSequences == null) {
             return true;
         }
@@ -2046,7 +2049,7 @@ public class StringAide implements StringConst {
      * @return true if the CharSequence contains the search character, false if not or {@code null} string input
      * @see #containsChar(CharSequence, int)
      */
-    public static boolean containsChar(final CharSequence sequence, final char searchChar) {
+    public static boolean containsChar(CharSequence sequence, char searchChar) {
         return containsChar(sequence, (int) searchChar);
     }
 
@@ -2068,7 +2071,7 @@ public class StringAide implements StringConst {
      * @return true if the CharSequence contains the search character, false if not or {@code null} string input
      * @see #containsChar(CharSequence, char)
      */
-    public static boolean containsChar(final CharSequence sequence, final int searchChar) {
+    public static boolean containsChar(CharSequence sequence, int searchChar) {
         if (isEmpty(sequence)) {
             return false;
         }
@@ -2096,16 +2099,16 @@ public class StringAide implements StringConst {
      * @param searchChars the chars to search for, may be null
      * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
      */
-    public static boolean containsAnyChar(final CharSequence sequence, final char... searchChars) {
+    public static boolean containsAnyChar(CharSequence sequence, char... searchChars) {
         if (isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
             return false;
         }
-        final int sequenceLength = sequence.length();
-        final int searchLength = searchChars.length;
-        final int sequenceLast = sequenceLength - 1;
-        final int searchLast = searchLength - 1;
+        int sequenceLength = sequence.length();
+        int searchLength = searchChars.length;
+        int sequenceLast = sequenceLength - 1;
+        int searchLast = searchLength - 1;
         for (int i = 0; i < sequenceLength; i++) {
-            final char ch = sequence.charAt(i);
+            char ch = sequence.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
                     if (!Character.isHighSurrogate(ch)) {
@@ -2135,7 +2138,7 @@ public class StringAide implements StringConst {
      * @param codepoints the chars to search for, may be null
      * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
      */
-    public static boolean containsAnyChar(final CharSequence sequence, final int... codepoints) {
+    public static boolean containsAnyChar(CharSequence sequence, int... codepoints) {
         if (isEmpty(sequence) || ArrayAide.isEmpty(codepoints)) {
             return false;
         }
@@ -2173,7 +2176,7 @@ public class StringAide implements StringConst {
      * @param searchChars the chars to search for, may be null
      * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
      */
-    public static boolean containsAnyChar(final CharSequence sequence, final CharSequence searchChars) {
+    public static boolean containsAnyChar(CharSequence sequence, CharSequence searchChars) {
         if (searchChars == null) {
             return false;
         }
@@ -2201,16 +2204,16 @@ public class StringAide implements StringConst {
      * @param searchChars an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      */
-    public static boolean containsNoneChar(final CharSequence sequence, final char... searchChars) {
+    public static boolean containsNoneChar(CharSequence sequence, char... searchChars) {
         if (sequence == null || searchChars == null) {
             return true;
         }
-        final int sequenceLength = sequence.length();
-        final int sequenceLast = sequenceLength - 1;
-        final int searchLength = searchChars.length;
-        final int searchLast = searchLength - 1;
+        int sequenceLength = sequence.length();
+        int sequenceLast = sequenceLength - 1;
+        int searchLength = searchChars.length;
+        int searchLast = searchLength - 1;
         for (int i = 0; i < sequenceLength; i++) {
-            final char ch = sequence.charAt(i);
+            char ch = sequence.charAt(i);
             for (int j = 0; j < searchLength; j++) {
                 if (searchChars[j] == ch) {
                     if (!Character.isHighSurrogate(ch)) {
@@ -2241,7 +2244,7 @@ public class StringAide implements StringConst {
      * @param codepoints an array of invalid chars, may be null
      * @return true if it contains none of the invalid chars, or is null
      */
-    public static boolean containsNoneChar(final CharSequence sequence, final int... codepoints) {
+    public static boolean containsNoneChar(CharSequence sequence, int... codepoints) {
         if (sequence == null || codepoints == null) {
             return true;
         }
@@ -2278,7 +2281,7 @@ public class StringAide implements StringConst {
      * @since 2.0
      * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
      */
-    public static boolean containsNoneChar(final CharSequence sequence, final CharSequence invalidChars) {
+    public static boolean containsNoneChar(CharSequence sequence, CharSequence invalidChars) {
         if (invalidChars == null) {
             return true;
         }
@@ -2306,7 +2309,7 @@ public class StringAide implements StringConst {
      * @param validChars an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      */
-    public static boolean containsOnlyChars(final CharSequence sequence, final char... validChars) {
+    public static boolean containsOnlyChars(CharSequence sequence, char... validChars) {
         if (sequence == null || validChars == null) {
             return false;
         }
@@ -2330,7 +2333,7 @@ public class StringAide implements StringConst {
      * @param codepoints an array of valid chars, may be null
      * @return true if it only contains valid chars and is non-null
      */
-    public static boolean containsOnlyChars(final CharSequence sequence, final int... codepoints) {
+    public static boolean containsOnlyChars(CharSequence sequence, int... codepoints) {
         if (sequence == null || codepoints == null || codepoints.length == 0) {
             return false;
         }
@@ -2363,7 +2366,7 @@ public class StringAide implements StringConst {
      * @since 2.0
      * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
      */
-    public static boolean containsOnlyChars(final CharSequence sequence, final CharSequence validChars) {
+    public static boolean containsOnlyChars(CharSequence sequence, CharSequence validChars) {
         if (sequence == null || validChars == null) {
             return false;
         }
@@ -2376,18 +2379,30 @@ public class StringAide implements StringConst {
      * @param sequence the {@link CharSequence} to be processed.
      * @return the resulting char array, never null.
      */
-    public static char[] toCharArray(final CharSequence sequence) {
-        final int length = length(sequence);
+    public static char[] toCharArray(CharSequence sequence) {
+        int length = length(sequence);
         if (length == 0) {
             return ArrayConst.EMPTY_CHAR_ARRAY;
         }
         if (sequence instanceof String string) {
             return string.toCharArray();
         }
-        final char[] array = new char[length];
+        char[] array = new char[length];
         for (int i = 0; i < length; i++) {
             array[i] = sequence.charAt(i);
         }
         return array;
+    }
+
+    /**
+     * {@link StringAide} instances should NOT be constructed in
+     * standard programming. Instead, the class should be used as
+     * {@code StringAide.trim(" foo ");}.
+     *
+     * <p>This constructor is public to permit tools that require a JavaBean
+     * instance to operate.</p>
+     */
+    public StringAide() {
+
     }
 }

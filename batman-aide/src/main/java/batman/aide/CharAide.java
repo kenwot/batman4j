@@ -39,7 +39,7 @@ public class CharAide {
      * @param ch  the character to check
      * @return true if between 32 and 126 inclusive
      */
-    public static boolean isAsciiPrintable(final char ch) {
+    public static boolean isAsciiPrintable(char ch) {
         return ch >= 32 && ch < 127;
     }
 

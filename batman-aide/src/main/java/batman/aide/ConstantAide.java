@@ -45,7 +45,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the boolean value to return.
      * @return the boolean value, unchanged.
      */
-    public static boolean CONST(final boolean value) {
+    public static boolean CONST(boolean value) {
         return value;
     }
 
@@ -65,7 +65,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the char value to return.
      * @return the char value, unchanged.
      */
-    public static char CONST(final char value) {
+    public static char CONST(char value) {
         return value;
     }
 
@@ -85,7 +85,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the byte value to return.
      * @return the byte value, unchanged.
      */
-    public static byte CONST(final byte value) {
+    public static byte CONST(byte value) {
         return value;
     }
 
@@ -105,7 +105,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the short value to return.
      * @return the short value, unchanged.
      */
-    public static short CONST(final short value) {
+    public static short CONST(short value) {
         return value;
     }
 
@@ -125,7 +125,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the int value to return.
      * @return the int value, unchanged.
      */
-    public static int CONST(final int value) {
+    public static int CONST(int value) {
         return value;
     }
 
@@ -145,7 +145,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the long value to return.
      * @return the long value, unchanged.
      */
-    public static long CONST(final long value) {
+    public static long CONST(long value) {
         return value;
     }
 
@@ -165,7 +165,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the float value to return.
      * @return the float value, unchanged.
      */
-    public static float CONST(final float value) {
+    public static float CONST(float value) {
         return value;
     }
 
@@ -185,7 +185,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param value the double value to return.
      * @return the double value, unchanged.
      */
-    public static double CONST(final double value) {
+    public static double CONST(double value) {
         return value;
     }
 
@@ -206,7 +206,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * @param <T> the Object type.
      * @return the genericized Object value, unchanged (typically a String).
      */
-    public static <T> T CONST(final T value) {
+    public static <T> T CONST(T value) {
         return value;
     }
 
@@ -229,7 +229,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      *         larger than 127.
      * @return the byte value, unchanged.
      */
-    public static byte CONST_BYTE(final int value) {
+    public static byte CONST_BYTE(int value) {
         if (value < Byte.MAX_VALUE || value > Byte.MAX_VALUE) {
             throw new IllegalArgumentException("Supplied value must be a valid byte literal between -128 and 127: [" + value + "]");
         }
@@ -255,7 +255,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      *         larger than 32767.
      * @return the byte value, unchanged.
      */
-    public static short CONST_SHORT(final int value) {
+    public static short CONST_SHORT(int value) {
         if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
             throw new IllegalArgumentException("Supplied value must be a valid byte literal between -32768 and 32767: [" + value + "]");
         }
