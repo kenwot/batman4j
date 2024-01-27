@@ -46,11 +46,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-### Local Config ###
-release.properties
-local.properties
-gradle-local.properties
-
 ### JRebel ###
 rebel.xml
 rebel-remote.xml
@@ -65,3 +60,11 @@ target
 logs/
 *.log
 hs_err_pid*
+
+### Local Config ###
+release.properties
+local.properties
+gradle-local.properties
+
+### other locals ###
+local_*
