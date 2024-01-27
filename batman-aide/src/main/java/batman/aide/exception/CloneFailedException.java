@@ -32,7 +32,7 @@ public class CloneFailedException extends RuntimeException {
     /**
      * Constructs a CloneFailedException.
      *
-     * @param message description of the exception
+     * @param message description of the exception.
      */
     public CloneFailedException(String message) {
         super(message);
@@ -41,8 +41,8 @@ public class CloneFailedException extends RuntimeException {
     /**
      * Constructs a CloneFailedException.
      *
-     * @param message description of the exception
-     * @param cause cause of the exception
+     * @param message description of the exception.
+     * @param cause cause of the exception.
      */
     public CloneFailedException(String message, final Throwable cause) {
         super(message, cause);
@@ -51,7 +51,7 @@ public class CloneFailedException extends RuntimeException {
     /**
      * Constructs a CloneFailedException.
      *
-     * @param cause cause of the exception
+     * @param cause cause of the exception.
      */
     public CloneFailedException(Throwable cause) {
         super(cause);

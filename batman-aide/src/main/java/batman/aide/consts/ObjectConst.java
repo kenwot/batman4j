@@ -36,9 +36,9 @@ public interface ObjectConst {
      * <p>For example, in a {@link HashMap} the {@link java.util.HashMap#get(Object)} method
      * returns {@code null} if the {@link Map} contains {@code null} or if there is no matching key.
      * The {@code null} placeholder can be used to distinguish
-     * between these two cases.</p>
+     * between these two cases.
      *
-     * <p>Another example is {@link Hashtable}, where {@code null} cannot be stored.</p>
+     * <p>Another example is {@link Hashtable}, where {@code null} cannot be stored.
      */
     class Null implements Serializable {
         @Serial
@@ -55,7 +55,7 @@ public interface ObjectConst {
         /**
          * Ensure Singleton after serialization.
          *
-         * @return the singleton value
+         * @return the singleton value.
          */
         @Serial
         private Object readResolve() {
@@ -68,11 +68,11 @@ public interface ObjectConst {
      *
      * <p>For example, in a {@link HashMap} the {@link java.util.HashMap#get(Object)} method
      * returns {@code null} if the {@link Map} contains {@code null} or if there is no matching key.
-     * The {@code null} placeholder can be used to distinguish between these two cases.</p>
+     * The {@code null} placeholder can be used to distinguish between these two cases.
      *
-     * <p>Another example is {@link Hashtable}, where {@code null} cannot be stored.</p>
+     * <p>Another example is {@link Hashtable}, where {@code null} cannot be stored.
      *
-     * <p>This instance is Serializable.</p>
+     * <p>This instance is Serializable.
      */
     Null NULL = Null.INSTANCE;
 

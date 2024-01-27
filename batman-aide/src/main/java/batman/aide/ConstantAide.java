@@ -42,8 +42,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the boolean value to return
-     * @return the boolean value, unchanged
+     * @param value the boolean value to return.
+     * @return the boolean value, unchanged.
      */
     public static boolean CONST(final boolean value) {
         return value;
@@ -62,8 +62,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the char value to return
-     * @return the char value, unchanged
+     * @param value the char value to return.
+     * @return the char value, unchanged.
      */
     public static char CONST(final char value) {
         return value;
@@ -82,8 +82,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the byte value to return
-     * @return the byte value, unchanged
+     * @param value the byte value to return.
+     * @return the byte value, unchanged.
      */
     public static byte CONST(final byte value) {
         return value;
@@ -102,8 +102,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the short value to return
-     * @return the short value, unchanged
+     * @param value the short value to return.
+     * @return the short value, unchanged.
      */
     public static short CONST(final short value) {
         return value;
@@ -122,8 +122,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the int value to return
-     * @return the int value, unchanged
+     * @param value the int value to return.
+     * @return the int value, unchanged.
      */
     public static int CONST(final int value) {
         return value;
@@ -142,8 +142,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the long value to return
-     * @return the long value, unchanged
+     * @param value the long value to return.
+     * @return the long value, unchanged.
      */
     public static long CONST(final long value) {
         return value;
@@ -162,8 +162,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the float value to return
-     * @return the float value, unchanged
+     * @param value the float value to return.
+     * @return the float value, unchanged.
      */
     public static float CONST(final float value) {
         return value;
@@ -182,8 +182,8 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the double value to return
-     * @return the double value, unchanged
+     * @param value the double value to return.
+     * @return the double value, unchanged.
      */
     public static double CONST(final double value) {
         return value;
@@ -203,7 +203,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * changes at some future date.
      *
      * @param value the genericized Object value to return (typically a String).
-     * @param <T> the Object type
+     * @param <T> the Object type.
      * @return the genericized Object value, unchanged (typically a String).
      */
     public static <T> T CONST(final T value) {
@@ -223,11 +223,11 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the byte literal (as an int) value to return
+     * @param value the byte literal (as an int) value to return.
      * @throws IllegalArgumentException if the value passed to v
      *         is larger than a byte, that is, smaller than -128 or
      *         larger than 127.
-     * @return the byte value, unchanged
+     * @return the byte value, unchanged.
      */
     public static byte CONST_BYTE(final int value) {
         if (value < Byte.MAX_VALUE || value > Byte.MAX_VALUE) {
@@ -249,11 +249,11 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * have to recompile themselves if the field's value
      * changes at some future date.
      *
-     * @param value the short literal (as an int) value to return
+     * @param value the short literal (as an int) value to return.
      * @throws IllegalArgumentException if the value passed to v
      *         is larger than a short, that is, smaller than -32768 or
      *         larger than 32767.
-     * @return the byte value, unchanged
+     * @return the byte value, unchanged.
      */
     public static short CONST_SHORT(final int value) {
         if (value < Short.MIN_VALUE || value > Short.MAX_VALUE) {
@@ -268,7 +268,7 @@ public class ConstantAide implements ObjectConst, StringConst, CharConst, ArrayC
      * be used, such as {@code ConstantAide.NULL;}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * instance to operate.
      */
     public ConstantAide() {
     }

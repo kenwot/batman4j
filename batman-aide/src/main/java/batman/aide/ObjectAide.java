@@ -39,10 +39,10 @@ public class ObjectAide implements ObjectConst {
     /**
      * Tests whether the given object is an Object array or a primitive array in a null-safe manner.
      *
-     * <p>A {@code null} {@code object} Object will return {@code false}.</p>
+     * <p>A {@code null} {@code object} Object will return {@code false}.
      *
-     * @param object the object to check, may be {@code null}
-     * @return {@code true} if the object is an {@code array}, {@code false} otherwise
+     * @param object the object to check, may be {@code null}.
+     * @return {@code true} if the object is an {@code array}, {@code false} otherwise.
      */
     public static boolean isArray(final Object object) {
         return object != null && object.getClass().isArray();
@@ -59,20 +59,8 @@ public class ObjectAide implements ObjectConst {
      * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
      *
-     * <pre>
-     * ObjectAide.isEmpty(null)             = true
-     * ObjectAide.isEmpty("")               = true
-     * ObjectAide.isEmpty("ab")             = false
-     * ObjectAide.isEmpty(new int[]{})      = true
-     * ObjectAide.isEmpty(new int[]{1,2,3}) = false
-     * ObjectAide.isEmpty(1234)             = false
-     * ObjectAide.isEmpty(1234)             = false
-     * ObjectAide.isEmpty(Optional.of(""))  = false
-     * ObjectAide.isEmpty(Optional.empty()) = true
-     * </pre>
-     *
-     * @param object the {@link Object} to test, may be {@code null}
-     * @return {@code true} if the object has a supported type and is empty or null, {@code false} otherwise
+     * @param object the {@link Object} to test, may be {@code null}.
+     * @return {@code true} if the object has a supported type and is empty or null, {@code false} otherwise.
      */
     public static boolean isEmpty(final Object object) {
         if (object == null) {
@@ -107,19 +95,8 @@ public class ObjectAide implements ObjectConst {
      * <li>{@link Optional}: Considered empty if {@link Optional#isPresent} returns false, regardless of the "emptiness" of the contents.</li>
      * </ul>
      *
-     * <pre>
-     * ObjectAide.isNotEmpty(null)             = false
-     * ObjectAide.isNotEmpty("")               = false
-     * ObjectAide.isNotEmpty("ab")             = true
-     * ObjectAide.isNotEmpty(new int[]{})      = false
-     * ObjectAide.isNotEmpty(new int[]{1,2,3}) = true
-     * ObjectAide.isNotEmpty(1234)             = true
-     * ObjectAide.isNotEmpty(Optional.of(""))  = true
-     * ObjectAide.isNotEmpty(Optional.empty()) = false
-     * </pre>
-     *
-     * @param object the {@link Object} to test, may be {@code null}
-     * @return {@code true} if the object has an unsupported type or is not empty and not null, {@code false} otherwise
+     * @param object the {@link Object} to test, may be {@code null}.
+     * @return {@code true} if the object has an unsupported type or is not empty and not null, {@code false} otherwise.
      */
     public static boolean isNotEmpty(final Object object) {
         return !isEmpty(object);
@@ -128,23 +105,13 @@ public class ObjectAide implements ObjectConst {
     /**
      * Checks if all values in the given array are {@code null}.
      *
-     * <p>
-     * If all the values are {@code null} or the array is {@code null}
+     * <p>If all the values are {@code null} or the array is {@code null}
      * or empty, then {@code true} is returned, otherwise {@code false} is returned.
-     * </p>
      *
-     * <pre>
-     * ObjectAide.allNull(*)                = false
-     * ObjectAide.allNull(*, null)          = false
-     * ObjectAide.allNull(null, *)          = false
-     * ObjectAide.allNull(null, null, *, *) = false
-     * ObjectAide.allNull(null)             = true
-     * ObjectAide.allNull(null, null)       = true
-     * </pre>
      *
-     * @param values the values to test, may be {@code null} or {@code empty}
+     * @param values the values to test, may be {@code null} or {@code empty}.
      * @return {@code true} if all values in the array are {@code null}s,
-     * {@code false} if there is at least one non-null value in the array.
+     *         {@code false} if there is at least one non-null value in the array.
      */
     public static boolean isAllNull(final Object... values) {
         return !isAnyNonnull(values);
@@ -153,26 +120,15 @@ public class ObjectAide implements ObjectConst {
     /**
      * Checks if all values in the array are not {@code nulls}.
      *
-     * <p>
-     * If any value is {@code null} or the array is {@code null} then
+     * <p>If any value is {@code null} or the array is {@code null} then
      * {@code false} is returned. If all elements in array are not
      * {@code null} or the array is empty (contains no elements) {@code true}
      * is returned.
-     * </p>
      *
-     * <pre>
-     * ObjectAide.allNonnull(*)             = true
-     * ObjectAide.allNonnull(*, *)          = true
-     * ObjectAide.allNonnull(null)          = false
-     * ObjectAide.allNonnull(null, null)    = false
-     * ObjectAide.allNonnull(null, *)       = false
-     * ObjectAide.allNonnull(*, null)       = false
-     * ObjectAide.allNonnull(*, *, null, *) = false
-     * </pre>
      *
-     * @param values the values to test, may be {@code null} or empty
+     * @param values the values to test, may be {@code null} or empty.
      * @return {@code false} if there is at least one {@code null} value in the array or the array is {@code null},
-     * {@code true} if all values in the array are not {@code null}s or array contains no elements.
+     *         {@code true} if all values in the array are not {@code null}s or array contains no elements.
      */
     public static boolean isAllNonnull(final Object... values) {
         return values != null && Stream.of(values).noneMatch(Objects::isNull);
@@ -181,25 +137,14 @@ public class ObjectAide implements ObjectConst {
     /**
      * Checks if any value in the given array is {@code null}.
      *
-     * <p>
-     * If any of the values are {@code null} or the array is {@code null},
+     * <p>If any of the values are {@code null} or the array is {@code null},
      * then {@code true} is returned, otherwise {@code false} is returned.
-     * </p>
      *
-     * <pre>
-     * ObjectAide.anyNull(*)             = false
-     * ObjectAide.anyNull(*, *)          = false
-     * ObjectAide.anyNull(null)          = true
-     * ObjectAide.anyNull(null, null)    = true
-     * ObjectAide.anyNull(null, *)       = true
-     * ObjectAide.anyNull(*, null)       = true
-     * ObjectAide.anyNull(*, *, null, *) = true
-     * </pre>
      *
-     * @param values the values to test, may be {@code null} or empty
+     * @param values the values to test, may be {@code null} or empty.
      * @return {@code true} if there is at least one {@code null} value in the array,
-     * {@code false} if all the values are non-null.
-     * If the array is {@code null} or empty, {@code true} is also returned.
+     *         {@code false} if all the values are non-null.
+     *         If the array is {@code null} or empty, {@code true} is also returned.
      */
     public static boolean isAnyNull(final Object... values) {
         return !isAllNonnull(values);
@@ -208,24 +153,14 @@ public class ObjectAide implements ObjectConst {
     /**
      * Checks if any value in the given array is not {@code null}.
      *
-     * <p>
-     * If all the values are {@code null} or the array is {@code null}
+     * <p>If all the values are {@code null} or the array is {@code null}
      * or empty then {@code false} is returned. Otherwise {@code true} is returned.
-     * </p>
      *
-     * <pre>
-     * ObjectAide.anyNonnull(*)                = true
-     * ObjectAide.anyNonnull(*, null)          = true
-     * ObjectAide.anyNonnull(null, *)          = true
-     * ObjectAide.anyNonnull(null, null, *, *) = true
-     * ObjectAide.anyNonnull(null)             = false
-     * ObjectAide.anyNonnull(null, null)       = false
-     * </pre>
      *
-     * @param values the values to test, may be {@code null} or empty
+     * @param values the values to test, may be {@code null} or empty.
      * @return {@code true} if there is at least one non-null value in the array,
-     * {@code false} if all values in the array are {@code null}s.
-     * If the array is {@code null} or empty {@code false} is also returned.
+     *         {@code false} if all values in the array are {@code null}s.
+     *         If the array is {@code null} or empty {@code false} is also returned.
      */
     public static boolean isAnyNonnull(final Object... values) {
         return firstNonnull(values) != null;
@@ -236,21 +171,10 @@ public class ObjectAide implements ObjectConst {
      * If all the values are {@code null} or the array is {@code null}
      * or empty then {@code null} is returned.
      *
-     * <pre>
-     * ObjectAide.firstNonNull(null, null)      = null
-     * ObjectAide.firstNonNull(null, "")        = ""
-     * ObjectAide.firstNonNull(null, null, "")  = ""
-     * ObjectAide.firstNonNull(null, "zz")      = "zz"
-     * ObjectAide.firstNonNull("abc", *)        = "abc"
-     * ObjectAide.firstNonNull(null, "xyz", *)  = "xyz"
-     * ObjectAide.firstNonNull(Boolean.TRUE, *) = Boolean.TRUE
-     * ObjectAide.firstNonNull()                = null
-     * </pre>
-     *
-     * @param values the values to test, may be {@code null} or empty
-     * @param <T>    the component type of the array
+     * @param values the values to test, may be {@code null} or empty.
+     * @param <T>    the component type of the array.
      * @return the first value from {@code values} which is not {@code null},
-     * or {@code null} if there are no non-null values
+     *         or {@code null} if there are no non-null values.
      */
     @SafeVarargs
     public static <T> T firstNonnull(final T... values) {
@@ -267,20 +191,12 @@ public class ObjectAide implements ObjectConst {
      * If all the return values are {@code null} or no suppliers are provided
      * then {@code null} is returned.
      *
-     * <pre>
-     * ObjectAide.firstNonNullLazy(null, () -&gt; null) = null
-     * ObjectAide.firstNonNullLazy(() -&gt; null, () -&gt; "") = ""
-     * ObjectAide.firstNonNullLazy(() -&gt; "", () -&gt; throw new IllegalStateException()) = ""
-     * ObjectAide.firstNonNullLazy(() -&gt; null, () -&gt; "zz) = "zz"
-     * ObjectAide.firstNonNullLazy() = null
-     * </pre>
-     *
      * @param suppliers the suppliers returning the values to test.
      *                  {@code null} values are ignored.
-     *                  Suppliers may return {@code null} or a value of type {@code T}
-     * @param <T>       the type of the return values
+     *                  Suppliers may return {@code null} or a value of type {@code T}.
+     * @param <T>       the type of the return values.
      * @return the first return value from {@code suppliers} which is not {@code null},
-     * or {@code null} if there are no non-null values
+     *         or {@code null} if there are no non-null values.
      */
     @SafeVarargs
     public static <T> T firstNonnull(final Supplier<T>... suppliers) {
@@ -292,18 +208,10 @@ public class ObjectAide implements ObjectConst {
     /**
      * Returns a default value if the object passed is {@code null}.
      *
-     * <pre>
-     * ObjectAide.defaultIfNull(null, null)      = null
-     * ObjectAide.defaultIfNull(null, "")        = ""
-     * ObjectAide.defaultIfNull(null, "zz")      = "zz"
-     * ObjectAide.defaultIfNull("abc", *)        = "abc"
-     * ObjectAide.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
-     * </pre>
-     *
-     * @param value        the {@link Object} to test, may be {@code null}
-     * @param defaultValue the default value to return, may be {@code null}
-     * @param <T>          the type of the object
-     * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     * @param value        the {@link Object} to test, may be {@code null}.
+     * @param defaultValue the default value to return, may be {@code null}.
+     * @param <T>          the type of the object.
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise.
      */
     public static <T> T defaultIfNull(final T value, final T defaultValue) {
         return value != null ? value : defaultValue;
@@ -313,23 +221,13 @@ public class ObjectAide implements ObjectConst {
      * Returns the given {@code object} is it is non-null, otherwise returns the Supplier's {@link Supplier#get()}
      * value.
      *
-     * <p>
-     * The caller responsible for thread-safety and exception handling of default value supplier.
-     * </p>
+     * <p>The caller responsible for thread-safety and exception handling of default value supplier.
      *
-     * <pre>
-     * ObjectAide.defaultIfNull(null, () -&gt; null)     = null
-     * ObjectAide.defaultIfNull(null, null)              = null
-     * ObjectAide.defaultIfNull(null, () -&gt; "")       = ""
-     * ObjectAide.defaultIfNull(null, () -&gt; "zz")     = "zz"
-     * ObjectAide.defaultIfNull("abc", *)                = "abc"
-     * ObjectAide.defaultIfNull(Boolean.TRUE, *)         = Boolean.TRUE
-     * </pre>
      *
-     * @param value           the {@link Object} to test, may be {@code null}
-     * @param defaultSupplier the default value to return, may be {@code null}
-     * @param <T>             the type of the object
-     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise
+     * @param value           the {@link Object} to test, may be {@code null}.
+     * @param defaultSupplier the default value to return, may be {@code null}.
+     * @param <T>             the type of the object.
+     * @return {@code object} if it is not {@code null}, {@code defaultValueSupplier.get()} otherwise.
      */
     public static <T> T defaultIfNull(final T value, final Supplier<T> defaultSupplier) {
         return value != null
@@ -341,21 +239,12 @@ public class ObjectAide implements ObjectConst {
      * Returns the value Supplier's {@link Supplier#get()} value is it is non-null and its Supplier.get() is non-null,
      * otherwise returns the default Supplier's Supplier.get() value.
      *
-     * <p>The caller responsible for thread-safety and exception handling of default value supplier.</p>
+     * <p>The caller responsible for thread-safety and exception handling of default value supplier.
      *
-     * <pre>
-     * ObjectAide.defaultIfNull(null, () -&gt; null)       = null
-     * ObjectAide.defaultIfNull(null, null)                = null
-     * ObjectAide.defaultIfNull(null, () -&gt; "")         = ""
-     * ObjectAide.defaultIfNull(null, () -&gt; "zz")       = "zz"
-     * ObjectAide.defaultIfNull(() -&gt; "abc", *)         = "abc"
-     * ObjectAide.defaultIfNull(() -&gt; Boolean.TRUE, *)  = Boolean.TRUE
-     * </pre>
-     *
-     * @param valueSupplier   the value Supplier to test, may be {@code null}
-     * @param defaultSupplier the default value to return, may be {@code null}
-     * @param <T>             the type of the object
-     * @return {@code valueSupplier.get()} value or {@code defaultSupplier.get()} value
+     * @param valueSupplier   the value Supplier to test, may be {@code null}.
+     * @param defaultSupplier the default value to return, may be {@code null}.
+     * @param <T>             the type of the object.
+     * @return {@code valueSupplier.get()} value or {@code defaultSupplier.get()} value.
      */
     public static <T> T defaultIfNull(final Supplier<T> valueSupplier, final Supplier<T> defaultSupplier) {
         T value = valueSupplier != null ? valueSupplier.get() : null;
@@ -369,18 +258,10 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.toString(obj, () -&gt; expensive())
      * </pre>
      *
-     * <pre>
-     * ObjectAide.toString(null, () -&gt; expensive())         = result of expensive()
-     * ObjectAide.toString(null, () -&gt; expensive())         = result of expensive()
-     * ObjectAide.toString("", () -&gt; expensive())           = ""
-     * ObjectAide.toString("bat", () -&gt; expensive())        = "bat"
-     * ObjectAide.toString(Boolean.TRUE, () -&gt; expensive()) = "true"
-     * </pre>
-     *
-     * @param object   the Object to {@code toString}, may be null
-     * @param supplier the Supplier of String used on {@code null} input, may be null
-     * @param <T>      the obj type
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @param object   the Object to {@code toString}, may be null.
+     * @param supplier the Supplier of String used on {@code null} input, may be null.
+     * @param <T>      the obj type.
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      */
     public static <T> String toString(final T object, final Supplier<String> supplier) {
         return object != null
@@ -396,17 +277,9 @@ public class ObjectAide implements ObjectConst {
      * ObjectAide.toString(() -&gt; obj, () -&gt; expensive())
      * </pre>
      *
-     * <pre>
-     * ObjectAide.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
-     * ObjectAide.toString(() -&gt; null, () -&gt; expensive())         = result of expensive()
-     * ObjectAide.toString(() -&gt; "", () -&gt; expensive())           = ""
-     * ObjectAide.toString(() -&gt; "bat", () -&gt; expensive())        = "bat"
-     * ObjectAide.toString(() -&gt; Boolean.TRUE, () -&gt; expensive()) = "true"
-     * </pre>
-     *
-     * @param object   the Object to {@code toString}, may be null
-     * @param supplier the Supplier of String used on {@code null} input, may be null
-     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input
+     * @param object   the Object to {@code toString}, may be null.
+     * @param supplier the Supplier of String used on {@code null} input, may be null.
+     * @return the passed in Object's toString, or {@code nullStr} if {@code null} input.
      */
     public static String toString(final Supplier<Object> object, final Supplier<String> supplier) {
         return object != null
@@ -423,16 +296,10 @@ public class ObjectAide implements ObjectConst {
      * <blockquote><pre>
      * object.getClass().getName() + "@" + Integer.toHexString(System.identityHashCode(object))
      * </pre></blockquote>
-     * </p>
      *
-     * <pre>
-     * ObjectAide.toIdentityString(null)         = null
-     * ObjectAide.toIdentityString("")           = "java.lang.String@1e23"
-     * ObjectAide.toIdentityString(Boolean.TRUE) = "java.lang.Boolean@7fa"
-     * </pre>
      *
-     * @param object the object to create a toString for, may be {@code null}
-     * @return the default toString text, or {@code null} if {@code null} passed in
+     * @param object the object to create a toString for, may be {@code null}.
+     * @return the default toString text, or {@code null} if {@code null} passed in.
      */
     public static String toIdentityString(final Object object) {
         if (object == null) {
@@ -444,9 +311,9 @@ public class ObjectAide implements ObjectConst {
     /**
      * Find the most frequently occurring item.
      *
-     * @param items to check
-     * @param <T>   type of values processed by this method
-     * @return most populous T, {@code null} if non-unique or no items supplied
+     * @param items to check.
+     * @param <T>   type of values processed by this method.
+     * @return most populous T, {@code null} if non-unique or no items supplied.
      */
     @SafeVarargs
     public static <T> T mode(final T... items) {
@@ -479,12 +346,12 @@ public class ObjectAide implements ObjectConst {
     /**
      * Clone an object.
      *
-     * <p>If the provided instance is {@code null} or is not cloneable, {@code null} is returned.</p>
+     * <p>If the provided instance is {@code null} or is not cloneable, {@code null} is returned.
      *
-     * @param object the object to clone, null returns null
-     * @param <T>    the type of the object
-     * @return the clone if the object implements {@link Cloneable} otherwise {@code null}
-     * @throws CloneFailedException if the object is cloneable and the clone operation fails
+     * @param object the object to clone, null returns null.
+     * @param <T>    the type of the object.
+     * @return the clone if the object implements {@link Cloneable} otherwise {@code null}.
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      */
     public static <T> T clone(final T object) {
         if (object instanceof Cloneable) {
@@ -527,12 +394,12 @@ public class ObjectAide implements ObjectConst {
      * is not cloneable. This is more convenient if the caller uses different
      * implementations (e.g. of a service) and some of the implementations do not allow concurrent
      * processing or have state. In such cases the implementation can simply provide a proper
-     * clone implementation and the caller's code does not have to change.</p>
+     * clone implementation and the caller's code does not have to change.
      *
-     * @param object the object to clone, null returns null
-     * @param <T>    the type of the object
-     * @return the clone if the object implements {@link Cloneable} otherwise the object itself
-     * @throws CloneFailedException if the object is cloneable and the clone operation fails
+     * @param object the object to clone, null returns null.
+     * @param <T>    the type of the object.
+     * @return the clone if the object implements {@link Cloneable} otherwise the object itself.
+     * @throws CloneFailedException if the object is cloneable and the clone operation fails.
      */
     public static <T> T cloneIfPossible(final T object) {
         final T clone = clone(object);
@@ -564,7 +431,7 @@ public class ObjectAide implements ObjectConst {
      * be used, such as {@code ObjectAide.isAllNonnull("a", "b");}.
      *
      * <p>This constructor is public to permit tools that require a JavaBean
-     * instance to operate.</p>
+     * instance to operate.
      */
     public ObjectAide() {
     }
