@@ -16,6 +16,8 @@
 
 package batman.aide;
 
+import batman.aide.consts.ArrayConst;
+
 /**
  * @author Kenown
  * @since 1.0.0
@@ -30,102 +32,61 @@ public class TmpStringContainsChar {
         return StringAide.length(sequence);
     }
 
+    public static char[] toCharArray(CharSequence sequence) {
+        int length = length(sequence);
+        if (length == 0) {
+            return ArrayConst.EMPTY_CHAR_ARRAY;
+        }
+        if (sequence instanceof String string) {
+            return string.toCharArray();
+        }
+        char[] array = new char[length];
+        for (int i = 0; i < length; i++) {
+            array[i] = sequence.charAt(i);
+        }
+        return array;
+    }
+
     public static final int INDEX_NOT_FOUND = -1;
 
 
-    public static boolean containsChar(CharSequence sequence, int search) {
-        return true;
+
+
+
+    public static int indexOfNotAnyChar(CharSequence sequence, int... searches) {
+        return 0;
     }
 
-    public static boolean containsChar(CharSequence sequence, int search, int beginIndex) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, int[] searches, int beginIndex) {
+        return 0;
     }
 
-    public static boolean containsChar(CharSequence sequence, int search, int beginIndex, int endIndex) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
+        return 0;
     }
 
-    public static boolean containsChar(CharSequence sequence, char search) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, char... searches) {
+        return 0;
     }
 
-    public static boolean containsChar(CharSequence sequence, char search, int beginIndex) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, char[] searches, int beginIndex) {
+        return 0;
     }
 
-    public static boolean containsChar(CharSequence sequence, char search, int beginIndex, int endIndex) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
+        return 0;
     }
 
-    public static boolean containsAnyChar(CharSequence sequence, int... searches) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, CharSequence searches) {
+        return 0;
     }
 
-    public static boolean containsAnyChar(CharSequence sequence, int[] searches, int beginIndex) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, CharSequence searches, int beginIndex) {
+        return 0;
     }
 
-    public static boolean containsAnyChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
-        return true;
+    public static int indexOfNotAnyChar(CharSequence sequence, CharSequence searches, int beginIndex, int endIndex) {
+        return 0;
     }
 
-    public static boolean containsAnyChar(CharSequence sequence, char... searches) {
-        return true;
-    }
-
-    public static boolean containsAnyChar(CharSequence sequence, char[] searches, int beginIndex) {
-        return true;
-    }
-
-    public static boolean containsAnyChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
-        return true;
-    }
-
-    public static boolean containsNoneChar(CharSequence sequence, int... searches) {
-        return true;
-    }
-
-    public static boolean containsNoneChar(CharSequence sequence, int[] searches, int beginIndex) {
-        return true;
-    }
-
-    public static boolean containsNoneChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
-        return true;
-    }
-
-    public static boolean containsNoneChar(CharSequence sequence, char... searches) {
-        return true;
-    }
-
-    public static boolean containsNoneChar(CharSequence sequence, char[] searches, int beginIndex) {
-        return true;
-    }
-
-    public static boolean containsNoneChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
-        return true;
-    }
-
-    public static boolean containsOnlyChar(CharSequence sequence, int... searches) {
-        return true;
-    }
-
-    public static boolean containsOnlyChar(CharSequence sequence, int[] searches, int beginIndex) {
-        return true;
-    }
-
-    public static boolean containsOnlyChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
-        return true;
-    }
-
-    public static boolean containsOnlyChar(CharSequence sequence, char... searches) {
-        return true;
-    }
-
-    public static boolean containsOnlyChar(CharSequence sequence, char[] searches, int beginIndex) {
-        return true;
-    }
-
-    public static boolean containsOnlyChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
-        return true;
-    }
 }

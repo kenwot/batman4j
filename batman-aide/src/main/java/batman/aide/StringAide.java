@@ -1350,7 +1350,7 @@ public class StringAide implements StringConst {
      * @param sequence   the CharSequence to be processed, may be null.
      * @param search     the char to be searched for (Unicode code point).
      * @param beginIndex the index to start the search from, inclusive.
-     * @param endIndex   the index to start the search from, exclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
      * @return the index of the first occurrence of the character in the CharSequence
      *         that is greater than or equal to {@code beginIndex} and less than {@code endIndex},
      *         or {@code -1} if the character does not occur or {@code null} CharSequence input.
@@ -1401,7 +1401,7 @@ public class StringAide implements StringConst {
      * @param sequence   the CharSequence to be processed, may be null.
      * @param search     the char to be searched for (Unicode code point).
      * @param beginIndex the index to start the search from, inclusive.
-     * @param endIndex   the index to start the search from, exclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
      * @return the first index or {@code -1}.
      * @see #indexOfChar(CharSequence, int, int, int)
      */
@@ -1851,23 +1851,16 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if CharSequence contains a search CharSequence, handling {@code null}.
-     * This method uses {@link String#indexOf(String)} if possible.
+     * Checks if CharSequence contains a search CharSequence. Handling {@code null}.
+     *
+     * <p>This method uses {@link String#indexOf(String)} if possible.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      *
-     * <pre>
-     * StringAide.contains(null, *)     = false
-     * StringAide.contains(*, null)     = false
-     * StringAide.contains("", "")      = true
-     * StringAide.contains("abc", "")   = true
-     * StringAide.contains("abc", "a")  = true
-     * StringAide.contains("abc", "z")  = false
-     * </pre>
-     *
-     * @param sequence the CharSequence to check, may be null
-     * @param search   the CharSequence to find, may be null
-     * @return true if the CharSequence contains the search CharSequence, false if not or {@code null} string input
+     * @param sequence the CharSequence to check, may be null.
+     * @param search   the CharSequence to search, may be null.
+     * @return {@code true} if the CharSequence contains the search CharSequence,
+     *         {@code false} if not or {@code null} string input.
      */
     public static boolean contains(CharSequence sequence, CharSequence search) {
         if (sequence == null || search == null) {
@@ -1877,32 +1870,82 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if CharSequence contains a search CharSequence irrespective of case, handling {@code null}.
-     * Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     * Checks if CharSequence contains a search CharSequence,
+     * starting the search at the specified index. Handling {@code null}.
+     *
+     *
+     * <p>This method uses {@link String#indexOf(String)} if possible.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      *
-     * <pre>
-     * StringAide.containsIgnoreCase(null, *) = false
-     * StringAide.containsIgnoreCase(*, null) = false
-     * StringAide.containsIgnoreCase("", "") = true
-     * StringAide.containsIgnoreCase("abc", "") = true
-     * StringAide.containsIgnoreCase("abc", "a") = true
-     * StringAide.containsIgnoreCase("abc", "z") = false
-     * StringAide.containsIgnoreCase("abc", "A") = true
-     * StringAide.containsIgnoreCase("abc", "Z") = false
-     * </pre>
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the CharSequence to search, may be null.
+     * @param beginIndex the index from which to start the search.
+     * @return {@code true} if the CharSequence contains the search CharSequence,
+     *         {@code false} if not or {@code null} string input.
+     */
+    public static boolean contains(CharSequence sequence, CharSequence search, int beginIndex) {
+        if (sequence == null || search == null) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, beginIndex) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}. Handling {@code null}.
      *
-     * @param sequence the CharSequence to check, may be null
-     * @param search   the CharSequence to find, may be null
-     * @return true if the CharSequence contains the search CharSequence irrespective of case or false if not or {@code null} string input
+     * <p>This method uses {@link String#indexOf(String)} if possible.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the CharSequence to search, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if the CharSequence contains the search CharSequence,
+     *         {@code false} if not or {@code null} string input.
+     */
+    public static boolean contains(CharSequence sequence, CharSequence search, int beginIndex, int endIndex) {
+        if (sequence == null || search == null) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, beginIndex, endIndex) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence irrespective of case. Handling {@code null}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param search   the CharSequence to search, may be null.
+     * @return {@code true} if the CharSequence contains the search CharSequence irrespective of case
+     *         or {@code false} if not or {@code null} string input.
      */
     public static boolean containsIgnoreCase(CharSequence sequence, CharSequence search) {
+        return containsIgnoreCase(sequence, search, 0);
+    }
+
+    /**
+     * Checks if CharSequence contains a search CharSequence irrespective of case,
+     * starting the search at the specified index. Handling {@code null}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the CharSequence to search, may be null.
+     * @param beginIndex the index from which to start the search.
+     * @return {@code true} if the CharSequence contains the search CharSequence irrespective of case
+     *         or {@code false} if not or {@code null} string input.
+     */
+    public static boolean containsIgnoreCase(CharSequence sequence, CharSequence search, int beginIndex) {
         if (sequence == null || search == null) {
             return false;
         }
         int searchLength = search.length();
-        for (int i = 0; i <= (sequence.length() - searchLength); i++) {
+        int endLimit = sequence.length() - searchLength;
+        for (int i = beginIndex; i <= endLimit; i++) {
             if (_CharSequenceAide.regionMatches(true, sequence, i, search, 0, searchLength)) {
                 return true;
             }
@@ -1911,33 +1954,40 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array.
+     * Checks if CharSequence contains a search CharSequence irrespective of case,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}. Handling {@code null}.
      *
-     * <p>A {@code null} {@code cs} CharSequence will return {@code false}. A {@code null} or zero length search array will
-     * return {@code false}.
+     * <p>A {@code null} CharSequence will return {@code false}.
      *
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)            = false
-     * StringAide.containsAny("", *)              = false
-     * StringAide.containsAny(*, null)            = false
-     * StringAide.containsAny(*, [])              = false
-     * StringAide.containsAny("abcd", "ab", null) = true
-     * StringAide.containsAny("abcd", "ab", "cd") = true
-     * StringAide.containsAny("abc", "d", "abc")  = true
-     * </pre>
-     *
-     * @param sequence        The CharSequence to check, may be null
-     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *                        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the CharSequence to search, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, inclusive.
+     * @return {@code true} if the CharSequence contains the search CharSequence irrespective of case
+     *         or {@code false} if not or {@code null} string input.
      */
-    public static boolean containsAny(CharSequence sequence, CharSequence... searchSequences) {
-        if (sequence == null || ArrayAide.isEmpty(searchSequences)) {
+    public static boolean containsIgnoreCase(CharSequence sequence, CharSequence search, int beginIndex, int endIndex) {
+        if (sequence == null || search == null) {
             return false;
         }
-        for (CharSequence searchSequence : searchSequences) {
-            if (contains(sequence, searchSequence)) {
+        int sequenceLength = sequence.length();
+        if (beginIndex < 0) {
+            beginIndex = 0;
+        }
+        if (endIndex > sequenceLength) {
+            endIndex = sequenceLength;
+        }
+        if (endIndex < beginIndex) {
+            return false;
+        }
+
+        int searchLength = search.length();
+        int endLimit = Math.min(sequenceLength - searchLength, endIndex);
+        if (endIndex < sequenceLength) {
+            sequence = sequence.subSequence(0, endIndex);
+        }
+        for (int i = beginIndex; i <= endLimit; i++) {
+            if (_CharSequenceAide.regionMatches(true, sequence, i, search, 0, searchLength)) {
                 return true;
             }
         }
@@ -1945,35 +1995,21 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks if the CharSequence contains any of the CharSequences in the given array, ignoring case.
+     * Checks if the CharSequence contains any of the CharSequences in the give array.
      *
-     * <p>A {@code null} {@code cs} CharSequence will return {@code false}.
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code false}.
      * A {@code null} or zero length search array will return {@code false}.
      *
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)            = false
-     * StringAide.containsAny("", *)              = false
-     * StringAide.containsAny(*, null)            = false
-     * StringAide.containsAny(*, [])              = false
-     * StringAide.containsAny("abcd", "ab", null) = true
-     * StringAide.containsAny("abcd", "ab", "cd") = true
-     * StringAide.containsAny("abc", "d", "abc")  = true
-     * StringAide.containsAny("abc", "D", "ABC")  = true
-     * StringAide.containsAny("ABC", "d", "abc")  = true
-     * </pre>
-     *
-     * @param sequence        The CharSequence to check, may be null
-     * @param searchSequences The array of CharSequences to search for, may be null. Individual CharSequences may be
-     *                        null as well.
-     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of CharSequence to search for, may be null. Individual elements may be null as well.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
      */
-    public static boolean containsAnyIgnoreCase(CharSequence sequence, CharSequence... searchSequences) {
-        if (sequence == null || ArrayAide.isEmpty(searchSequences)) {
+    public static boolean containsAny(CharSequence sequence, CharSequence... searches) {
+        if (sequence == null || ArrayAide.isEmpty(searches)) {
             return false;
         }
-        for (CharSequence searchSequence : searchSequences) {
-            if (containsIgnoreCase(sequence, searchSequence)) {
+        for (CharSequence search : searches) {
+            if (contains(sequence, search)) {
                 return true;
             }
         }
@@ -1981,22 +2017,141 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks that the CharSequence does not contain certain CharSequence in the given array, handling {@code null}.
+     * Checks if the CharSequence contains any of the CharSequences in the give array,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
+     */
+    public static boolean containsAny(CharSequence sequence, CharSequence[] searches, int beginIndex) {
+        if (sequence == null || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (CharSequence search : searches) {
+            if (contains(sequence, search, beginIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the give array,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
+     */
+    public static boolean containsAny(CharSequence sequence, CharSequence[] searches, int beginIndex, int endIndex) {
+        if (sequence == null || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (CharSequence search : searches) {
+            if (contains(sequence, search, beginIndex, endIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the give array, ignoring case.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the CharSequences to search, may be null or empty.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
+     */
+    public static boolean containsAnyIgnoreCase(CharSequence sequence, CharSequence... searches) {
+        if (sequence == null || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (CharSequence search : searches) {
+            if (containsIgnoreCase(sequence, search)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the give array, ignoring case,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
+     */
+    public static boolean containsAnyIgnoreCase(CharSequence sequence, CharSequence[] searches, int beginIndex) {
+        if (sequence == null || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (CharSequence search : searches) {
+            if (containsIgnoreCase(sequence, search, beginIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any of the CharSequences in the give array, ignoring case,
+     * starting the search at {@code beginIndex} ant stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if any of the search CharSequences are found, {@code false} otherwise.
+     */
+    public static boolean containsAnyIgnoreCase(CharSequence sequence, CharSequence[] searches, int beginIndex, int endIndex) {
+        if (sequence == null || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (CharSequence search : searches) {
+            if (containsIgnoreCase(sequence, search, beginIndex, endIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the give array.
      *
      * <p>A {@code null} {@code sequence} CharSequence will return {@code true}.
      * A {@code null} or zero length search array will return {@code true}.
      *
-     *
-     * @param sequence         the CharSequence to check, may be null
-     * @param invalidSequences an array of invalid sequences, may be null
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
      * @return {@code true} if it contains none of the invalid sequences, or is null
      */
-    public static boolean containsNone(CharSequence sequence, CharSequence... invalidSequences) {
-        if (sequence == null || invalidSequences == null) {
+    public static boolean containsNone(CharSequence sequence, CharSequence... searches) {
+        if (sequence == null || searches == null) {
             return true;
         }
-        for (CharSequence invalidSequence : invalidSequences) {
-            if (contains(sequence, invalidSequence)) {
+        for (CharSequence search : searches) {
+            if (contains(sequence, search)) {
                 return false;
             }
         }
@@ -2004,32 +2159,181 @@ public class StringAide implements StringConst {
     }
 
     /**
-     * Checks that the CharSequence does not contain certain CharSequence in the given array, handling {@code null}.
-     * Case-insensitivity is defined as by {@link String#equalsIgnoreCase(String)}.
+     * Checks that the CharSequence does not contain certain CharSequence in the give array,
+     * starting the search at the specified index.
      *
      * <p>A {@code null} {@code sequence} CharSequence will return {@code true}.
      * A {@code null} or zero length search array will return {@code true}.
      *
-     *
-     * @param sequence         the CharSequence to check, may be null
-     * @param invalidSequences an array of invalid sequences, may be null
-     * @return {@code true} if it contains none of the invalid sequences irrespective of case, or is null
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex   the index to start the search from.
+     * @return {@code true} if it contains none of the invalid sequences, or is null
      */
-    public static boolean containsNoneIgnoreCase(CharSequence sequence, CharSequence... invalidSequences) {
-        if (sequence == null || invalidSequences == null) {
+    public static boolean containsNone(CharSequence sequence, CharSequence[] searches, int beginIndex) {
+        if (sequence == null || searches == null) {
             return true;
         }
-        for (CharSequence invalidSequence : invalidSequences) {
-            if (containsIgnoreCase(sequence, invalidSequence)) {
+        for (CharSequence search : searches) {
+            if (contains(sequence, search, beginIndex)) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the give array,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex   the index to start the search from, inclusive.
+     * @param endIndex   the index to start the search from, exclusive.
+     * @return {@code true} if it contains none of the invalid sequences, or is null
+     */
+    public static boolean containsNone(CharSequence sequence, CharSequence[] searches, int beginIndex, int endIndex) {
+        if (sequence == null || searches == null) {
+            return true;
+        }
+        for (CharSequence search : searches) {
+            if (contains(sequence, search, beginIndex, endIndex)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the give array, ignoring case.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @return {@code true} if it contains none of the invalid sequences, or is null
+     */
+    public static boolean containsNoneIgnoreCase(CharSequence sequence, CharSequence... searches) {
+        if (sequence == null || searches == null) {
+            return true;
+        }
+        for (CharSequence search : searches) {
+            if (containsIgnoreCase(sequence, search)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the give array, ignoring case,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex   the index to start the search from.
+     * @return {@code true} if it contains none of the invalid sequences, or is null
+     */
+    public static boolean containsNoneIgnoreCase(CharSequence sequence, CharSequence[] searches, int beginIndex) {
+        if (sequence == null || searches == null) {
+            return true;
+        }
+        for (CharSequence search : searches) {
+            if (containsIgnoreCase(sequence, search, beginIndex)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain CharSequence in the give array, ignoring case,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} {@code sequence} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the CharSequences to search, may be null or empty.
+     * @param beginIndex   the index to start the search from, inclusive.
+     * @param endIndex   the index to start the search from, exclusive.
+     * @return {@code true} if it contains none of the invalid sequences, or is null
+     */
+    public static boolean containsNoneIgnoreCase(CharSequence sequence, CharSequence[] searches, int beginIndex, int endIndex) {
+        if (sequence == null || searches == null) {
+            return true;
+        }
+        for (CharSequence search : searches) {
+            if (containsIgnoreCase(sequence, search, beginIndex, endIndex)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if CharSequence contains a search character (Unicode code points).
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param search   the character to search from.
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input.
+     * @see #containsChar(CharSequence, char)
+     */
+    public static boolean containsChar(CharSequence sequence, int search) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, 0) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search character (Unicode code points), starting the search at the specified index.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the character to search.
+     * @param beginIndex the index to start the search from.
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input.
+     * @see #containsChar(CharSequence, char, int)
+     */
+    public static boolean containsChar(CharSequence sequence, int search, int beginIndex) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, beginIndex) >= 0;
+    }
+
+    /**
+     * Checks if CharSequence contains a search character (Unicode code points),
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the character to search.
+     * @param beginIndex the index to start the search from.
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input.
+     * @see #containsChar(CharSequence, char, int, int)
+     */
+    public static boolean containsChar(CharSequence sequence, int search, int beginIndex, int endIndex) {
+        if (isEmpty(sequence)) {
+            return false;
+        }
+        return _CharSequenceAide.indexOf(sequence, search, beginIndex, endIndex) >= 0;
     }
 
     /**
      * Checks if CharSequence contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)} if possible.
      *
      * <p>A {@code null} or empty ("") CharSequence will return {@code false}.
      *
@@ -2037,255 +2341,543 @@ public class StringAide implements StringConst {
      * To support all Unicode characters, including supplementary characters,
      * use the {@link #containsChar(CharSequence, int)} method.
      *
-     * <pre>
-     * StringAide.contains(null, *)    = false
-     * StringAide.contains("", *)      = false
-     * StringAide.contains("abc", 'a') = true
-     * StringAide.contains("abc", 'z') = false
-     * </pre>
-     *
-     * @param sequence   the CharSequence to check, may be null
-     * @param searchChar the character to find
+     * @param sequence the CharSequence to check, may be null
+     * @param search   the character to find
      * @return true if the CharSequence contains the search character, false if not or {@code null} string input
      * @see #containsChar(CharSequence, int)
      */
-    public static boolean containsChar(CharSequence sequence, char searchChar) {
-        return containsChar(sequence, (int) searchChar);
+    public static boolean containsChar(CharSequence sequence, char search) {
+        return containsChar(sequence, (int) search);
     }
 
     /**
-     * Checks if CharSequence contains a search character, handling {@code null}.
-     * This method uses {@link String#indexOf(int)} if possible.
+     * Checks if CharSequence contains a search character, starting the search at the specified index.
      *
      * <p>A {@code null} or empty ("") CharSequence will return {@code false}.
      *
-     * <pre>
-     * StringAide.contains(null, *)    = false
-     * StringAide.contains("", *)      = false
-     * StringAide.contains("abc", 'a') = true
-     * StringAide.contains("abc", 'z') = false
-     * </pre>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsChar(CharSequence, int, int)} method.
      *
-     * @param sequence   the CharSequence to check, may be null
-     * @param searchChar the character to find
-     * @return true if the CharSequence contains the search character, false if not or {@code null} string input
-     * @see #containsChar(CharSequence, char)
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the character to search.
+     * @param beginIndex the index to start the search from.
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input.
+     * @see #containsChar(CharSequence, int, int)
      */
-    public static boolean containsChar(CharSequence sequence, int searchChar) {
-        if (isEmpty(sequence)) {
-            return false;
-        }
-        return _CharSequenceAide.indexOf(sequence, searchChar, 0) >= 0;
+    public static boolean containsChar(CharSequence sequence, char search, int beginIndex) {
+        return containsChar(sequence, (int) search, beginIndex);
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given set of characters.
+     * Checks if CharSequence contains a search character,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} or empty ("") CharSequence will return {@code false}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsChar(CharSequence, int, int, int)} method.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param search     the character to search.
+     * @param beginIndex the index to start the search from.
+     * @return true if the CharSequence contains the search character, false if not or {@code null} string input.
+     * @see #containsChar(CharSequence, int, int, int)
+     */
+    public static boolean containsChar(CharSequence sequence, char search, int beginIndex, int endIndex) {
+        return containsChar(sequence, (int) search, beginIndex, endIndex);
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the give array (Unicode code points).
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      * A {@code null} or zero length search array will return {@code false}.
      *
-     * <pre>
-     * StringAide.containsAny(null, *)                  = false
-     * StringAide.containsAny("", *)                    = false
-     * StringAide.containsAny(*, null)                  = false
-     * StringAide.containsAny(*, [])                    = false
-     * StringAide.containsAny("zzabyycdxx", ['z', 'a']) = true
-     * StringAide.containsAny("zzabyycdxx", ['b', 'y']) = true
-     * StringAide.containsAny("zzabyycdxx", ['z', 'y']) = true
-     * StringAide.containsAny("aba", ['z'])             = false
-     * </pre>
-     *
-     * @param sequence    the CharSequence to check, may be null
-     * @param searchChars the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the chars to search for, may be null.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
      */
-    public static boolean containsAnyChar(CharSequence sequence, char... searchChars) {
-        if (isEmpty(sequence) || ArrayAide.isEmpty(searchChars)) {
+    public static boolean containsAnyChar(CharSequence sequence, int... searches) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
             return false;
         }
-        int sequenceLength = sequence.length();
-        int searchLength = searchChars.length;
-        int sequenceLast = sequenceLength - 1;
-        int searchLast = searchLength - 1;
-        for (int i = 0; i < sequenceLength; i++) {
-            char ch = sequence.charAt(i);
-            for (int j = 0; j < searchLength; j++) {
-                if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch is in the Basic Multilingual Plane
-                        return true;
-                    }
-                    if (j == searchLast) {
-                        // missing low surrogate, fine, like String.indexOf(String)
-                        return true;
-                    }
-                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
-                        return true;
-                    }
-                }
+        for (int search : searches) {
+            if (containsChar(sequence, search)) {
+                return true;
             }
         }
         return false;
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given set of characters (code points).
+     * Checks if the CharSequence contains any character in the give array (Unicode code points),
+     * starting the search at the specified index.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      * A {@code null} or zero length search array will return {@code false}.
      *
-     * @param sequence   the CharSequence to check, may be null
-     * @param codepoints the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
      */
-    public static boolean containsAnyChar(CharSequence sequence, int... codepoints) {
-        if (isEmpty(sequence) || ArrayAide.isEmpty(codepoints)) {
+    public static boolean containsAnyChar(CharSequence sequence, int[] searches, int beginIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
             return false;
         }
-        return sequence.codePoints().anyMatch(cp -> {
-            for (int searchChar : codepoints) {
-                if (cp == searchChar) {
-                    return true;
-                }
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex)) {
+                return true;
             }
-            return false;
-        });
+        }
+        return false;
     }
 
     /**
-     * Checks if the CharSequence contains any character in the given set of characters.
+     * Checks if the specified index range of the CharSequence contains any character in the give array (Unicode code points).
      *
      * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} search CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
      *
-     *
-     * <pre>
-     * StringAide.containsAny(null, *)               = false
-     * StringAide.containsAny("", *)                 = false
-     * StringAide.containsAny(*, null)               = false
-     * StringAide.containsAny(*, "")                 = false
-     * StringAide.containsAny("zzabyycdxx", "za")    = true
-     * StringAide.containsAny("zzabyycdxx", "by")    = true
-     * StringAide.containsAny("zzabyycdxx", "zy")    = true
-     * StringAide.containsAny("zzabyycdxx", "\tx")   = true
-     * StringAide.containsAny("zzabyycdxx", "$.#yF") = true
-     * StringAide.containsAny("aba", "z")            = false
-     * </pre>
-     *
-     * @param sequence    the CharSequence to check, may be null
-     * @param searchChars the chars to search for, may be null
-     * @return the {@code true} if any of the chars are found, {@code false} if no match or null input
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from. inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
      */
-    public static boolean containsAnyChar(CharSequence sequence, CharSequence searchChars) {
-        if (searchChars == null) {
+    public static boolean containsAnyChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
             return false;
         }
-        return containsAnyChar(sequence, toCharArray(searchChars));
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex, endIndex)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters.
+     * Checks if the CharSequence contains any character in the give array.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsAnyChar(CharSequence, int...)} method.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the chars to search for, may be null.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(CharSequence sequence, char... searches) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (int search : searches) {
+            if (containsChar(sequence, search)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the give array,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsAnyChar(CharSequence, int[], int)} method.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(CharSequence sequence, char[] searches, int beginIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the specified index range of the CharSequence contains any character in the give array.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search array will return {@code false}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsAnyChar(CharSequence, int[], int, int)} method.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from. inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
+            return false;
+        }
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex, endIndex)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the give char sequence.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search sequence will return {@code false}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the chars to search for, may be null.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(CharSequence sequence, CharSequence searches) {
+        if (isEmpty(sequence) || isEmpty(searches)) {
+            return false;
+        }
+        return containsAnyChar(sequence, toCharArray(searches));
+    }
+
+    /**
+     * Checks if the CharSequence contains any character in the give char sequence,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search sequence will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(CharSequence sequence, CharSequence searches, int beginIndex) {
+        if (isEmpty(sequence) || isEmpty(searches)) {
+            return false;
+        }
+        return containsAnyChar(sequence, toCharArray(searches), beginIndex);
+    }
+
+    /**
+     * Checks if the specified index range of the CharSequence contains any character in the give char sequence.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} or zero length search sequence will return {@code false}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from. inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if any of the chars are found, {@code false} if no match or null input
+     */
+    public static boolean containsAnyChar(CharSequence sequence, CharSequence searches, int beginIndex, int endIndex) {
+        if (isEmpty(sequence) || isEmpty(searches)) {
+            return false;
+        }
+        return containsAnyChar(sequence, toCharArray(searches), beginIndex, endIndex);
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain character in the give array (Unicode code points),
      *
      * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty CharSequence (length()=0) always returns true.
+     * A {@code null} or zero length search array will return {@code true}.
      *
-     * <pre>
-     * StringAide.containsNone(null, *)       = true
-     * StringAide.containsNone(*, null)       = true
-     * StringAide.containsNone("", *)         = true
-     * StringAide.containsNone("ab", '')      = true
-     * StringAide.containsNone("abab", 'xyz') = true
-     * StringAide.containsNone("ab1", 'xyz')  = true
-     * StringAide.containsNone("abz", 'xyz')  = false
-     * </pre>
-     *
-     * @param sequence    the CharSequence to check, may be null
-     * @param searchChars an array of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the chars to search for, may be null.
+     * @return {@code true} if it contains none of the invalid chars, or is null
      */
-    public static boolean containsNoneChar(CharSequence sequence, char... searchChars) {
-        if (sequence == null || searchChars == null) {
+    public static boolean containsNoneChar(CharSequence sequence, int... searches) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
             return true;
         }
-        int sequenceLength = sequence.length();
-        int sequenceLast = sequenceLength - 1;
-        int searchLength = searchChars.length;
-        int searchLast = searchLength - 1;
-        for (int i = 0; i < sequenceLength; i++) {
-            char ch = sequence.charAt(i);
-            for (int j = 0; j < searchLength; j++) {
-                if (searchChars[j] == ch) {
-                    if (!Character.isHighSurrogate(ch)) {
-                        // ch is in the Basic Multilingual Plane
-                        return false;
-                    }
-                    if (j == searchLast) {
-                        // missing low surrogate, fine, like String.indexOf(String)
-                        return false;
-                    }
-                    if (i < sequenceLast && searchChars[j + 1] == sequence.charAt(i + 1)) {
-                        return false;
-                    }
-                }
+        for (int search : searches) {
+            if (containsChar(sequence, search)) {
+                return false;
             }
         }
         return true;
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters (code points).
+     * Checks that the CharSequence does not contain certain character in the give array (Unicode code points),
+     * starting the search at the specified index.
      *
      * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty CharSequence (length()=0) always returns true.
+     * A {@code null} or zero length search array will return {@code true}.
      *
-     * @param sequence   the CharSequence to check, may be null
-     * @param codepoints an array of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if it contains none of the invalid chars, or is null
      */
-    public static boolean containsNoneChar(CharSequence sequence, int... codepoints) {
-        if (sequence == null || codepoints == null) {
+    public static boolean containsNoneChar(CharSequence sequence, int[] searches, int beginIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
             return true;
         }
-        return sequence.codePoints().noneMatch(cp -> {
-            for (int searchChar : codepoints) {
-                if (cp == searchChar) {
-                    return true;
-                }
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex)) {
+                return false;
             }
-            return false;
-        });
+        }
+        return true;
     }
 
     /**
-     * Checks that the CharSequence does not contain certain characters.
+     * Checks that the specified index range of the CharSequence does not contain certain character in the give array (Unicode code points).
      *
      * <p>A {@code null} CharSequence will return {@code true}.
-     * A {@code null} invalid character array will return {@code true}.
-     * An empty String ("") always returns true.
+     * A {@code null} or zero length search array will return {@code true}.
      *
-     * <pre>
-     * StringAide.containsNone(null, *)       = true
-     * StringAide.containsNone(*, null)       = true
-     * StringAide.containsNone("", *)         = true
-     * StringAide.containsNone("ab", "")      = true
-     * StringAide.containsNone("abab", "xyz") = true
-     * StringAide.containsNone("ab1", "xyz")  = true
-     * StringAide.containsNone("abz", "xyz")  = false
-     * </pre>
-     *
-     * @param sequence     the CharSequence to check, may be null
-     * @param invalidChars a String of invalid chars, may be null
-     * @return true if it contains none of the invalid chars, or is null
-     * @since 2.0
-     * @since 3.0 Changed signature from containsNone(String, String) to containsNone(CharSequence, String)
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if it contains none of the invalid chars, or is null
      */
-    public static boolean containsNoneChar(CharSequence sequence, CharSequence invalidChars) {
-        if (invalidChars == null) {
+    public static boolean containsNoneChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
             return true;
         }
-        return containsNoneChar(sequence, toCharArray(invalidChars));
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex, endIndex)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain character in the give array,
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsNoneChar(CharSequence, int...)} method.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the chars to search for, may be null.
+     * @return {@code true} if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(CharSequence sequence, char... searches) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
+            return true;
+        }
+        for (int search : searches) {
+            if (containsChar(sequence, search)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain character in the give array,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsNoneChar(CharSequence, int[], int)} method.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(CharSequence sequence, char[] searches, int beginIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
+            return true;
+        }
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the specified index range of the CharSequence does not contain certain character in the give array.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} or zero length search array will return {@code true}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsNoneChar(CharSequence, int[], int, int)} method.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
+        if (isEmpty(sequence) || ArrayAide.isEmpty(searches)) {
+            return true;
+        }
+        for (int search : searches) {
+            if (containsChar(sequence, search, beginIndex, endIndex)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain character in the give char sequence,
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} or zero length search sequence will return {@code true}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the chars to search for, may be null.
+     * @return {@code true} if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(CharSequence sequence, CharSequence searches) {
+        if (isEmpty(sequence) || isEmpty(searches)) {
+            return false;
+        }
+        return containsNoneChar(sequence, toCharArray(searches));
+    }
+
+    /**
+     * Checks that the CharSequence does not contain certain character in the give char sequence,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} or zero length search sequence will return {@code true}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return {@code true} if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(CharSequence sequence, CharSequence searches, int beginIndex) {
+        if (isEmpty(sequence) || isEmpty(searches)) {
+            return false;
+        }
+        return containsNoneChar(sequence, toCharArray(searches), beginIndex);
+    }
+
+    /**
+     * Checks that the specified index range of the CharSequence does not contain certain character in the give char sequence.
+     *
+     * <p>A {@code null} CharSequence will return {@code true}.
+     * A {@code null} or zero length search sequence will return {@code true}.
+     *
+     * @param sequence   the CharSequence to check, may be null.
+     * @param searches   the chars to search for, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
+     * @return {@code true} if it contains none of the invalid chars, or is null
+     */
+    public static boolean containsNoneChar(CharSequence sequence, CharSequence searches, int beginIndex, int endIndex) {
+        if (isEmpty(sequence) || isEmpty(searches)) {
+            return false;
+        }
+        return containsNoneChar(sequence, toCharArray(searches), beginIndex, endIndex);
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters (Unicode code points).
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @return true if it only contains valid chars and is non-null.
+     */
+    public static boolean containsOnlyChar(CharSequence sequence, int... searches) {
+        if (sequence == null || searches == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.length == 0) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters (Unicode code points),
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return true if it only contains valid chars and is non-null.
+     */
+    public static boolean containsOnlyChar(CharSequence sequence, int[] searches, int beginIndex) {
+        if (sequence == null || searches == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.length == 0) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches, beginIndex) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters (Unicode code points),
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex the index to stop the search at, exclusive.
+     * @return true if it only contains valid chars and is non-null.
+     */
+    public static boolean containsOnlyChar(CharSequence sequence, int[] searches, int beginIndex, int endIndex) {
+        if (sequence == null || searches == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.length == 0) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches, beginIndex, endIndex) == INDEX_NOT_FOUND;
     }
 
     /**
@@ -2295,82 +2887,163 @@ public class StringAide implements StringConst {
      * A {@code null} valid character array will return {@code false}.
      * An empty CharSequence (length()=0) always returns {@code true}.
      *
-     * <pre>
-     * StringAide.containsOnly(null, *)       = false
-     * StringAide.containsOnly(*, null)       = false
-     * StringAide.containsOnly("", *)         = true
-     * StringAide.containsOnly("ab", '')      = false
-     * StringAide.containsOnly("abab", 'abc') = true
-     * StringAide.containsOnly("ab1", 'abc')  = false
-     * StringAide.containsOnly("abz", 'abc')  = false
-     * </pre>
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsOnlyChar(CharSequence, int...)} method.
      *
-     * @param sequence   the String to check, may be null
-     * @param validChars an array of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @return true if it only contains valid chars and is non-null.
      */
-    public static boolean containsOnlyChars(CharSequence sequence, char... validChars) {
-        if (sequence == null || validChars == null) {
+    public static boolean containsOnlyChar(CharSequence sequence, char... searches) {
+        if (ObjectAide.isAnyNull(sequence, searches)) {
             return false;
         }
         if (sequence.isEmpty()) {
             return true;
         }
-        if (validChars.length == 0) {
+        if (searches.length == 0) {
             return false;
         }
-        return indexOfNotAnyChar(sequence, validChars) == INDEX_NOT_FOUND;
+        return indexOfNotAnyChar(sequence, searches) == INDEX_NOT_FOUND;
     }
 
     /**
-     * Checks if the CharSequence contains only certain characters (code points).
+     * Checks if the CharSequence contains only certain characters,
+     * starting the search at the specified index.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
      * A {@code null} valid character array will return {@code false}.
      * An empty CharSequence (length()=0) always returns {@code true}.
      *
-     * @param sequence   the String to check, may be null
-     * @param codepoints an array of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsOnlyChar(CharSequence, int[], int)} method.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return true if it only contains valid chars and is non-null.
      */
-    public static boolean containsOnlyChars(CharSequence sequence, int... codepoints) {
-        if (sequence == null || codepoints == null || codepoints.length == 0) {
+    public static boolean containsOnlyChar(CharSequence sequence, char[] searches, int beginIndex) {
+        if (ObjectAide.isAnyNull(sequence, searches)) {
             return false;
         }
         if (sequence.isEmpty()) {
             return true;
         }
-        return indexOfNotAnyChar(sequence, codepoints) == INDEX_NOT_FOUND;
+        if (searches.length == 0) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches, beginIndex) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
+     *
+     * <p><b>Note:</b> This method cannot handle supplementary characters.
+     * To support all Unicode characters, including supplementary characters,
+     * use the {@link #containsOnlyChar(CharSequence, int[], int, int)} method.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex the index to stop the search at, exclusive.
+     * @return true if it only contains valid chars and is non-null.
+     */
+    public static boolean containsOnlyChar(CharSequence sequence, char[] searches, int beginIndex, int endIndex) {
+        if (ObjectAide.isAnyNull(sequence, searches)) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.length == 0) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches, beginIndex, endIndex) == INDEX_NOT_FOUND;
     }
 
     /**
      * Checks if the CharSequence contains only certain characters.
      *
      * <p>A {@code null} CharSequence will return {@code false}.
-     * A {@code null} valid character String will return {@code false}.
-     * An empty String (length()=0) always returns {@code true}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
      *
-     * <pre>
-     * StringAide.containsOnly(null, *)       = false
-     * StringAide.containsOnly(*, null)       = false
-     * StringAide.containsOnly("", *)         = true
-     * StringAide.containsOnly("ab", "")      = false
-     * StringAide.containsOnly("abab", "abc") = true
-     * StringAide.containsOnly("ab1", "abc")  = false
-     * StringAide.containsOnly("abz", "abc")  = false
-     * </pre>
-     *
-     * @param sequence   the CharSequence to check, may be null
-     * @param validChars a String of valid chars, may be null
-     * @return true if it only contains valid chars and is non-null
-     * @since 2.0
-     * @since 3.0 Changed signature from containsOnly(String, String) to containsOnly(CharSequence, String)
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @return true if it only contains valid chars and is non-null.
      */
-    public static boolean containsOnlyChars(CharSequence sequence, CharSequence validChars) {
-        if (sequence == null || validChars == null) {
+    public static boolean containsOnlyChar(CharSequence sequence, CharSequence searches) {
+        if (sequence == null || searches == null) {
             return false;
         }
-        return containsOnlyChars(sequence, toCharArray(validChars));
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.isEmpty()) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters,
+     * starting the search at the specified index.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @param beginIndex the index to start the search from.
+     * @return true if it only contains valid chars and is non-null.
+     */
+    public static boolean containsOnlyChar(CharSequence sequence, CharSequence searches, int beginIndex) {
+        if (sequence == null || searches == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.isEmpty()) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches, beginIndex) == INDEX_NOT_FOUND;
+    }
+
+    /**
+     * Checks if the CharSequence contains only certain characters,
+     * starting the search at {@code beginIndex} and stopping before {@code endIndex}.
+     *
+     * <p>A {@code null} CharSequence will return {@code false}.
+     * A {@code null} valid character array will return {@code false}.
+     * An empty CharSequence (length()=0) always returns {@code true}.
+     *
+     * @param sequence the CharSequence to check, may be null.
+     * @param searches the array of valid chars, may be null.
+     * @param beginIndex the index to start the search from, inclusive.
+     * @param endIndex the index to stop the search at, exclusive.
+     * @return true if it only contains valid chars and is non-null.
+     */
+    public static boolean containsOnlyChar(CharSequence sequence, CharSequence searches, int beginIndex, int endIndex) {
+        if (sequence == null || searches == null) {
+            return false;
+        }
+        if (sequence.isEmpty()) {
+            return true;
+        }
+        if (searches.isEmpty()) {
+            return false;
+        }
+        return indexOfNotAnyChar(sequence, searches, beginIndex, endIndex) == INDEX_NOT_FOUND;
     }
 
     /**
