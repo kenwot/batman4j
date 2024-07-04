@@ -157,6 +157,73 @@ class _CharSequenceAide {
         return true;
     }
 
+
+    static int lastIndexOf(CharSequence sequence, CharSequence search, int beginIndex, int endIndex) {
+        if (search == null || sequence == null) {
+            return NOT_FOUND;
+        }
+
+
+        if (search instanceof String searchStr) {
+            if (sequence instanceof String string) {
+                return string.lastIndexOf(searchStr, beginIndex);
+            }
+            if (sequence instanceof StringBuilder builder) {
+                return builder.lastIndexOf(searchStr, beginIndex);
+            }
+            if (sequence instanceof StringBuffer buffer) {
+                return buffer.lastIndexOf(searchStr, beginIndex);
+            }
+        }
+
+        int sequenceLength = sequence.length();
+        int searchLength = search.length();
+        if (beginIndex > sequenceLength) {
+            beginIndex = sequenceLength;
+        }
+        if (beginIndex < 0 || searchLength > sequenceLength) {
+            return NOT_FOUND;
+        }
+        if (searchLength == 0) {
+            return beginIndex;
+        }
+
+        if (searchLength <= TO_STRING_LIMIT) {
+            if (sequence instanceof String string) {
+                return string.lastIndexOf(search.toString(), beginIndex);
+            }
+            if (sequence instanceof StringBuilder builder) {
+                return builder.lastIndexOf(search.toString(), beginIndex);
+            }
+            if (sequence instanceof StringBuffer buffer) {
+                return buffer.lastIndexOf(search.toString(), beginIndex);
+            }
+        }
+
+        if (beginIndex + searchLength > sequenceLength) {
+            beginIndex = sequenceLength - searchLength;
+        }
+
+        char char0 = search.charAt(0);
+
+        int i = beginIndex;
+        while (true) {
+            while (sequence.charAt(i) != char0) {
+                i--;
+                if (i < 0) {
+                    return NOT_FOUND;
+                }
+            }
+            if (checkLaterThan1(sequence, search, searchLength, i)) {
+                return i;
+            }
+            i--;
+            if (i < 0) {
+                return NOT_FOUND;
+            }
+        }
+    }
+
     /**
      * Returns the index within a CharSequence of the first occurrence of the specified character,
      * starting the search at the specified index.
@@ -232,7 +299,7 @@ class _CharSequenceAide {
      * @param sequence   the CharSequence to be processed, not null.
      * @param search     the char to be searched for (Unicode code point).
      * @param beginIndex the index to start the search from, inclusive.
-     * @param endIndex   the index to start the search from, exclusive.
+     * @param endIndex   the index to stop the search at, exclusive.
      * @return the index of the first occurrence of the character in the CharSequence
      *         that is greater than or equal to {@code beginIndex} and less than {@code endIndex},
      *         or {@code -1} if the character does not occur.
@@ -263,13 +330,117 @@ class _CharSequenceAide {
             }
             return NOT_FOUND;
         }
-        // supplementary characters
+        // supplementary characters (LANG1300)
         if (search <= Character.MAX_CODE_POINT) {
             char[] chars = Character.toChars(search);
             for (int i = beginIndex; i < endIndex - 1; i++) {
                 char high = sequence.charAt(i);
                 char low = sequence.charAt(i + 1);
                 if (high == chars[0] && low == chars[1]) {
+                    return i;
+                }
+            }
+        }
+        return NOT_FOUND;
+    }
+
+    /**
+     * Returns the index within {@code sequence} of the last occurrence of the specified character,
+     * searching backward starting at the specified index.
+     *
+     * <p>For values of {@code search} in the range from 0 to 0xFFFF (inclusive),
+     * the index returned is the largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.charAt(<i>k</i>) == search) &amp;&amp; (<i>k</i> &lt;= beginIndex)
+     * </pre></blockquote>
+     *
+     * <p>For other values of {@code search}, it is the largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.codePointAt(<i>k</i>) == search) &amp;&amp; (<i>k</i> &lt;= beginIndex)
+     * </pre></blockquote>
+     *
+     * <p>In either case, of no such character occurs in {@code sequence} at or before {@code beginIndex},
+     * then -1 is returned.
+     *
+     * <p>All indices are specified in {@code char} values (Unicode code units).
+     *
+     * @param sequence   the CharSequence to be processed, not null.
+     * @param search     the char to be searched for (Unicode code point).
+     * @param beginIndex the start index, negative returns -1, beyond length starts at end.
+     * @return the index where the search char was found, -1 if not found
+     */
+    static int lastIndexOf(CharSequence sequence, int search, int beginIndex) {
+        return lastIndexOf(sequence, search, beginIndex, sequence.length());
+    }
+
+    /**
+     * Returns the index within {@code sequence} of the last occurrence of the specified character,
+     * searching backward starting at {@code beginIndex} and stopping at {@code endIndex}.
+     *
+     * <p>For values of {@code search} in the range from 0 to 0xFFFF (inclusive),
+     * the index returned is the largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.charAt(<i>k</i>) == search) &amp;&amp; (endIndex &lt;= <i>k</i> &lt;= beginIndex)
+     * </pre></blockquote>
+     *
+     * <p>For other values of {@code search}, it is the largest value <i>k</i> such that:
+     * <blockquote><pre>
+     * (this.codePointAt(<i>k</i>) == search) &amp;&amp; (endIndex &lt;= <i>k</i> &lt;= beginIndex)
+     * </pre></blockquote>
+     *
+     * <p>In either case, if no such character occurs in {@code sequence}
+     * at or before {@code beginIndex} and at or after {@code endIndex},
+     * then -1 is returned.
+     *
+     * <p>All indices are specified in {@code char} values (Unicode code units).
+     *
+     * @param sequence   the CharSequence to be processed, not null.
+     * @param search     the char to be searched for (Unicode code point).
+     * @param beginIndex the start index (inclusive), negative returns -1, beyond length starts at end.
+     * @param endIndex the stop index (inclusive), beyond length returns -1, {@code endIndex >= beginIndex} returns -1.
+     * @return the index where the search char was found, -1 if not found
+     */
+    static int lastIndexOf(CharSequence sequence, int search, int beginIndex, int endIndex) {
+        if (beginIndex < 0) {
+            return NOT_FOUND;
+        }
+        int sequenceLength = sequence.length();
+        if (beginIndex >= sequenceLength) {
+            beginIndex = sequenceLength - 1;
+        }
+        if (endIndex < 0) {
+            endIndex = 0;
+        }
+        if (endIndex > sequenceLength) {
+            return NOT_FOUND;
+        }
+        if (beginIndex <= endIndex) {
+            return NOT_FOUND;
+        }
+        if (sequence instanceof String string) {
+            int index = string.substring(endIndex).lastIndexOf(search, beginIndex);
+            return index != NOT_FOUND ? endIndex + index : NOT_FOUND;
+        }
+        // Basic Multilingual Plane
+        if (search < Character.MIN_SUPPLEMENTARY_CODE_POINT) {
+            for (int i = beginIndex; i >= endIndex; --i) {
+                if (sequence.charAt(i) == search) {
+                    return i;
+                }
+            }
+            return NOT_FOUND;
+        }
+        // supplementary characters (LANG1300)
+        // NOTE - we must do a forward traversal for this to avoid duplicating code points
+        if (search <= Character.MAX_CODE_POINT) {
+            char[] chars = Character.toChars(search);
+            if (beginIndex == sequenceLength - 1) {
+                beginIndex--;
+            }
+            for (int i = beginIndex; i >= endIndex; i--) {
+                char high = sequence.charAt(i);
+                char low = sequence.charAt(i + 1);
+                if (chars[0] == high && chars[1] == low) {
                     return i;
                 }
             }
