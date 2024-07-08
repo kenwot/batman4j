@@ -45,6 +45,13 @@ configure(javaProjects) { project ->
     apply plugin: 'idea'
     apply plugin: "checkstyle"
 
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
+
     sourceCompatibility = 21
     targetCompatibility = 21
 
